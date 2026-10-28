@@ -3,70 +3,71 @@
   "html_path": "data/raw/research/odepa_monthly/18e69b04dcdbabd6e25efe0c54d0c2f9f75e93739e38f0cf3e8b463d77528954.html",
   "script_files": [
     {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular.min.js",
-      "path": "data/raw/research/odepa_monthly/6e7b04565d26e03469157b5f89d657289f7228071e0c74486cdcefcb9f659491.js",
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/controller/series-precios/series-tiempo.js",
+      "path": "data/raw/research/odepa_monthly/3f6abc9aeda83345f068734f6cea2c0ad71fc157e2ad2710985824b2289e36cc.js",
       "discovery": "html_script_src"
     },
     {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/ui-bootstrap.min.js",
-      "path": "data/raw/research/odepa_monthly/78fae69859916574b1579717e6b988fb5fee8ffb4649cf2fef3713d4660de70f.js",
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "path": "data/raw/research/odepa_monthly/f6e23aef430a2ac3ca0c185f2a28c7820e8e04054c15dc80c773cad99f8dfe9e.js",
       "discovery": "html_script_src"
     },
     {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/ui-bootstrap-tpls.min.js",
-      "path": "data/raw/research/odepa_monthly/fed2fe0bcf783e55a40a1919f417e98f792ea3b71dd866c676d004188087de99.js",
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/api-service-repository.js",
+      "path": "data/raw/research/odepa_monthly/0d6105b155cd8c90c46280d244f63ad9c53f52679567c51fcd582898951a9f1a.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "path": "data/raw/research/odepa_monthly/f779d708efc7b2e899f2279e64dc89df8201965caf2408d79f8ca3bb5c972018.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/directive/app-print.js",
+      "path": "data/raw/research/odepa_monthly/c50a17e27d23e04b5a4c495eefcfb388f16c63a70dd55f422398ac1aa0c05a14.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/filter/global.js",
+      "path": "data/raw/research/odepa_monthly/5d781ae79fdd3021950be156536d7b3c6dcf0439f7ff11960c115915ce40b7f9.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/util.js",
+      "path": "data/raw/research/odepa_monthly/3e8fd83cbc8ffd9cf9c9570eeca1f010190efc67466526d3a5f11d007dcc3153.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/lzw.js",
+      "path": "data/raw/research/odepa_monthly/d31d97e60323609750c121a99ff8a1ae3c8771874dd3e1fe4c9e2c3af4f1b910.js",
       "discovery": "html_script_src"
     },
     {
       "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-animate.min.js",
       "path": "data/raw/research/odepa_monthly/747ae315ae0e9348c35b9ed5e920036e1d4f763955349254137538916a80ad11.js",
       "discovery": "html_script_src"
-    },
-    {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-resource.min.js",
-      "path": "data/raw/research/odepa_monthly/93035d03e6d8f300d13bdda56143d02348d7537c5aaca6712219805d8248d1a0.js",
-      "discovery": "html_script_src"
-    },
-    {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-touch.min.js",
-      "path": "data/raw/research/odepa_monthly/19fb1ba0fa3e97524608976fef2927fc6735323934b8ae1d351e87bd2115e92c.js",
-      "discovery": "html_script_src"
-    },
-    {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/plugins/i18n/angular-locale_es-cl.js",
-      "path": "data/raw/research/odepa_monthly/52aa889c14016ebe28b1365777e1302c9aec74646688a43cd0826461e4a110f8.js",
-      "discovery": "html_script_src"
-    },
-    {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-sanitize.js",
-      "path": "data/raw/research/odepa_monthly/ec3095e7033bdf467e2d440a6bbd4d3f0a1c06e6084963b804a1f7aafd052496.js",
-      "discovery": "html_script_src"
-    },
-    {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/plugins/ui-select/select.min.js",
-      "path": "data/raw/research/odepa_monthly/55b07a39d6d6dd67281adaef865de2ca7d1cc1ec5a16e5a9b305cba4036ba0ff.js",
-      "discovery": "html_script_src"
-    },
-    {
-      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/plugins/chart/Chart.min.js",
-      "path": "data/raw/research/odepa_monthly/0c8bfcf05182aaa8efb72d416a1a2764251c71a53b4953c2dc3db64f46ed9775.js",
-      "discovery": "html_script_src"
     }
   ],
   "failures": [
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/apps/chart.js",
+      "status": "download_failed",
+      "error": "No se pudo descargar https://aplicativos.odepa.gob.cl/resource/js/apps/chart.js: HTTP Error 404: "
+    },
     {
       "url": "https://www.googletagmanager.com/gtag/js?id=G-328E1XKF0Z",
       "status": "skipped_external_origin_or_non_https"
     }
   ],
-  "remaining_script_queue": 13,
+  "remaining_script_queue": 12,
   "max_scripts": 10,
+  "script_priority": "series-precios apps, app services, other apps, main bundles, generic, framework",
   "candidates": [
     {
       "literal": "/resource/js/apps/controller/series-precios/series-tiempo.js",
       "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
       "offset": 4321,
-      "context": "type=\"text/javascript\" src=\"/resource/js/apps/app.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/controller/series-precios/series-tiempo.js\"></script>\r\n\r\n<!-- Services -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/series-precios-reposito",
+      "context": "angularJS/plugins/dropdown-multiselect/angularjs-dropdown-multiselect.js\" type=\"text/javascript\"></script>\r\n\r\n<!-- import apps angularjs -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/app.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/controller/series-precios/series-tiempo.js\"></script>\r\n\r\n<!-- Services -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/series-precios-repository.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/api-service-repository.js\"></script>\r\n\r\n<!-- Direc",
       "contains_template_expression": false,
       "status": "unverified_literal_not_called"
     },
@@ -74,7 +75,7 @@
       "literal": "/resource/js/apps/service/series-precios-repository.js",
       "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
       "offset": 4451,
-      "context": "series-precios/series-tiempo.js\"></script>\r\n\r\n<!-- Services -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/series-precios-repository.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/api-service-repository.js\"></script>\r\n\r\n<!--",
+      "context": "ularjs -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/app.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/controller/series-precios/series-tiempo.js\"></script>\r\n\r\n<!-- Services -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/series-precios-repository.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/api-service-repository.js\"></script>\r\n\r\n<!-- Directives -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/directive/app-print.js\"></script>\r\n\r\n\r\n<!-- filters -->\r\n<s",
       "contains_template_expression": false,
       "status": "unverified_literal_not_called"
     },
@@ -82,7 +83,7 @@
       "literal": "/resource/js/apps/service/api-service-repository.js",
       "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
       "offset": 4554,
-      "context": "esource/js/apps/service/series-precios-repository.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/api-service-repository.js\"></script>\r\n\r\n<!-- Directives -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/directive/app-print.js\"></scr",
+      "context": "/javascript\" src=\"/resource/js/apps/controller/series-precios/series-tiempo.js\"></script>\r\n\r\n<!-- Services -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/series-precios-repository.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/api-service-repository.js\"></script>\r\n\r\n<!-- Directives -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/directive/app-print.js\"></script>\r\n\r\n\r\n<!-- filters -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/filter/global.js\"></script>\r\n\r\n<script type=\"tex",
       "contains_template_expression": false,
       "status": "unverified_literal_not_called"
     },
@@ -90,7 +91,199 @@
       "literal": "/exportExcel.do",
       "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
       "offset": 5822,
-      "context": "//Cantidad de decimales\r\n\t\tvar form = document.getElementById(\"formSeriesTiempo\");\r\n\t\tform.action = \"/exportExcel.do\";\r\n\t\tform.method = \"post\";\r\n\t\tform.submit();\r\n\t}\r\n</script>\r\n<body ng-cloak ng-controller=\"seriesTiempo\" ng-init=\"init",
+      "context": "\").value = \"SeriesTiempo_\" + date.getFullYear() + (date.getMonth() + 1) + date.getDate() + \".xls\";\r\n\t\tdocument.getElementById(\"decimales\").value = 2; //Cantidad de decimales\r\n\t\tvar form = document.getElementById(\"formSeriesTiempo\");\r\n\t\tform.action = \"/exportExcel.do\";\r\n\t\tform.method = \"post\";\r\n\t\tform.submit();\r\n\t}\r\n</script>\r\n<body ng-cloak ng-controller=\"seriesTiempo\" ng-init=\"init(1)\">\r\n\t<!-- Google Tag Manager (noscript) -->\r\n<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-TCXTM3W5\"\r\n",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "El rango de fechas para este tipo de consulta debe ser cruzado Ej: 05/1998 al 02/2003",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/controller/series-precios/series-tiempo.js",
+      "offset": 10130,
+      "context": "iempo.fec_has.value < document.tiempo.fec_des.value )\r\n\t\tif( $scope.form.tipoSalida.id == 'TI' && (mesTermino >= mesInicio)) {\r\n\t\t\t$scope.openModalMensaje({\r\n\t\t\t\ttitulo : 'Problemas',\r\n\t\t\t\ticono: 'glyphicon glyphicon-exclamation-sign',\r\n\t\t\t\tmensaje: 'El rango de fechas para este tipo de consulta debe ser cruzado Ej: 05/1998 al 02/2003'\r\n\t\t\t});\r\n\t\t}\r\n\t\t//if( document.tiempo.fec_has.value > document.tiempo.fec_des.value )\r\n\t\telse if(($scope.form.tipoSalida.id == 'SA' || $scope.form.tipoSalida.id == 'TA') && (mesTermino < mesInicio )) {\r\n\t\t\t$scope.openModalMensaje({\r\n\t\t\t\ttitulo : '",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/tipos-mercados",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 1077,
+      "context": "mbinada, \r\n\t\tfindTipoMercado: findTipoMercado, \r\n\t\tgetSeriesTiempo: getSeriesTiempo\r\n\t});\r\n\t\r\n\t/**\r\n\t * Public Methods\r\n\t */\r\n\r\n\t//Obtiene un listado de todos los tipos de mercados (precios).\r\n\tfunction getTiposMercado() {\r\n\t\tvar request = $http.get(\"/series-precios/results/tipos-mercados\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t\r\n\t//Obtiene la información  del tipo de mercado\r\n\tfunction findTipoMercado(tipoMercadoId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/find/tipo-mercado\", \r\n\t\t",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/find/tipo-mercado",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 1316,
+      "context": " $http.get(\"/series-precios/results/tipos-mercados\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t\r\n\t//Obtiene la información  del tipo de mercado\r\n\tfunction findTipoMercado(tipoMercadoId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/find/tipo-mercado\", \r\n\t\t    method: \"GET\",\r\n\t\t    params: {id: tipoMercadoId}\r\n\t\t});\r\n\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtiene un listado de los grupos para precio consumidor (subsectores)\r\n\tfunction getGrupos(tipoMercadoId) {\r\n\t\t",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/pc-grupos",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 1641,
+      "context": "params: {id: tipoMercadoId}\r\n\t\t});\r\n\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtiene un listado de los grupos para precio consumidor (subsectores)\r\n\tfunction getGrupos(tipoMercadoId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/pc-grupos\", \r\n\t\t    method: \"GET\",\r\n\t\t    params: {tipoMercado: tipoMercadoId}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtiene un listado de los subsectores. Segun el tipo de precio  ( tipo de mercado)\r\n\tfunction subSec",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/sub-sectores-by-tipo-mercado",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 1999,
+      "context": ");\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtiene un listado de los subsectores. Segun el tipo de precio  ( tipo de mercado)\r\n\tfunction subSectoresByTipoMercado(tipoMercado) {\r\n\t\t\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/sub-sectores-by-tipo-mercado\", \r\n\t\t    method: \"GET\",\r\n\t\t    params: {tipoMercado: tipoMercado}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\r\n\t//Obtiene un listado de todos los estados registrados.\r\n\tfunction getPeriodoConsulta() {\r\n\t\tvar request =",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/min-max-date-in-periodo",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 2312,
+      "context": " method: \"GET\",\r\n\t\t    params: {tipoMercado: tipoMercado}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\r\n\t//Obtiene un listado de todos los estados registrados.\r\n\tfunction getPeriodoConsulta() {\r\n\t\tvar request = $http.get(\"/series-precios/results/min-max-date-in-periodo\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t\r\n\t//Obtiene un listado de todos los estados registrados.\r\n\tfunction getInicioFinFechaPrecio() {\r\n\t\tvar request = $http.get(\"/series-precios/results/min-max-date-precio\");\r\n\t\tretu",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/min-max-date-precio",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 2554,
+      "context": "ttp.get(\"/series-precios/results/min-max-date-in-periodo\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t\r\n\t//Obtiene un listado de todos los estados registrados.\r\n\tfunction getInicioFinFechaPrecio() {\r\n\t\tvar request = $http.get(\"/series-precios/results/min-max-date-precio\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t\r\n\t\r\n\t//Obtiene un listado del ipc\r\n\tfunction getListIPC() {\r\n\t\tvar request = $http.get(\"/series-precios/results/ipc\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/ipc",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 2756,
+      "context": "ioFinFechaPrecio() {\r\n\t\tvar request = $http.get(\"/series-precios/results/min-max-date-precio\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t\r\n\t\r\n\t//Obtiene un listado del ipc\r\n\tfunction getListIPC() {\r\n\t\tvar request = $http.get(\"/series-precios/results/ipc\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos por el subsector precio consumidor supermercado o minorista\r\n\tfunction getProductBySubSectorPCSM(grupoId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-p",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/productos-by-pc-sm",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 3023,
+      "context": "results/ipc\");\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos por el subsector precio consumidor supermercado o minorista\r\n\tfunction getProductBySubSectorPCSM(grupoId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/productos-by-pc-sm\", \r\n\t\t    method: \"GET\",\r\n\t\t    params: {grupo: grupoId}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos por el tipo de precio mayoristas y su subsector -> fruta u hortalizas\r\n\tfunction getProduc",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/productos-by-mfh",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 3383,
+      "context": "\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos por el tipo de precio mayoristas y su subsector -> fruta u hortalizas\r\n\tfunction getProductBySubSectorMFH(subSectorId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/productos-by-mfh\", \r\n\t\t    method: \"GET\",\r\n\t\t    params: {subsector: subSectorId}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos por el tipo de precio mayoristas FLORES\r\n\tfunction getProductBySubSectorMF(subSect",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/productos-by-mf",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 3718,
+      "context": "bsector: subSectorId}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos por el tipo de precio mayoristas FLORES\r\n\tfunction getProductBySubSectorMF(subSectorId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/productos-by-mf\", \r\n\t\t    method: \"GET\",\r\n\t\t    params: {subsector: subSectorId}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos segun su subsector ( atraves del procedimiento almacenado)\r\n\tfunction getProductBy",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/productos-by-sub-sector",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 4084,
+      "context": "\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtener los productos segun su subsector ( atraves del procedimiento almacenado)\r\n\tfunction getProductBySubSector(subSectorId, tipoMercadoId) {\r\n\t\tvar request = $http({\r\n\t\t    url: \"/series-precios/results/productos-by-sub-sector\", \r\n\t\t    method: \"GET\",\r\n\t\t    params: {\r\n\t\t    \tsubSector: subSectorId, \r\n\t\t    \ttipoMercado: tipoMercadoId\r\n\t    \t}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtiene la información de precios por productos, s",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/avance-por-productos",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 4494,
+      "context": "\t    \t}\r\n\t\t});\r\n\t\t\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t//Obtiene la información de precios por productos, según su tipo de mercado y subsector.\r\n\tfunction getAvancePreciosPorProductos(form) {\r\n\t\tvar request = $http.post(\"/series-precios/results/avance-por-productos\", form);\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\tfunction getSeriesCombinada(form) {\r\n\t\tvar request = $http.post(\"/series-precios/results/series-combinadas\", form);\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/series-combinadas",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 4679,
+      "context": "getAvancePreciosPorProductos(form) {\r\n\t\tvar request = $http.post(\"/series-precios/results/avance-por-productos\", form);\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\tfunction getSeriesCombinada(form) {\r\n\t\tvar request = $http.post(\"/series-precios/results/series-combinadas\", form);\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\tfunction getSeriesTiempo(form) {\r\n\t\tvar request = $http.post(\"/series-precios/results/series-tiempo\", form);\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/series-precios/results/series-tiempo",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/series-precios-repository.js",
+      "offset": 4858,
+      "context": "}\r\n\t\r\n\tfunction getSeriesCombinada(form) {\r\n\t\tvar request = $http.post(\"/series-precios/results/series-combinadas\", form);\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\tfunction getSeriesTiempo(form) {\r\n\t\tvar request = $http.post(\"/series-precios/results/series-tiempo\", form);\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t\r\n\t\r\n\t\r\n\t/**\r\n\t * PRIVATE METHOD\r\n\t */\r\n\t// I transform the error response, unwrapping the application dta from\r\n\t// the API response payload.\r\n\tfunction handleError( respon",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "https://api.ipify.org",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/service/api-service-repository.js",
+      "offset": 496,
+      "context": "a: getIpPublica\r\n\t});\r\n\t\r\n\t/**\r\n\t * Servicio externo que retorna la IP publica del usuario.\r\n\t * Documentación: https://www.ipify.org/\r\n\t * Test IP: http://freegeoip.net/json/163.247.40.20\r\n\t */\r\n\tfunction getIpPublica() {\r\n\t\tvar request = $http.get('https://api.ipify.org');\r\n\t\treturn( request.then( handleSuccess, handleError ) );\r\n\t}\r\n\t\r\n\t/**\r\n\t * PRIVATE METHOD\r\n\t */\r\n\tfunction handleError( response ) {\r\n\t\tvar msgError = \"\";\r\n\t\tmsgError = \"Problemas al realizar la petición. Detalles: <br/>\";\r\n\t\tmsgError += \"Estado",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "http://localhost:9988/api-utilities",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 49,
+      "context": "/**\r\n * App angularjs.\r\n */\r\nvar api_utilities = 'http://localhost:9988/api-utilities';\r\nvar api_oauth2_jwt = 'http://localhost:8010/api-oauth2-jwt';\r\n//PRODUCCION HTTPS\r\nif (location.origin == 'https://aplicativos.odepa.gob.cl') {\r\n  api_utilities = 'https://api-utilities.odepa.gob.cl';\r\n  api_oauth2_jwt = 'https://api-token.odepa.",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "http://localhost:8010/api-oauth2-jwt",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 110,
+      "context": "/**\r\n * App angularjs.\r\n */\r\nvar api_utilities = 'http://localhost:9988/api-utilities';\r\nvar api_oauth2_jwt = 'http://localhost:8010/api-oauth2-jwt';\r\n//PRODUCCION HTTPS\r\nif (location.origin == 'https://aplicativos.odepa.gob.cl') {\r\n  api_utilities = 'https://api-utilities.odepa.gob.cl';\r\n  api_oauth2_jwt = 'https://api-token.odepa.gob.cl';\r\n}\r\n//PRUEBA\r\nelse if (location.origin == 'http://apl",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "https://api-utilities.odepa.gob.cl",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 251,
+      "context": "**\r\n * App angularjs.\r\n */\r\nvar api_utilities = 'http://localhost:9988/api-utilities';\r\nvar api_oauth2_jwt = 'http://localhost:8010/api-oauth2-jwt';\r\n//PRODUCCION HTTPS\r\nif (location.origin == 'https://aplicativos.odepa.gob.cl') {\r\n  api_utilities = 'https://api-utilities.odepa.gob.cl';\r\n  api_oauth2_jwt = 'https://api-token.odepa.gob.cl';\r\n}\r\n//PRUEBA\r\nelse if (location.origin == 'http://aplicativosprueba.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesprueba.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokenprueba.ode",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "https://api-token.odepa.gob.cl",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 309,
+      "context": "calhost:9988/api-utilities';\r\nvar api_oauth2_jwt = 'http://localhost:8010/api-oauth2-jwt';\r\n//PRODUCCION HTTPS\r\nif (location.origin == 'https://aplicativos.odepa.gob.cl') {\r\n  api_utilities = 'https://api-utilities.odepa.gob.cl';\r\n  api_oauth2_jwt = 'https://api-token.odepa.gob.cl';\r\n}\r\n//PRUEBA\r\nelse if (location.origin == 'http://aplicativosprueba.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesprueba.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokenprueba.odepa.local';\r\n}\r\n//DESARROLLO\r\nelse if (location.origin ",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "http://api-utilitiesprueba.odepa.local",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 446,
+      "context": "ttps://aplicativos.odepa.gob.cl') {\r\n  api_utilities = 'https://api-utilities.odepa.gob.cl';\r\n  api_oauth2_jwt = 'https://api-token.odepa.gob.cl';\r\n}\r\n//PRUEBA\r\nelse if (location.origin == 'http://aplicativosprueba.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesprueba.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokenprueba.odepa.local';\r\n}\r\n//DESARROLLO\r\nelse if (location.origin == 'http://aplicativosdesa.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesdesa.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokendesa.o",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "http://api-tokenprueba.odepa.local",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 508,
+      "context": "//api-utilities.odepa.gob.cl';\r\n  api_oauth2_jwt = 'https://api-token.odepa.gob.cl';\r\n}\r\n//PRUEBA\r\nelse if (location.origin == 'http://aplicativosprueba.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesprueba.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokenprueba.odepa.local';\r\n}\r\n//DESARROLLO\r\nelse if (location.origin == 'http://aplicativosdesa.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesdesa.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokendesa.odepa.local';\r\n}\r\n\r\nvar aplicativos = angular.module('aplic",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "http://api-utilitiesdesa.odepa.local",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 651,
+      "context": "vosprueba.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesprueba.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokenprueba.odepa.local';\r\n}\r\n//DESARROLLO\r\nelse if (location.origin == 'http://aplicativosdesa.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesdesa.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokendesa.odepa.local';\r\n}\r\n\r\nvar aplicativos = angular.module('aplicativos', [\r\n  'ui.bootstrap',\r\n  'ngSanitize',\r\n  'ngTouch',\r\n  'ui.select',\r\n  'chart.js',\r\n  'ngProgress',\r\n  'angularjs-dropdown-multiselect',",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "http://api-tokendesa.odepa.local",
+      "source_url": "https://aplicativos.odepa.gob.cl/resource/js/apps/app.js",
+      "offset": 711,
+      "context": "litiesprueba.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokenprueba.odepa.local';\r\n}\r\n//DESARROLLO\r\nelse if (location.origin == 'http://aplicativosdesa.odepa.local') {\r\n  api_utilities = 'http://api-utilitiesdesa.odepa.local';\r\n  api_oauth2_jwt = 'http://api-tokendesa.odepa.local';\r\n}\r\n\r\nvar aplicativos = angular.module('aplicativos', [\r\n  'ui.bootstrap',\r\n  'ngSanitize',\r\n  'ngTouch',\r\n  'ui.select',\r\n  'chart.js',\r\n  'ngProgress',\r\n  'angularjs-dropdown-multiselect',\r\n]);\r\nvar aplicativosAvanceMensual = angular.module('ap",
       "contains_template_expression": false,
       "status": "unverified_literal_not_called"
     }
