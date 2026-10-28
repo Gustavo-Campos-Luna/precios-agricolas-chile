@@ -13,6 +13,7 @@ dependencies = ["pandas>=2.2,<3", "numpy>=2,<3", "scikit-learn>=1.5,<2", "httpx>
 
 [project.optional-dependencies]
 parquet = ["pyarrow>=17,<24"]
+grains = ["pypdf>=5,<7"]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1", "build>=1,<2"]
 
 [project.scripts]

@@ -143,6 +143,12 @@ def run(args):
             _save(daily, Path(args.output) / f"{location.location_id}_daily.csv")
             _save(aggregate_monthly(daily), Path(args.output) / f"{location.location_id}_monthly.csv")
             print(f"Clima {location.location_id}: {len(daily)} días")
+    elif args.command == "grains":
+        from .grains import ingest_report
+        data, rejected = ingest_report(args.raw_root)
+        _save(data, Path(args.output) / "maiz_grano_week22_2025.csv")
+        _save(rejected, Path(args.output) / "maiz_grano_week22_2025_rejected.csv")
+        print(f"Maíz grano: {len(data)} referencias regionales/nacional; {len(rejected)} filas ambiguas")
 
 
 def main(argv=None):
@@ -179,6 +185,9 @@ def main(argv=None):
     climate.add_argument("--end", required=True)
     climate.add_argument("--raw-root", default="data/raw/climate")
     climate.add_argument("--output", default="data/processed/climate")
+    grains = commands.add_parser("grains", help="Extraer informe productor maíz grano, semana22 de2025")
+    grains.add_argument("--raw-root", default="data/raw")
+    grains.add_argument("--output", default="data/processed/grains")
     args = parser.parse_args(argv)
     if args.command == "ingest" and args.start_year > args.end_year:
         parser.error("start-year debe ser <= end-year")

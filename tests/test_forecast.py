@@ -52,6 +52,35 @@ class ForecastTests(unittest.TestCase):
         assert result.prediction.isna().all()
         assert result.status.eq("insufficient_history").all()
 
+    def test_stale_series_uses_common_origin_and_abstains_without_forward_fill(self):
+        current = monthly(96)
+        current["series_id"] = "current_2025"
+        stale = monthly(36)
+        stale["series_id"] = "stale_2020"
+        data = pd.concat([current, stale], ignore_index=True)
+        for model in ("naive", "seasonal_naive", "ridge"):
+            with self.subTest(model=model):
+                result = forecast_monthly(data, model=model)
+                self.assertTrue(result.cutoff.eq(pd.Timestamp("2025-12-01")).all())
+                self.assertTrue(result.date.gt(data.date.max()).all())
+                self.assertTrue(result.date.dt.year.eq(2026).all())
+                old = result.loc[result.series_id.eq("stale_2020")]
+                self.assertTrue(old.prediction.isna().all())
+                self.assertTrue(old.status.eq("missing_lag_or_training_data").all())
+                recent = result.loc[result.series_id.eq("current_2025")]
+                self.assertTrue(recent.prediction.notna().all())
+
+    def test_explicit_origin_cannot_relabel_historical_targets_as_forecasts(self):
+        data = monthly()
+        with self.assertRaisesRegex(ValueError, "latest input month"):
+            forecast_monthly(data, forecast_origin="2021-12-01")
+        with self.assertRaisesRegex(ValueError, "valid month"):
+            forecast_monthly(data, forecast_origin=pd.NaT)
+        result = forecast_monthly(data, forecast_origin="2024-12-15")
+        self.assertTrue(result.cutoff.eq(pd.Timestamp("2024-12-01")).all())
+        self.assertTrue(result.date.dt.year.eq(2025).all())
+        self.assertTrue(result.prediction.isna().all())
+
 
     def test_duplicate_month_is_rejected(self):
         data = monthly()

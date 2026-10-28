@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths: ['.github/workflows/data-bootstrap.yml']
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: official-data-bootstrap
   cancel-in-progress: false
@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: python -m pip install -e .
+      - run: python -m pip install -e '.[parquet,grains]'
       - name: Discover official ODEPA catalog
         run: mpchile discover
       - name: Collect historical target crops in original commercial units
@@ -27,11 +27,25 @@ jobs:
       - name: Consolidate and validate
         run: mpchile build
       - name: Download historical point climate
-        run: mpchile climate --start 2023-01-01 --end 2023-12-31
+        run: mpchile climate --start 2020-01-01 --end 2025-12-31
       - name: Evaluate baseline models
         run: mpchile backtest --horizon 12 --stride 12
       - name: Produce explicitly labeled baseline forecasts
         run: mpchile forecast --horizon 12
+      - name: Acquire separate producer maize report
+        continue-on-error: true
+        run: mpchile grains
+      - name: Build durable analytical snapshot and profile
+        run: python scripts/profile_dataset.py
+      - name: Version analytical tables and source manifests in this repository
+        run: |
+          git config --local user.name 'github-actions[bot]'
+          git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/snapshots/
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: preserve official 2020-2025 prices, coverage and baseline evaluation'
+            git push origin HEAD:main
+          fi
       - name: Preserve results and provenance even on failure
         if: always()
         uses: actions/upload-artifact@v4

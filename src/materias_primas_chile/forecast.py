@@ -42,9 +42,9 @@ def _prepare(frame, date_col, series_col, value_col, climate_cols):
     return data.sort_values([series_col, date_col])
 
 
-def _monthly(group, date_col):
+def _monthly(group, date_col, *, end=None):
     group = group.set_index(date_col).sort_index()
-    return group.reindex(pd.date_range(group.index.min(), group.index.max(), freq="MS"))
+    return group.reindex(pd.date_range(group.index.min(), end if end is not None else group.index.max(), freq="MS"))
 
 
 def _features(values, when, weather):
@@ -164,11 +164,15 @@ def forecast_monthly(
     climate_cols: Sequence[str] = (),
     future_climate: pd.DataFrame | None = None,
     scenario_name: str | None = None,
+    forecast_origin: str | pd.Timestamp | None = None,
 ) -> pd.DataFrame:
     """Forecast each series; optional future weather is explicitly conditional.
 
     future_climate must contain the same date/series names and all climate_cols,
     with exactly one supplied assumption for every projected month and series.
+    The default origin is the latest month across the entire input, including
+    stale series. An explicit origin must be at or after that month. Months
+    after a stale series ends remain missing; no forward filling is performed.
     No confidence interval is fabricated from a single fit.
     """
     if horizon < 1 or min_train_months < 24:
@@ -180,6 +184,15 @@ def forecast_monthly(
     if scenario_name and future_climate is None:
         raise ValueError("A named scenario requires explicit future climate assumptions")
     data = _prepare(frame, date_col, series_col, value_col, climate_cols)
+    latest_month = data[date_col].max()
+    origin = latest_month
+    if forecast_origin is not None:
+        origin = pd.Timestamp(forecast_origin)
+        if pd.isna(origin):
+            raise ValueError("forecast_origin must be a valid month")
+        origin = origin.to_period("M").to_timestamp()
+        if origin < latest_month:
+            raise ValueError("forecast_origin must be at or after the latest input month; use backtest for historical evaluation")
     assumptions = None
     if future_climate is not None:
         required = [date_col, series_col, *climate_cols]
@@ -196,7 +209,7 @@ def forecast_monthly(
                 raise ValueError("Scenario assumptions must be finite")
     records = []
     for series, group in data.groupby(series_col, sort=True):
-        train = _monthly(group, date_col)
+        train = _monthly(group, date_col, end=origin)
         supplied = None
         if assumptions is not None:
             supplied = assumptions.loc[assumptions[series_col] == series].set_index(date_col)
