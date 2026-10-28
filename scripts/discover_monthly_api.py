@@ -58,16 +58,33 @@ def candidates(text: str, source_url: str):
     for position, literal in literals(text):
         if not keywords.search(literal):
             continue
-        if not (literal.startswith(("https://", "http://", "/", "./", "../")) or "/" in literal):
+        if not (literal.startswith(("https://", "http://", "/", "./", "../")) or "/" in literal
+                or re.search(r"\.(?:do|json|csv|xlsx?)(?:\?|$)", literal)):
             continue
         if any(character in literal for character in ("<", ">", "\n")):
             continue
         results.append({"literal": literal, "source_url": source_url,
                         "offset": position,
-                        "context": text[max(0, position - 100):position + len(literal) + 120],
+                        "context": text[max(0, position - 250):position + len(literal) + 250],
                         "contains_template_expression": "${" in literal,
                         "status": "unverified_literal_not_called"})
     return results
+
+
+def script_priority(item):
+    """Lógica del producto antes de frameworks, independientemente del HTML."""
+    url = item[0].lower()
+    if "/apps/" in url:
+        if "series-precios" in url:
+            return (0, url)
+        if "api-service" in url or "/service/" in url:
+            return (1, url)
+        return (2, url)
+    if "main" in url:
+        return (3, url)
+    if any(library in url for library in ("angular", "jquery", "bootstrap", "vendor", "moment", "highcharts")):
+        return (5, url)
+    return (4, url)
 
 
 def main():
@@ -89,6 +106,8 @@ def main():
     visited, files, failures = set(), [], []
     found = candidates(html, args.url)
     while queue and len(visited) < args.max_scripts:
+        # Volver a priorizar también los imports descubiertos dinámicamente.
+        queue = deque(sorted(queue, key=script_priority))
         url, discovery = queue.popleft()
         url = urldefrag(url)[0]
         if url in visited:
@@ -113,6 +132,7 @@ def main():
     report = {"application_url": args.url, "html_path": str(html_path),
               "script_files": files, "failures": failures,
               "remaining_script_queue": len(queue), "max_scripts": args.max_scripts,
+              "script_priority": "series-precios apps, app services, other apps, main bundles, generic, framework",
               "candidates": list(unique.values()),
               "interpretation": "Static strings only; no API endpoint, data schema or prices verified."}
     write_json(root / "discovery.json", report)
@@ -123,3 +143,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
