@@ -1,5 +1,7 @@
 """Monthly transport contracts use synthetic responses, never fabricated history."""
 import importlib.util
+from email.message import Message
+import gzip
 import json
 from pathlib import Path
 import tempfile
@@ -54,7 +56,48 @@ class MonthlyTests(unittest.TestCase):
                     "materias_primas_chile.monthly.urlopen", return_value=response
                 ), self.assertRaises(ValueError):
                     fetch_monthly_query(form(), directory)
-            self.assertEqual(list(Path(directory).rglob("*.json")), [])
+            originals = list(Path(directory).rglob("*.response.bin"))
+            self.assertEqual(len(originals), 3)
+            self.assertTrue(all("failures" in path.parts for path in originals))
+            self.assertTrue(any("not a price API" in path.read_text()
+                                for path in Path(directory).rglob("*.preview.txt")))
+
+    def test_declared_latin1_is_decoded_without_losing_original_bytes(self):
+        payload = '{"product":"Maíz, fixture sin precios"}'.encode("latin-1")
+        response = MagicMock()
+        entered = response.__enter__.return_value
+        entered.read.return_value = payload
+        entered.headers = Message()
+        entered.headers["Content-Type"] = "application/json; charset=ISO-8859-1"
+        entered.geturl.return_value = "https://example.test/public-monthly-response"
+        entered.getcode.return_value = 200
+        with tempfile.TemporaryDirectory() as directory, patch(
+            "materias_primas_chile.monthly.urlopen", return_value=response
+        ):
+            path = fetch_monthly_query(form(), directory)
+            self.assertEqual(json.loads(path.read_text())["product"], "Maíz, fixture sin precios")
+            manifest = json.loads(path.with_suffix(".json.manifest.json").read_text())
+            self.assertEqual(manifest["declared_charset"], "iso-8859-1")
+            self.assertEqual(manifest["http_status"], 200)
+            self.assertEqual(Path(manifest["original_response_path"]).read_bytes(), payload)
+
+    def test_gzip_is_decoded_only_when_declared_and_original_is_preserved(self):
+        text = '{"fixture":"gzip raw transport only"}'
+        payload = gzip.compress(text.encode())
+        response = MagicMock()
+        entered = response.__enter__.return_value
+        entered.read.return_value = payload
+        entered.headers = Message()
+        entered.headers["Content-Type"] = "application/json; charset=utf-8"
+        entered.headers["Content-Encoding"] = "gzip"
+        with tempfile.TemporaryDirectory() as directory, patch(
+            "materias_primas_chile.monthly.urlopen", return_value=response
+        ):
+            path = fetch_monthly_query(form(), directory)
+            self.assertEqual(path.read_text(), text)
+            manifest = json.loads(path.with_suffix(".json.manifest.json").read_text())
+            self.assertEqual(Path(manifest["original_response_path"]).read_bytes(), payload)
+            self.assertEqual(manifest["content_encoding"], "gzip")
 
     def test_collection_requires_metadata_match_and_uses_global_dates_only_as_request(self):
         path = Path(__file__).resolve().parents[1] / "scripts" / "collect_monthly_sample.py"

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/discover_monthly_api.py', 'scripts/probe_monthly.py', 'scripts/collect_monthly_sample.py', '.github/workflows/source-research.yml']
+    paths: ['scripts/discover_monthly_api.py', 'scripts/probe_monthly.py', 'scripts/collect_monthly_sample.py', 'src/materias_primas_chile/monthly.py', '.github/workflows/source-research.yml']
 permissions:
   contents: write
 concurrency:
