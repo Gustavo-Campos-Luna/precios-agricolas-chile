@@ -63,6 +63,12 @@ muestra de observaciones en el snapshot procede de esos archivos reales.
    contrato histórico amplio pendientes. El conector `grains.py` ya descarga y
    valida el informe de semana 22 de 2025, separado del mayorista fresco.
 
+La investigación posterior identificó contratos públicos de la aplicación
+mensual, productos concretos e IPC de la interfaz. Las consultas de poroto seco
+minorista y maíz FOB argentino fallaron con errores HTTP/HTML, por lo que no se
+promovieron como datos. Véase `docs/monthly_source.md` y los diagnósticos
+versionados en `data/snapshots/monthly_candidates/`.
+
 ## Criterios de ingestión
 
 Preferir autoridad pública y descarga estructurada; descubrimiento dinámico de

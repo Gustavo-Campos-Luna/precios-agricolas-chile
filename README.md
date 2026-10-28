@@ -77,3 +77,18 @@ precipitación futura. El supuesto no modifica el clima del pasado. Consulta
 [método y límites](docs/climate_experiment.md). Es una asociación experimental;
 no certifica impactos regionales ni convierte esos puntos en clima representativo
 de la superficie cultivada.
+
+La ejecución con datos reales completó 24 series elegibles y 696 observaciones
+mensuales de entrenamiento; comparó cuatro modelos y obtuvo 226 estimaciones
+condicionales de 576 objetivos entre ambos supuestos. Los demás objetivos
+conservan abstención. Consultar [resultados y cobertura](data/experiments/climate_proxy_v1/report.json)
+y [salida por serie, fecha y escenario](data/experiments/climate_proxy_v1/conditional_forecasts.csv).
+Esto acredita ejecución y cobertura, no precisión comercial ni causalidad.
+
+## Fuentes adicionales investigadas
+
+La aplicación mensual de ODEPA expuso catálogos de poroto seco minorista y
+referencias internacionales de maíz, pero las consultas devolvieron errores de
+servidor y HTML en lugar de precios válidos. Esos candidatos no entran al dataset
+ni al entrenamiento. Se conservan contratos, consultas y diagnósticos en
+[documentación de la fuente mensual](docs/monthly_source.md).
