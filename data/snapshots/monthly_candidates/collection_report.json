@@ -63,14 +63,14 @@
           "status": "failed",
           "error": {
             "type": "ValueError",
-            "message": "ODEPA monthly lookup did not return valid JSON"
+            "message": "ODEPA monthly lookup did not return valid declared-charset JSON; diagnostic: data/snapshots/monthly_candidates/odepa_monthly/failures/4f130eca6dcb908e4ec1869d0289c4a6fa49baec48eed9f6dd9984d9735ad2f2/a8686dd56d8f89cb364955bf86cfb6d6f409ffb21a572945743b5842e16e8dcd.response.bin"
           }
         }
       ],
       "status": "failed",
       "error": {
         "type": "ValueError",
-        "message": "ODEPA monthly lookup did not return valid JSON"
+        "message": "ODEPA monthly lookup did not return valid declared-charset JSON; diagnostic: data/snapshots/monthly_candidates/odepa_monthly/failures/4f130eca6dcb908e4ec1869d0289c4a6fa49baec48eed9f6dd9984d9735ad2f2/a8686dd56d8f89cb364955bf86cfb6d6f409ffb21a572945743b5842e16e8dcd.response.bin"
       }
     },
     {
@@ -123,14 +123,14 @@
           "status": "failed",
           "error": {
             "type": "ValueError",
-            "message": "ODEPA monthly lookup did not return valid JSON"
+            "message": "ODEPA monthly lookup did not return valid declared-charset JSON; diagnostic: data/snapshots/monthly_candidates/odepa_monthly/failures/168a04a7cefd34c95d7daf7584370bae829db42931f386eeda86632c3c9dde5f/a8686dd56d8f89cb364955bf86cfb6d6f409ffb21a572945743b5842e16e8dcd.response.bin"
           }
         }
       ],
       "status": "failed",
       "error": {
         "type": "ValueError",
-        "message": "ODEPA monthly lookup did not return valid JSON"
+        "message": "ODEPA monthly lookup did not return valid declared-charset JSON; diagnostic: data/snapshots/monthly_candidates/odepa_monthly/failures/168a04a7cefd34c95d7daf7584370bae829db42931f386eeda86632c3c9dde5f/a8686dd56d8f89cb364955bf86cfb6d6f409ffb21a572945743b5842e16e8dcd.response.bin"
       }
     }
   ]

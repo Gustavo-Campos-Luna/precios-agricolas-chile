@@ -1,0 +1,17 @@
+{
+  "source": "ODEPA monthly lookup diagnostic",
+  "url": "https://aplicativos.odepa.gob.cl/series-precios/results/series-tiempo",
+  "path": "data/snapshots/monthly_candidates/odepa_monthly/failures/168a04a7cefd34c95d7daf7584370bae829db42931f386eeda86632c3c9dde5f/a8686dd56d8f89cb364955bf86cfb6d6f409ffb21a572945743b5842e16e8dcd.response.bin",
+  "retrieved_at_utc": "2026-10-28T23:20:23.038193+00:00",
+  "sha256": "a8686dd56d8f89cb364955bf86cfb6d6f409ffb21a572945743b5842e16e8dcd",
+  "size_bytes": 2307,
+  "method": "POST",
+  "request_sha256": "168a04a7cefd34c95d7daf7584370bae829db42931f386eeda86632c3c9dde5f",
+  "status": "failed_not_normalized",
+  "reason": "Expecting value: line 8 column 1 (char 14)",
+  "declared_charset": "utf-8",
+  "content_encoding": "",
+  "content_type": "text/html;charset=UTF-8",
+  "final_url": "https://aplicativos.odepa.gob.cl/series-precios/results/series-tiempo",
+  "http_status": 200
+}

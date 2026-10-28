@@ -1,0 +1,11 @@
+{
+  "periodoInicio": "1975-01-01T12:00:00.000Z",
+  "periodoTermino": "2026-09-01T12:00:00.000Z",
+  "tipoConsulta": "nominal",
+  "idIPC": 6737,
+  "tipoMercado": 7,
+  "tipoSalida": "SA",
+  "precioConIva": false,
+  "subSector": 12,
+  "producto": 370
+}
