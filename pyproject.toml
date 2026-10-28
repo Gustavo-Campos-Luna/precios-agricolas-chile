@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=69", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Datos agrícolas chilenos trazables y evaluación temporal de precios"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
+license = "MIT"
 dependencies = ["pandas>=2.2,<3", "numpy>=2,<3", "scikit-learn>=1.5,<2", "httpx>=0.27,<1"]
 
 [project.optional-dependencies]

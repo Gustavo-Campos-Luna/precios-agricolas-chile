@@ -26,7 +26,7 @@ Los sentinels faltantes se convierten en null; nunca cero. Temperatura y precipi
 
 ## Estado de descarga en esta sesión
 
-La documentación oficial fue accesible por la herramienta web. La descarga HTTP desde el proceso de Python quedó bloqueada por permisos de red del entorno; no se desactivó TLS ni se intentó saltar el proxy. No se incluye ninguna observación climática inventada. Los tests emplean fixtures sintéticas marcadas y no representan una descarga exitosa. El conector queda preparado para ejecutar con red habilitada.
+La primera descarga local quedó bloqueada por permisos de red. Posteriormente se ejecutó con éxito en GitHub Actions: datos diarios reales de 2020–2025 para Rancagua, Talca y Chillán, con originales y manifests en el artefacto de ejecución y tabla mensual en `data/snapshots/initial_2020_2025/climate_monthly.parquet`. TLS se mantuvo verificado. Los tests usan fixtures sintéticos separados; la descarga real se acredita con manifests y logs, no con los tests.
 
 ## Segunda opción investigada: DMC
 

@@ -1,7 +1,9 @@
 # Fuentes y decisiones de comparabilidad
 
 Verificación web: 28 de octubre de 2026. Este catálogo describe recursos encontrados;
-no afirma que sus archivos completos hayan sido descargados.
+no garantiza cobertura uniforme entre productos. Después de esa investigación se
+completó la carga real 2020–2025 mediante GitHub Actions: consultar
+`data/snapshots/initial_2020_2025/summary.json` y manifests de cada recurso.
 
 ## Fuente primaria implementada: ODEPA mayoristas
 
@@ -29,8 +31,9 @@ https://datos.odepa.gob.cl/dataset/33f10516-acbe-4446-b633-68244b9b6b26/resource
 El catálogo indica DataStore activo; una segunda ruta de adquisición es
 `/api/3/action/datastore_search?resource_id=UUID&limit=...&offset=...`.
 Se prefiere CSV anual para reproducir archivos completos y verificar SHA-256.
-No se han verificado registros usando el navegador: rechazó el CSV por tipo de
-contenido y no pudo recuperar el endpoint DataStore. No se crea una muestra ficticia.
+El navegador rechazó el CSV por tipo de contenido y no pudo recuperar DataStore.
+La descarga CSV completa sí se verificó posteriormente en GitHub Actions; la
+muestra de observaciones en el snapshot procede de esos archivos reales.
 
 ## Otras opciones y separación de mercados
 
@@ -57,7 +60,8 @@ contenido y no pudo recuperar el endpoint DataStore. No se crea una muestra fict
    domésticos por poderes compradores de Cotrisa complementados por ODEPA:
    https://www.odepa.gob.cl/publicaciones/avance-de-la-campana-de-maiz-2024-25/attachment/informe-semana-del-26-de-mayo-al-01-de-junio-2025 .
    No equivale a precio spot observado en cada predio. Descarga histórica y
-   contrato de datos específicos pendientes de implementar.
+   contrato histórico amplio pendientes. El conector `grains.py` ya descarga y
+   valida el informe de semana 22 de 2025, separado del mayorista fresco.
 
 ## Criterios de ingestión
 

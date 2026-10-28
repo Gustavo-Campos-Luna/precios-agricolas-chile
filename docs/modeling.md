@@ -20,6 +20,13 @@ No sustituir un precio por caja, malla o bandeja por CLP/kg sin un peso document
 Si la unidad es distinta, `value_col` permite modelarla separadamente sin una
 conversión ficticia.
 
+El pronóstico utiliza un origen común: último mes de todo el dataset, o un
+`forecast_origin` explícito igual o posterior. Las series que terminaron antes
+se reindexan con meses faltantes y se abstienen si faltan rezagos. Nunca se
+presenta como futuro actual un año posterior únicamente al último dato de una
+serie antigua. El snapshot inicial tiene corte diciembre de 2025 y objetivos
+2026: actualizar fuentes y revisar meses parciales antes de pronosticar 2027.
+
 ## Alternativas que se comparan
 
 1. `naive`: último mes, recursivo; es una referencia de persistencia.

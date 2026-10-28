@@ -37,7 +37,9 @@ rejected.to_csv("data/processed/maiz_grano_week22_2025_rejected.csv", index=Fals
 La descarga conserva PDF, SHA-256, manifest, texto layout y líneas originales.
 El CLI `mpchile grains` ejecuta ese informe específico; instalar el extra `.[grains]`. La prueba
 unitaria comprueba contrato con un extracto; no prueba una descarga de red.
-Debe ejecutarse la extracción contra el PDF real antes de promover resultados.
+La extracción se ejecutó contra el PDF real en GitHub Actions y produjo cinco
+referencias regionales/nacional, conservadas en el snapshot analítico con hash y
+líneas originales. La fila de Metropolitana sin precio actual se excluyó.
 Este único corte semanal no basta para entrenar pronósticos.
 
 ## Alternativas investigadas

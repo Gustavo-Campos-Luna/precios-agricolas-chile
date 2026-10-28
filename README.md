@@ -4,7 +4,11 @@ Biblioteca y pipelines reproducibles para recolectar precios históricos oficial
 
 ## Estado
 
-Implementación inicial con conectores y pruebas offline. La descarga masiva todavía no se ha completado: el entorno local restringió las conexiones de red. El workflow `initial official data collection` intenta recolectar datos oficiales en GitHub Actions y conserva resultados y procedencia como artefacto durante 30 días. Su estado y logs determinan si esa descarga se completó. No se incluyen observaciones inventadas ni pronósticos comerciales validados.
+Primera carga real completada y versionada en [`data/snapshots/initial_2020_2025`](data/snapshots/initial_2020_2025): **63.528 observaciones válidas**, 51 en cuarentena, 16.635 observaciones mensuales y 3.786 series comerciales de cinco productos. Cobertura: enero de 2020 a diciembre de 2025, mercados de nueve regiones. Se incluyen cereza, uva, choclo, poroto verde y poroto granado. El maíz grano tiene una fuente independiente ODEPA/Cotrisa de una semana de 2025, insuficiente para pronosticarlo.
+
+Clima histórico NASA POWER 2020–2025 para tres puntos de referencia; no representa todo Chile ni se asigna automáticamente a los cultivos. **33 pruebas aprobadas** y construcción del paquete verificadas en Python 3.11 y 3.12. Resultados y originales de las ejecuciones en [Actions](https://github.com/Gustavo-Campos-Luna/precios_materias_primas_chile/actions). Los ZIP de originales tienen retención de 30 días; las tablas analíticas, muestras observadas y manifests quedan versionados en Git.
+
+Los pronósticos iniciales son referencias con corte común en diciembre de 2025, por lo que sus fechas objetivo corresponden a 2026; **no constituyen una proyección actualizada de 2027**. De 45.432 objetivos serie-mes, solo 538 tienen estimación y los demás registran abstención por historia o rezagos insuficientes. No hay un modelo climático comercial validado ni datos inventados.
 
 ## Diseño
 
@@ -28,6 +32,17 @@ python -m pip install -e '.[dev,parquet]'
 python -m pytest
 ```
 
+Lectura de datos ya descargados (requiere el extra `parquet`):
+
+```python
+import pandas as pd
+
+root = "data/snapshots/initial_2020_2025/"
+prices = pd.read_parquet(root + "daily.parquet")
+monthly = pd.read_parquet(root + "monthly.parquet")
+series = pd.read_parquet(root + "series.parquet")
+```
+
 ## Fuentes y comparabilidad
 
 Documentación: [arquitectura](docs/architecture.md), [fuentes](docs/sources.md), [contrato](docs/data_contract.md), [ejecución](docs/runbook.md), [clima](docs/climate.md) y [modelos](docs/modeling.md).
@@ -39,6 +54,8 @@ mpchile build
 mpchile backtest --horizon 12
 mpchile forecast --horizon 12
 ```
+
+Ver [resumen verificable de la carga](data/snapshots/initial_2020_2025/summary.json), [cobertura por producto/región/unidad](data/snapshots/initial_2020_2025/coverage.csv) y [muestra de observaciones reales](data/snapshots/initial_2020_2025/observed_sample.csv).
 
 El filtro selecciona subcadenas de nombres originales y no garantiza presencia de cada cultivo. Revisar `series.csv` y cobertura real. `monthly.csv` usa `price` en la unidad comercial original de cada serie. Los modelos se abstienen si falta historia o rezagos.
 
