@@ -33,6 +33,9 @@ def monthly_panel(frame: pd.DataFrame, *, value_col="price", date_col="date", se
     if not check["passed"]:
         raise ValueError(f"Datos no válidos para agregación: {check}")
     data[date_col] = data[date_col].dt.to_period("M").dt.to_timestamp()
-    return data.groupby([series_col, date_col], as_index=False).agg(
-        price=(value_col, "median"), n_observations=(value_col, "count")
-    )
+    aggregations = {"price": (value_col, "median"), "n_observations": (value_col, "count")}
+    for column in ("price_clp_kg", "price_clp_unit"):
+        if column in data:
+            aggregations[column] = (column, "median")
+            aggregations[column + "_observations"] = (column, "count")
+    return data.groupby([series_col, date_col], as_index=False).agg(**aggregations)

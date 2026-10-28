@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/data-bootstrap.yml']
+    paths: ['.github/workflows/data-bootstrap.yml', 'src/materias_primas_chile/units.py']
 permissions:
   contents: write
 concurrency:

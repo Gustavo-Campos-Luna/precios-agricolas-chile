@@ -41,6 +41,18 @@ class QualityTests(unittest.TestCase):
             self.assertNotEqual(first["sha256"], second["sha256"])
             self.assertTrue(path.with_suffix(".bin.manifest.json").exists())
 
+    def test_explicit_unit_enrichment_survives_monthly_without_pooling(self):
+        from materias_primas_chile.units import enrich_units
+        data = pd.DataFrame({"date": ["2024-01-01", "2024-01-02", "2024-01-01"],
+                             "series_id": ["box", "box", "item"], "price": [1000, 3000, 100],
+                             "unit": ["$/caja 10 kilos", "$/caja 10 kilos", "$/unidad"],
+                             "currency": ["CLP"] * 3})
+        panel = monthly_panel(enrich_units(data)).set_index("series_id")
+        self.assertEqual(panel.loc["box", "price_clp_kg"], 200)
+        self.assertEqual(panel.loc["box", "price_clp_kg_observations"], 2)
+        self.assertTrue(pd.isna(panel.loc["item", "price_clp_kg"]))
+        self.assertEqual(panel.loc["item", "price_clp_unit"], 100)
+
 
 if __name__ == "__main__":
     unittest.main()

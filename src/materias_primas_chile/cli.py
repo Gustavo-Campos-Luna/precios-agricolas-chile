@@ -113,7 +113,7 @@ def run(args):
         monthly = monthly_panel(accepted)
         _save(accepted, Path(args.output) / "daily.csv")
         _save(monthly, Path(args.output) / "monthly.csv")
-        dimensions = [column for column in ["series_id", "market_region_code", "market_region", "market", "product", "variety", "quality", "unit", "origin", "currency", "market_level", "source"] if column in accepted]
+        dimensions = [column for column in ["series_id", "market_region_code", "market_region", "market", "product", "variety", "quality", "unit", "origin", "currency", "market_level", "source", "commercial_weight_kg", "unit_conversion_method"] if column in accepted]
         _save(accepted[dimensions].drop_duplicates(), Path(args.output) / "series.csv")
         write_json(Path(args.output) / "build_status.json", {"status": "success", "accepted_rows": len(accepted), "quarantine_rows": len(quarantined), "input_files": [str(path) for path in paths]})
         print(f"{len(accepted)} filas válidas; {len(quarantined)} en cuarentena; {len(monthly)} meses-serie")

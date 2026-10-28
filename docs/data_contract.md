@@ -17,6 +17,14 @@
 
 Un precio en CLP/caja no se transforma a CLP/kg salvo peso de caja documentado para esa observación. Un valor aduanero USD FOB/kg, un precio mayorista y un precio de productor son variables diferentes. No consolidarlos como una sola historia.
 
+La normalización conserva además `price_clp_kg` cuando la etiqueta fuente declara
+explícitamente el peso (`$/bandeja 10 kilos` divide por 10), o cuando ya cotiza por
+kilo. `$/kilo (en bandeja de 18 kilos)` ya es precio por kilo y **no** se divide
+por 18. `commercial_weight_kg` y `unit_conversion_method` auditan esa decisión.
+Los envases con conteo explícito generan `price_clp_unit`, nunca un peso supuesto.
+No se convierten quintales ni etiquetas ambiguas. La identidad de serie original
+se mantiene: la conversión no autoriza mezclar variedades, calidades u orígenes.
+
 ## Panel mensual
 
 Clave: `series_id`, `date` (inicio de mes). `price` es mediana de observaciones comparables del mes. `n_observations` permite observar densidad. Ausencia de precio es faltante, nunca cero. La primera implementación no produce un índice nacional ni un promedio ponderado por producción. Para cobertura mensual completa se reindexa dejando NA, sin interpolación automática.

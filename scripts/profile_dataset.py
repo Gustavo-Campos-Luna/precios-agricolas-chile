@@ -58,6 +58,8 @@ def main():
         "backtest_prediction_rows": len(pd.read_csv("artifacts/models/backtest_predictions.csv")),
         "forecast_targets": len(forecast), "forecast_available": int(forecast.prediction.notna().sum()),
         "forecast_status": forecast.groupby("status").size().to_dict(),
+        "daily_rows_with_explicit_clp_kg": int(daily.price_clp_kg.notna().sum()) if "price_clp_kg" in daily else 0,
+        "daily_rows_with_explicit_clp_unit": int(daily.price_clp_unit.notna().sum()) if "price_clp_unit" in daily else 0,
         "producer_maize_report_available": grains_path.exists(),
         "origins": daily.origin.dropna().value_counts().head(30).to_dict(),
         "limitations": ["Precios nominales en unidad comercial original", "Mercado no equivale a origen productivo", "Clima histórico por tres puntos, sin asociación automática a cultivos", "Pronósticos base con abstención; ningún modelo comercial certificado", "Maíz grano y poroto seco no se consideran cubiertos por equivalencia con fresco"],

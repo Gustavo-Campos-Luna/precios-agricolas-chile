@@ -164,4 +164,5 @@ def normalize_prices(frame: pd.DataFrame, source_resource_id: str = "") -> pd.Da
     result["series_id"] = result[dimensions].fillna("").astype(str).apply(
         lambda row: hashlib.sha256(json.dumps(row.tolist(), ensure_ascii=False).encode()).hexdigest()[:24], axis=1)
     result["source_record"] = frame.apply(lambda row: json.dumps(row.to_dict(), ensure_ascii=False), axis=1)
-    return result
+    from .units import enrich_units
+    return enrich_units(result)
