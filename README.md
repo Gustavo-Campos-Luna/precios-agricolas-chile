@@ -6,7 +6,7 @@ Biblioteca y pipelines reproducibles para recolectar precios históricos oficial
 
 Primera carga real completada y versionada en [`data/snapshots/initial_2020_2025`](data/snapshots/initial_2020_2025): **63.528 observaciones válidas**, 51 en cuarentena, 16.635 observaciones mensuales y 3.786 series comerciales de cinco productos. Cobertura: enero de 2020 a diciembre de 2025, mercados de nueve regiones. Se incluyen cereza, uva, choclo, poroto verde y poroto granado. El maíz grano tiene una fuente independiente ODEPA/Cotrisa de una semana de 2025, insuficiente para pronosticarlo.
 
-Clima histórico NASA POWER 2020–2025 para tres puntos de referencia; no representa todo Chile ni se asigna automáticamente a los cultivos. **41 pruebas offline aprobadas**; CI verifica Python 3.11 y 3.12 y construcción del paquete. Resultados y originales de las ejecuciones en [Actions](https://github.com/Gustavo-Campos-Luna/precios_materias_primas_chile/actions). Los ZIP de originales tienen retención de 30 días; las tablas analíticas, muestras observadas y manifests quedan versionados en Git.
+Clima histórico NASA POWER 2020–2025 para tres puntos de referencia; no representa todo Chile ni se asigna automáticamente a los cultivos. **51 pruebas offline aprobadas**; CI verifica Python 3.11 y 3.12 y construcción del paquete. Resultados y originales de las ejecuciones en [Actions](https://github.com/Gustavo-Campos-Luna/precios_materias_primas_chile/actions). Los ZIP de originales tienen retención de 30 días; las tablas analíticas, muestras observadas y manifests quedan versionados en Git.
 
 Los pronósticos iniciales son referencias con corte común en diciembre de 2025, por lo que sus fechas objetivo corresponden a 2026; **no constituyen una proyección actualizada de 2027**. De 45.432 objetivos serie-mes, solo 538 tienen estimación y los demás registran abstención por historia o rezagos insuficientes. No hay un modelo climático comercial validado ni datos inventados.
 
@@ -67,3 +67,13 @@ método de conversión y peso explícito; las series no se mezclan automáticame
 La fuente inicial es [ODEPA, precios mayoristas de frutas y hortalizas](https://datos.odepa.gob.cl/es/dataset/precios-mayoristas-de-frutas-y-hortalizas), con recursos anuales publicados desde 1994. La cobertura pertenece a mercados observados, no a todos los productores del país. Maíz grano, choclo, poroto seco y poroto verde deben conservarse como productos distintos. Se mantienen mercado, origen, variedad, calidad y unidad; no se convierten cajas o unidades a kilogramos sin peso documentado.
 
 Los escenarios climáticos son condicionales y no identifican por sí solos efectos causales. La evaluación utiliza cortes temporales, nunca particiones aleatorias.
+
+## Experimento de escenarios climáticos
+
+`python scripts/run_climate_experiment.py` ejecuta una unión explícita por origen
+para cinco etiquetas de procedencia, con clima de puntos urbanos rezagado tres
+meses. Compara climatología con un supuesto ilustrativo de +2 °C y −20% de
+precipitación futura. El supuesto no modifica el clima del pasado. Consulta
+[método y límites](docs/climate_experiment.md). Es una asociación experimental;
+no certifica impactos regionales ni convierte esos puntos en clima representativo
+de la superficie cultivada.

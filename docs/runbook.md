@@ -32,6 +32,12 @@ mpchile forecast --input training_with_verified_origin_climate.csv --model ridge
 
 No se genera ese mapeo por defecto: el mercado comercial no identifica el origen de cultivo. Los escenarios producen asociaciones del modelo, no efectos causales demostrados. Consultar `docs/modeling.md` y `docs/climate.md`.
 
+Existe un experimento separado que usa exclusivamente correspondencias de origen
+declaradas en `config/origin_climate_map.csv` y conserva la marca de proxy urbano:
+`python scripts/run_climate_experiment.py`. Sus salidas se guardan en
+`data/experiments/climate_proxy_v1/`, fuera de las tablas base. Véase
+`docs/climate_experiment.md` antes de interpretar escenarios.
+
 ## Fallos
 
 - Red denegada/timeout: la descarga falla; no sustituir por precios sintéticos. Revisar el proxy y permisos del entorno. TLS se mantiene verificado.
