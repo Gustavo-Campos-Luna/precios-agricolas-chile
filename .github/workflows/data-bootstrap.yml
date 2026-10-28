@@ -1,0 +1,43 @@
+name: initial official data collection
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/data-bootstrap.yml']
+permissions:
+  contents: read
+concurrency:
+  group: official-data-bootstrap
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -e .
+      - name: Discover official ODEPA catalog
+        run: mpchile discover
+      - name: Collect historical target crops in original commercial units
+        run: mpchile ingest --start-year 2020 --end-year 2025 --products cereza,uva,poroto,maiz,choclo
+      - name: Consolidate and validate
+        run: mpchile build
+      - name: Download historical point climate
+        run: mpchile climate --start 2023-01-01 --end 2023-12-31
+      - name: Evaluate baseline models
+        run: mpchile backtest --horizon 12 --stride 12
+      - name: Produce explicitly labeled baseline forecasts
+        run: mpchile forecast --horizon 12
+      - name: Preserve results and provenance even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-data-and-provenance
+          path: |
+            data/
+            artifacts/
+          retention-days: 30

@@ -4,7 +4,7 @@ Biblioteca y pipelines reproducibles para recolectar precios históricos oficial
 
 ## Estado
 
-Implementación inicial en desarrollo. La conexión a GitHub funciona. La descarga masiva todavía no se ha completado: el entorno de ejecución restringió las conexiones de red. No se incluyen observaciones inventadas ni pronósticos comerciales validados.
+Implementación inicial con conectores y pruebas offline. La descarga masiva todavía no se ha completado: el entorno local restringió las conexiones de red. El workflow `initial official data collection` intenta recolectar datos oficiales en GitHub Actions y conserva resultados y procedencia como artefacto durante 30 días. Su estado y logs determinan si esa descarga se completó. No se incluyen observaciones inventadas ni pronósticos comerciales validados.
 
 ## Diseño
 
@@ -29,6 +29,18 @@ python -m pytest
 ```
 
 ## Fuentes y comparabilidad
+
+Documentación: [arquitectura](docs/architecture.md), [fuentes](docs/sources.md), [contrato](docs/data_contract.md), [ejecución](docs/runbook.md), [clima](docs/climate.md) y [modelos](docs/modeling.md).
+
+```bash
+mpchile discover
+mpchile ingest --start-year 2020 --end-year 2025 --products cereza,uva,poroto,maiz,choclo
+mpchile build
+mpchile backtest --horizon 12
+mpchile forecast --horizon 12
+```
+
+El filtro selecciona subcadenas de nombres originales y no garantiza presencia de cada cultivo. Revisar `series.csv` y cobertura real. `monthly.csv` usa `price` en la unidad comercial original de cada serie. Los modelos se abstienen si falta historia o rezagos.
 
 La fuente inicial es [ODEPA, precios mayoristas de frutas y hortalizas](https://datos.odepa.gob.cl/es/dataset/precios-mayoristas-de-frutas-y-hortalizas), con recursos anuales publicados desde 1994. La cobertura pertenece a mercados observados, no a todos los productores del país. Maíz grano, choclo, poroto seco y poroto verde deben conservarse como productos distintos. Se mantienen mercado, origen, variedad, calidad y unidad; no se convierten cajas o unidades a kilogramos sin peso documentado.
 

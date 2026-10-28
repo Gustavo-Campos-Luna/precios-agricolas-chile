@@ -1,0 +1,4 @@
+location_id,location_name,region_code,latitude,longitude,coordinate_role,coordinate_precision_note
+rancagua,Rancagua,06,-34.1708,-70.7444,city_reference_point,Approximate city centre; not production weighted
+talca,Talca,07,-35.4264,-71.6554,city_reference_point,Approximate city centre; not production weighted
+chillan,Chillán,16,-36.6066,-72.1034,city_reference_point,Approximate city centre; not production weighted
