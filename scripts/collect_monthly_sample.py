@@ -35,7 +35,29 @@ def source_dates(probe: dict) -> tuple[str, str]:
              for key in ("fechaInicio", "fechaTermino")]
     if dates[0] > dates[1]:
         raise ValueError("Invalid catalog date range")
-    return tuple(date.strftime("%Y-%m-%dT00:00:00.000Z") for date in dates)
+    # Noon UTC stays on the same calendar date in mainland Chile and avoids a
+    # midnight serialization falling into the previous month on the server.
+    return tuple(date.strftime("%Y-%m-%dT12:00:00.000Z") for date in dates)
+
+
+def source_ipc(probe: dict) -> dict:
+    responses = [request["response"] for request in probe["requests"]
+                 if request["url"].split("?")[0].endswith("/ipc")]
+    if len(responses) != 1 or not isinstance(responses[0], list):
+        raise ValueError("Need actual IPC catalog response for the observed form's idIPC field")
+    candidates = []
+    for item in responses[0]:
+        if not isinstance(item, dict):
+            continue
+        # The published controller specifically reads ipc.valor, not ipc.id.
+        value = str(item.get("valor", ""))
+        if value.isdigit():
+            candidates.append((int(value), item))
+    if not candidates:
+        raise ValueError("IPC metadata has no numeric valor; do not invent idIPC")
+    value, record = max(candidates, key=lambda item: item[0])
+    return {"idIPC": value, "observed_record": record,
+            "selection": "largest numeric valor present in actual IPC metadata; query remains nominal"}
 
 
 def verified_target(probe: dict, target: dict) -> dict:
@@ -79,23 +101,39 @@ def main():
     args = parser.parse_args()
     probe = json.loads(Path(args.probe).read_text())
     start, end = source_dates(probe)
+    ipc = source_ipc(probe)
     output = Path(args.output)
-    report = {"catalog_requested_start": start, "catalog_requested_end": end,
+    report = {"catalog_requested_start": start, "catalog_requested_end": end, "ipc_form_metadata": ipc,
               "scope": "metadata-verified monthly queries; product-specific observed coverage pending parsing", "queries": []}
     for target in TARGETS:
         observed = verified_target(probe, target)
         form = {"periodoInicio": start, "periodoTermino": end, "tipoConsulta": "nominal",
-                "idIPC": None, "tipoMercado": target["market_id"], "tipoSalida": "SA",
+                "idIPC": ipc["idIPC"], "tipoMercado": target["market_id"], "tipoSalida": "SA",
                 "precioConIva": False, "subSector": target.get("group_id", target.get("subsector_id")),
                 "producto": target["product_id"]}
         entry = {"target": target, "observed_metadata": observed, "form": form,
                  "requested_tax_flag": False, "geography_status": "not_inferred_from_application_name"}
-        try:
-            path = fetch_monthly_query(form, output)
-            entry.update(status="raw_response_acquired", path=str(path),
-                         response_preview=response_preview(json.loads(path.read_text())))
-        except (OSError, ValueError, RuntimeError) as exc:
-            entry.update(status="failed", error={"type": type(exc).__name__, "message": str(exc)})
+        entry["attempts"] = []
+        recent = dict(form)
+        recent["periodoInicio"] = max(start, "2020-01-01T12:00:00.000Z")
+        for label, query in (("full_catalog_range", form), ("recent_range_fallback", recent)):
+            if label == "recent_range_fallback" and recent["periodoInicio"] == start:
+                break
+            attempt = {"range_label": label, "form": query}
+            try:
+                path = fetch_monthly_query(query, output)
+                attempt.update(status="raw_response_acquired", path=str(path))
+                entry["attempts"].append(attempt)
+                entry.update(status="raw_response_acquired", path=str(path), successful_range_label=label,
+                             response_preview=response_preview(json.loads(path.read_text())))
+                break
+            except (OSError, ValueError, RuntimeError) as exc:
+                error = {"type": type(exc).__name__, "message": str(exc)}
+                attempt.update(status="failed", error=error)
+                entry["attempts"].append(attempt)
+                entry.update(status="failed", error=error)
+                if "HTTP 500" not in str(exc):
+                    break
         report["queries"].append(entry)
         write_json(output / "collection_report.json", report)
     print(json.dumps(report, ensure_ascii=False, indent=2))

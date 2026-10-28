@@ -69,6 +69,15 @@ def main():
     try:
         markets = get("tipos-mercados")
         get("min-max-date-precio")
+        get("ipc")
+        # Endpoint observed in the service script; richer market metadata may
+        # describe tax treatment and geographic scope omitted from the list.
+        for market in records(markets):
+            label = plain(json.dumps(market, ensure_ascii=False))
+            if "minorista" in label or "internacional" in label:
+                identifier, _ = object_id(market, entity="market")
+                if identifier is not None:
+                    get("find/tipo-mercado", {"id": identifier})
         payload = fetch(CONTROLLER)
         path = raw_root / "series-tiempo.js"
         atomic_write(path, payload)
@@ -131,4 +140,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
