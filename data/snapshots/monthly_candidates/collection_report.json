@@ -1,6 +1,14 @@
 {
-  "catalog_requested_start": "1975-01-01T00:00:00.000Z",
-  "catalog_requested_end": "2026-09-01T00:00:00.000Z",
+  "catalog_requested_start": "1975-01-01T12:00:00.000Z",
+  "catalog_requested_end": "2026-09-01T12:00:00.000Z",
+  "ipc_form_metadata": {
+    "idIPC": 6737,
+    "observed_record": {
+      "valor": "6737",
+      "glosa": "09/2026"
+    },
+    "selection": "largest numeric valor present in actual IPC metadata; query remains nominal"
+  },
   "scope": "metadata-verified monthly queries; product-specific observed coverage pending parsing",
   "queries": [
     {
@@ -26,10 +34,10 @@
         }
       },
       "form": {
-        "periodoInicio": "1975-01-01T00:00:00.000Z",
-        "periodoTermino": "2026-09-01T00:00:00.000Z",
+        "periodoInicio": "1975-01-01T12:00:00.000Z",
+        "periodoTermino": "2026-09-01T12:00:00.000Z",
         "tipoConsulta": "nominal",
-        "idIPC": null,
+        "idIPC": 6737,
         "tipoMercado": 7,
         "tipoSalida": "SA",
         "precioConIva": false,
@@ -38,10 +46,31 @@
       },
       "requested_tax_flag": false,
       "geography_status": "not_inferred_from_application_name",
+      "attempts": [
+        {
+          "range_label": "full_catalog_range",
+          "form": {
+            "periodoInicio": "1975-01-01T12:00:00.000Z",
+            "periodoTermino": "2026-09-01T12:00:00.000Z",
+            "tipoConsulta": "nominal",
+            "idIPC": 6737,
+            "tipoMercado": 7,
+            "tipoSalida": "SA",
+            "precioConIva": false,
+            "subSector": 12,
+            "producto": 370
+          },
+          "status": "failed",
+          "error": {
+            "type": "ValueError",
+            "message": "ODEPA monthly lookup did not return valid JSON"
+          }
+        }
+      ],
       "status": "failed",
       "error": {
-        "type": "RuntimeError",
-        "message": "ODEPA monthly price lookup returned HTTP 500"
+        "type": "ValueError",
+        "message": "ODEPA monthly lookup did not return valid JSON"
       }
     },
     {
@@ -65,10 +94,10 @@
         }
       },
       "form": {
-        "periodoInicio": "1975-01-01T00:00:00.000Z",
-        "periodoTermino": "2026-09-01T00:00:00.000Z",
+        "periodoInicio": "1975-01-01T12:00:00.000Z",
+        "periodoTermino": "2026-09-01T12:00:00.000Z",
         "tipoConsulta": "nominal",
-        "idIPC": null,
+        "idIPC": 6737,
         "tipoMercado": 5,
         "tipoSalida": "SA",
         "precioConIva": false,
@@ -77,10 +106,31 @@
       },
       "requested_tax_flag": false,
       "geography_status": "not_inferred_from_application_name",
+      "attempts": [
+        {
+          "range_label": "full_catalog_range",
+          "form": {
+            "periodoInicio": "1975-01-01T12:00:00.000Z",
+            "periodoTermino": "2026-09-01T12:00:00.000Z",
+            "tipoConsulta": "nominal",
+            "idIPC": 6737,
+            "tipoMercado": 5,
+            "tipoSalida": "SA",
+            "precioConIva": false,
+            "subSector": 1,
+            "producto": 315
+          },
+          "status": "failed",
+          "error": {
+            "type": "ValueError",
+            "message": "ODEPA monthly lookup did not return valid JSON"
+          }
+        }
+      ],
       "status": "failed",
       "error": {
-        "type": "RuntimeError",
-        "message": "ODEPA monthly price lookup returned HTTP 500"
+        "type": "ValueError",
+        "message": "ODEPA monthly lookup did not return valid JSON"
       }
     }
   ]
