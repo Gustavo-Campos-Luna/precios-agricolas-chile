@@ -1,0 +1,8 @@
+commodity_id,product_label,price_domain,implemented_source,initial_coverage,notes
+cherry_fresh,Cereza,wholesale,ODEPA CKAN,2020-2025,Variedad calidad origen mercado y unidad se conservan
+grape_fresh,Uva,wholesale,ODEPA CKAN,2020-2025,No equivale a valor FOB ni precio de uva vinifera
+sweetcorn_fresh,Choclo,wholesale,ODEPA CKAN,2020-2025,Separado de maiz grano
+bean_green,Poroto verde,wholesale,ODEPA CKAN,2020-2025,Producto fresco no equivalente a poroto seco
+bean_fresh_shelled,Poroto granado,wholesale,ODEPA CKAN,2020-2025,Conservar presentacion y unidad comercial
+maize_grain,Maíz grano,producer_reference,ODEPA Cotrisa PDF,Semana 22 de 2025,Historia inicial insuficiente para pronostico
+bean_dry,Poroto seco,retail,En investigacion,Sin cobertura confirmada,No sustituir por poroto verde

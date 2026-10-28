@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/discover_monthly_api.py', 'scripts/probe_monthly.py', '.github/workflows/source-research.yml']
+    paths: ['scripts/discover_monthly_api.py', 'scripts/probe_monthly.py', 'scripts/collect_monthly_sample.py', '.github/workflows/source-research.yml']
 permissions:
   contents: write
 concurrency:
@@ -23,6 +23,9 @@ jobs:
       - name: Inspect verified public metadata and monthly form contract
         continue-on-error: true
         run: python scripts/probe_monthly.py
+      - name: Acquire explicit retail bean and international maize monthly responses
+        continue-on-error: true
+        run: python scripts/collect_monthly_sample.py
       - name: Preserve discovered literals as research, not verified prices
         run: |
           mkdir -p data/research
@@ -33,6 +36,9 @@ jobs:
           git add data/research/monthly_source_discovery.json
           if test -f data/research/monthly_probe.json; then
             git add data/research/monthly_probe.json
+          fi
+          if test -d data/snapshots/monthly_candidates; then
+            git add data/snapshots/monthly_candidates/
           fi
           if ! git diff --cached --quiet; then
             git commit -m 'research: record literal endpoints of official monthly application'
@@ -46,4 +52,5 @@ jobs:
           path: |
             data/raw/research/
             data/research/monthly_probe_raw/
+            data/snapshots/monthly_candidates/
           retention-days: 30
