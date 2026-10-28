@@ -114,5 +114,38 @@ class ForecastTests(unittest.TestCase):
         self.assertAlmostEqual(metrics.loc[metrics.horizon == 2, "mae"].iloc[0], 2)
         assert (metrics.n_scored <= metrics.n_observed).all()
 
+    def test_optional_seasonal_ridge_predicts_season_without_imputing_offseason(self):
+        dates = pd.date_range("2020-01-01", "2025-12-01", freq="MS")
+        dates = dates[dates.month <= 4]
+        data = pd.DataFrame({"date": dates, "series_id": "synthetic_seasonal",
+            "price_clp_kg": 100 + dates.year - 2020 + dates.month * 2,
+            "temperature": 15 + dates.month.astype(float)})
+        future = pd.DataFrame({"date": pd.date_range("2026-01-01", periods=12, freq="MS"),
+            "series_id": "synthetic_seasonal", "temperature": 20.0})
+        original = forecast_monthly(data, model="ridge", climate_cols=["temperature"],
+            future_climate=future, scenario_name="synthetic", forecast_origin="2025-12-01")
+        self.assertTrue(original.prediction.isna().all())
+        result = forecast_monthly(data, model="ridge_seasonal", climate_cols=["temperature"],
+            future_climate=future, scenario_name="synthetic", forecast_origin="2025-12-01")
+        self.assertTrue(result.loc[result.date.dt.month <= 4, "prediction"].gt(0).all())
+        self.assertTrue(result.loc[result.date.dt.month > 4, "prediction"].isna().all())
+        self.assertTrue(result.cutoff.eq(pd.Timestamp("2025-12-01")).all())
+        stale = forecast_monthly(data, model="ridge_seasonal", climate_cols=["temperature"],
+                                 forecast_origin="2027-12-01")
+        self.assertTrue(stale.prediction.isna().all())
+
+    def test_optional_seasonal_ridge_backtest_excludes_future_prices_and_climate(self):
+        data = monthly(96)
+        changed = data.copy()
+        cutoff = pd.Timestamp("2021-12-01")
+        changed.loc[changed.date > cutoff, "price_clp_kg"] *= 10
+        changed.loc[changed.date > cutoff, "temperature"] += 100
+        first, _ = backtest_monthly(data, models=["ridge_seasonal"], climate_cols=["temperature"], stride=1)
+        second, _ = backtest_monthly(changed, models=["ridge_seasonal"], climate_cols=["temperature"], stride=1)
+        a = first.loc[first.cutoff.eq(cutoff), "prediction"]
+        b = second.loc[second.cutoff.eq(cutoff), "prediction"]
+        self.assertGreater(len(a), 0)
+        np.testing.assert_allclose(a, b, equal_nan=True)
+
 if __name__ == "__main__":
     unittest.main()

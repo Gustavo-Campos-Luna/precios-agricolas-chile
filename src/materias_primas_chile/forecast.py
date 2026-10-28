@@ -16,6 +16,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 MODELS = ("naive", "seasonal_naive", "ridge")
+SUPPORTED_MODELS = (*MODELS, "ridge_seasonal")
 LAGS = (1, 2, 3, 12)
 
 
@@ -47,25 +48,26 @@ def _monthly(group, date_col, *, end=None):
     return group.reindex(pd.date_range(group.index.min(), end if end is not None else group.index.max(), freq="MS"))
 
 
-def _features(values, when, weather):
-    lagged = [values.get(when - pd.DateOffset(months=lag), np.nan) for lag in LAGS]
+def _features(values, when, weather, *, lags=LAGS):
+    lagged = [values.get(when - pd.DateOffset(months=lag), np.nan) for lag in lags]
     angle = 2 * np.pi * when.month / 12
     return np.asarray([*lagged, np.sin(angle), np.cos(angle), *weather], dtype=float)
 
 
 def _predict(train, value_col, horizon, model, climate_cols, future_climate=None):
-    if model not in MODELS:
+    if model not in SUPPORTED_MODELS:
         raise ValueError(f"Unknown model: {model}")
     observed = train[value_col]
     cutoff = train.index.max()
     future = pd.date_range(cutoff + pd.DateOffset(months=1), periods=horizon, freq="MS")
     values = observed.to_dict()
     fitted = None
-    if model == "ridge":
+    lags = (12,) if model == "ridge_seasonal" else LAGS
+    if model in {"ridge", "ridge_seasonal"}:
         features, targets = [], []
         for when, value in observed.items():
             weather = train.loc[when, list(climate_cols)].to_numpy(dtype=float) if climate_cols else []
-            row = _features(values, when, weather)
+            row = _features(values, when, weather, lags=lags)
             if np.isfinite(row).all() and np.isfinite(value):
                 features.append(row)
                 targets.append(value)
@@ -88,7 +90,7 @@ def _predict(train, value_col, horizon, model, climate_cols, future_climate=None
                     weather.append(future_climate.at[when, col])
                 else:
                     weather.append(climatology.at[when.month, col] if when.month in climatology.index else np.nan)
-            row = _features(values, when, weather)
+            row = _features(values, when, weather, lags=lags)
             prediction = float(fitted.predict(row.reshape(1, -1))[0]) if np.isfinite(row).all() else np.nan
             # Linear predictions outside the price domain are abstentions, not clipped evidence.
             if prediction <= 0:
@@ -118,8 +120,8 @@ def backtest_monthly(
     """
     if horizon < 1 or min_train_months < 24 or stride < 1:
         raise ValueError("Require horizon >= 1, min_train_months >= 24 and stride >= 1")
-    if not set(models).issubset(MODELS):
-        raise ValueError(f"Models must be among {MODELS}")
+    if not set(models).issubset(SUPPORTED_MODELS):
+        raise ValueError(f"Models must be among {SUPPORTED_MODELS}")
     data = _prepare(frame, date_col, series_col, value_col, climate_cols)
     records = []
     for series, group in data.groupby(series_col, sort=True):
@@ -177,9 +179,9 @@ def forecast_monthly(
     """
     if horizon < 1 or min_train_months < 24:
         raise ValueError("Require horizon >= 1 and min_train_months >= 24")
-    if model not in MODELS:
+    if model not in SUPPORTED_MODELS:
         raise ValueError(f"Unknown model: {model}")
-    if future_climate is not None and (not climate_cols or model != "ridge" or not scenario_name):
+    if future_climate is not None and (not climate_cols or model not in {"ridge", "ridge_seasonal"} or not scenario_name):
         raise ValueError("Future climate requires Ridge, climate columns and an explicit scenario_name")
     if scenario_name and future_climate is None:
         raise ValueError("A named scenario requires explicit future climate assumptions")
@@ -226,7 +228,7 @@ def forecast_monthly(
             records.append({
                 "series_id": series, "cutoff": train.index[-1], "date": when,
                 "horizon": step, "model": model, "prediction": estimate,
-                "scenario": scenario_name or ("training_climatology" if climate_cols and model == "ridge" else "baseline"),
+                "scenario": scenario_name or ("training_climatology" if climate_cols and model in {"ridge", "ridge_seasonal"} else "baseline"),
                 "status": "ok" if np.isfinite(estimate) else ("insufficient_history" if not enough else "missing_lag_or_training_data"),
             })
     return pd.DataFrame(records)

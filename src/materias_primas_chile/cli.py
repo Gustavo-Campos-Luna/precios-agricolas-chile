@@ -176,7 +176,7 @@ def main(argv=None):
         if name == "backtest":
             command.add_argument("--stride", type=int, default=6)
         else:
-            command.add_argument("--model", choices=["naive", "seasonal_naive", "ridge"], default="seasonal_naive")
+            command.add_argument("--model", choices=["naive", "seasonal_naive", "ridge", "ridge_seasonal"], default="seasonal_naive")
             command.add_argument("--scenario-csv")
             command.add_argument("--scenario-name")
     climate = commands.add_parser("climate")

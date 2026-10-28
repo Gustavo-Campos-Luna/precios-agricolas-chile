@@ -25,7 +25,12 @@ python scripts/run_climate_experiment.py
 ```
 
 La cohorte exige 24 observaciones mensuales de precio reales. Se evalúan naive,
-seasonal naive y Ridge con cortes temporales. El backtest de Ridge sustituye el
+seasonal naive, Ridge y el Ridge estacional opcional con cortes temporales. El
+Ridge estacional conserva solo el rezago de precio anual, sin exigir meses
+consecutivos de comercialización. Se abstiene cuando no hay precio el mismo mes
+del año previo. No se declara ganador por su cobertura. Los escenarios usan
+`ridge_seasonal`; requieren al menos 12 filas completas de ajuste además de 24
+observaciones de precio. El backtest de Ridge sustituye el
 clima futuro por climatología ajustada solo dentro de cada corte, nunca clima
 realizado del período de evaluación. La falta de rezagos provoca abstención.
 No se imputan precios de meses fuera de temporada.

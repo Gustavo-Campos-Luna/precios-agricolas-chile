@@ -35,6 +35,16 @@ serie antigua. El snapshot inicial tiene corte diciembre de 2025 y objetivos
    variables climáticas opcionales. Estandarización y ajuste ocurren dentro de
    cada ventana de entrenamiento. Alfa es fijo en 10, sin optimización sobre test.
 
+El modelo **opcional** `ridge_seasonal` utiliza únicamente el rezago anual 12,
+seno/coseno del mes y las covariables climáticas declaradas. No requiere precio
+del mes inmediatamente anterior, de modo que puede evaluar cultivos con meses
+sin comercialización. Conserva el mínimo de 24 observaciones reales y 12 filas
+completas para ajuste. Si el mes del año anterior no tiene precio, se abstiene;
+no estima un precio fuera de temporada ni rellena un hueco. Su mejor cobertura
+no demuestra mejor precisión. El backtest debe comparar cobertura y errores
+con las mismas series y horizontes. `MODELS` conserva los tres modelos originales;
+solicitar el cuarto explícitamente mediante `models` o `model`.
+
 El mínimo operativo es 24 observaciones mensuales reales por serie. Ridge exige
 además al menos 12 filas de entrenamiento con todos los rezagos disponibles.
 Estos mínimos permiten una evaluación inicial; no garantizan precisión. Series

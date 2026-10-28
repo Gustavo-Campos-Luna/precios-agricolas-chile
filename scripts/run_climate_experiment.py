@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 
 from materias_primas_chile.features import CLIMATE_COLUMNS, build_features, future_assumptions
-from materias_primas_chile.forecast import backtest_monthly, forecast_monthly
+from materias_primas_chile.forecast import MODELS, backtest_monthly, forecast_monthly
 from materias_primas_chile.storage import write_json
 
 
@@ -45,7 +45,7 @@ def main():
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return
     predictions, metrics = backtest_monthly(training, value_col="price", climate_cols=CLIMATE_COLUMNS,
-                                           horizon=12, stride=12)
+                                           horizon=12, stride=12, models=(*MODELS, "ridge_seasonal"))
     predictions.to_csv(output / "backtest_predictions.csv", index=False)
     metrics.to_csv(output / "backtest_metrics.csv", index=False)
     locations = training[["series_id", "location_id"]].drop_duplicates()
@@ -55,7 +55,7 @@ def main():
         assumptions = future_assumptions(locations, climate, cutoff, temperature_delta_c=delta,
                                          precipitation_factor=factor)
         assumptions.to_csv(output / f"{name}_assumptions.csv", index=False)
-        forecast = forecast_monthly(training, value_col="price", model="ridge", climate_cols=CLIMATE_COLUMNS,
+        forecast = forecast_monthly(training, value_col="price", model="ridge_seasonal", climate_cols=CLIMATE_COLUMNS,
                                     future_climate=assumptions, scenario_name=name, forecast_origin=cutoff)
         forecast["spatial_scope"] = "city_point_proxy_not_region_average"
         forecasts.append(forecast)
