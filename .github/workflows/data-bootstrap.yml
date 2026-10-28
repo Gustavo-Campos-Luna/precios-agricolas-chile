@@ -44,6 +44,7 @@ jobs:
           git add data/snapshots/
           if ! git diff --cached --quiet; then
             git commit -m 'data: preserve official 2020-2025 prices, coverage and baseline evaluation'
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
       - name: Preserve results and provenance even on failure

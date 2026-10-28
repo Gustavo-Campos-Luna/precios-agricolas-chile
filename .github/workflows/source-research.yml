@@ -6,6 +6,9 @@ on:
     paths: ['scripts/discover_monthly_api.py', 'scripts/probe_monthly.py', '.github/workflows/source-research.yml']
 permissions:
   contents: write
+concurrency:
+  group: official-monthly-research
+  cancel-in-progress: false
 jobs:
   inspect:
     runs-on: ubuntu-latest
@@ -33,6 +36,7 @@ jobs:
           fi
           if ! git diff --cached --quiet; then
             git commit -m 'research: record literal endpoints of official monthly application'
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
       - uses: actions/upload-artifact@v4
