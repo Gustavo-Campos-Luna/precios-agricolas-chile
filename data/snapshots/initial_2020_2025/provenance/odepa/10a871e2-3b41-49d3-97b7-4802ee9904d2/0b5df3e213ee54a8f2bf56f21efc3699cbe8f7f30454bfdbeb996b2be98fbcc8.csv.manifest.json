@@ -2,7 +2,7 @@
   "source": "ODEPA",
   "url": "https://datos.odepa.gob.cl/dataset/33f10516-acbe-4446-b633-68244b9b6b26/resource/10a871e2-3b41-49d3-97b7-4802ee9904d2/download/precio_mayorista_fruta-hortaliza_2023.csv",
   "path": "data/raw/odepa/10a871e2-3b41-49d3-97b7-4802ee9904d2/0b5df3e213ee54a8f2bf56f21efc3699cbe8f7f30454bfdbeb996b2be98fbcc8.csv",
-  "retrieved_at_utc": "2026-10-28T22:49:06.725218+00:00",
+  "retrieved_at_utc": "2026-10-28T23:03:09.979469+00:00",
   "sha256": "0b5df3e213ee54a8f2bf56f21efc3699cbe8f7f30454bfdbeb996b2be98fbcc8",
   "size_bytes": 41806801,
   "resource_id": "10a871e2-3b41-49d3-97b7-4802ee9904d2",

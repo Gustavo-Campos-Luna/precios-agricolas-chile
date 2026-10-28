@@ -80,6 +80,8 @@
     "missing_lag_or_training_data": 602,
     "ok": 538
   },
+  "daily_rows_with_explicit_clp_kg": 46298,
+  "daily_rows_with_explicit_clp_unit": 17230,
   "producer_maize_report_available": true,
   "origins": {
     "Región de O'Higgins": 13338,

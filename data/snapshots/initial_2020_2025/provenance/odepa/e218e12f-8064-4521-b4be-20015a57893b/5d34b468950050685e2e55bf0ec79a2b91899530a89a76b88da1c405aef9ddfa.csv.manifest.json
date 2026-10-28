@@ -2,7 +2,7 @@
   "source": "ODEPA",
   "url": "https://datos.odepa.gob.cl/dataset/33f10516-acbe-4446-b633-68244b9b6b26/resource/e218e12f-8064-4521-b4be-20015a57893b/download/precio_mayorista_fruta-hortaliza_2022.csv",
   "path": "data/raw/odepa/e218e12f-8064-4521-b4be-20015a57893b/5d34b468950050685e2e55bf0ec79a2b91899530a89a76b88da1c405aef9ddfa.csv",
-  "retrieved_at_utc": "2026-10-28T22:49:10.925460+00:00",
+  "retrieved_at_utc": "2026-10-28T23:03:14.444529+00:00",
   "sha256": "5d34b468950050685e2e55bf0ec79a2b91899530a89a76b88da1c405aef9ddfa",
   "size_bytes": 41898521,
   "resource_id": "e218e12f-8064-4521-b4be-20015a57893b",

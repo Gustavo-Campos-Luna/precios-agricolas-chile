@@ -21,6 +21,10 @@
     "source_resource_id",
     "series_id",
     "source_record",
+    "price_clp_kg",
+    "commercial_weight_kg",
+    "unit_conversion_method",
+    "price_clp_unit",
     "source_snapshot_sha256"
   ],
   "keys": [
@@ -54,6 +58,10 @@
     "source_resource_id": 0.0,
     "series_id": 0.0,
     "source_record": 0.0,
+    "price_clp_kg": 0.2712189900516308,
+    "commercial_weight_kg": 0.2802858582042564,
+    "unit_conversion_method": 0.0,
+    "price_clp_unit": 0.7287810099483693,
     "source_snapshot_sha256": 0.0
   },
   "passed": true,
