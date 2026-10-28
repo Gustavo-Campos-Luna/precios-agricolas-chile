@@ -1,0 +1,99 @@
+{
+  "application_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
+  "html_path": "data/raw/research/odepa_monthly/18e69b04dcdbabd6e25efe0c54d0c2f9f75e93739e38f0cf3e8b463d77528954.html",
+  "script_files": [
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular.min.js",
+      "path": "data/raw/research/odepa_monthly/6e7b04565d26e03469157b5f89d657289f7228071e0c74486cdcefcb9f659491.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/ui-bootstrap.min.js",
+      "path": "data/raw/research/odepa_monthly/78fae69859916574b1579717e6b988fb5fee8ffb4649cf2fef3713d4660de70f.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/ui-bootstrap-tpls.min.js",
+      "path": "data/raw/research/odepa_monthly/fed2fe0bcf783e55a40a1919f417e98f792ea3b71dd866c676d004188087de99.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-animate.min.js",
+      "path": "data/raw/research/odepa_monthly/747ae315ae0e9348c35b9ed5e920036e1d4f763955349254137538916a80ad11.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-resource.min.js",
+      "path": "data/raw/research/odepa_monthly/93035d03e6d8f300d13bdda56143d02348d7537c5aaca6712219805d8248d1a0.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-touch.min.js",
+      "path": "data/raw/research/odepa_monthly/19fb1ba0fa3e97524608976fef2927fc6735323934b8ae1d351e87bd2115e92c.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/plugins/i18n/angular-locale_es-cl.js",
+      "path": "data/raw/research/odepa_monthly/52aa889c14016ebe28b1365777e1302c9aec74646688a43cd0826461e4a110f8.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/angular-sanitize.js",
+      "path": "data/raw/research/odepa_monthly/ec3095e7033bdf467e2d440a6bbd4d3f0a1c06e6084963b804a1f7aafd052496.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/plugins/ui-select/select.min.js",
+      "path": "data/raw/research/odepa_monthly/55b07a39d6d6dd67281adaef865de2ca7d1cc1ec5a16e5a9b305cba4036ba0ff.js",
+      "discovery": "html_script_src"
+    },
+    {
+      "url": "https://aplicativos.odepa.gob.cl/resource/js/angularJS/plugins/chart/Chart.min.js",
+      "path": "data/raw/research/odepa_monthly/0c8bfcf05182aaa8efb72d416a1a2764251c71a53b4953c2dc3db64f46ed9775.js",
+      "discovery": "html_script_src"
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-328E1XKF0Z",
+      "status": "skipped_external_origin_or_non_https"
+    }
+  ],
+  "remaining_script_queue": 13,
+  "max_scripts": 10,
+  "candidates": [
+    {
+      "literal": "/resource/js/apps/controller/series-precios/series-tiempo.js",
+      "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
+      "offset": 4321,
+      "context": "type=\"text/javascript\" src=\"/resource/js/apps/app.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/controller/series-precios/series-tiempo.js\"></script>\r\n\r\n<!-- Services -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/series-precios-reposito",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/resource/js/apps/service/series-precios-repository.js",
+      "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
+      "offset": 4451,
+      "context": "series-precios/series-tiempo.js\"></script>\r\n\r\n<!-- Services -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/series-precios-repository.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/api-service-repository.js\"></script>\r\n\r\n<!--",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/resource/js/apps/service/api-service-repository.js",
+      "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
+      "offset": 4554,
+      "context": "esource/js/apps/service/series-precios-repository.js\"></script>\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/service/api-service-repository.js\"></script>\r\n\r\n<!-- Directives -->\r\n<script type=\"text/javascript\" src=\"/resource/js/apps/directive/app-print.js\"></scr",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    },
+    {
+      "literal": "/exportExcel.do",
+      "source_url": "https://aplicativos.odepa.gob.cl/series-precios/series-tiempo",
+      "offset": 5822,
+      "context": "//Cantidad de decimales\r\n\t\tvar form = document.getElementById(\"formSeriesTiempo\");\r\n\t\tform.action = \"/exportExcel.do\";\r\n\t\tform.method = \"post\";\r\n\t\tform.submit();\r\n\t}\r\n</script>\r\n<body ng-cloak ng-controller=\"seriesTiempo\" ng-init=\"init",
+      "contains_template_expression": false,
+      "status": "unverified_literal_not_called"
+    }
+  ],
+  "interpretation": "Static strings only; no API endpoint, data schema or prices verified."
+}
