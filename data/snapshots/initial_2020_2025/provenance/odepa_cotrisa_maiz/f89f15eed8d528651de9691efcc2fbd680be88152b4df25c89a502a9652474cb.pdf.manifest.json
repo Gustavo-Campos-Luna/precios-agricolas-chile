@@ -1,0 +1,11 @@
+{
+  "source": "ODEPA/Cotrisa",
+  "url": "https://www.odepa.gob.cl/wp-content/uploads/2025/05/Informe-semana-del-26-de-mayo-al-01-de-junio-2025.pdf",
+  "path": "data/raw/odepa_cotrisa_maiz/f89f15eed8d528651de9691efcc2fbd680be88152b4df25c89a502a9652474cb.pdf",
+  "retrieved_at_utc": "2026-10-28T22:49:48.046770+00:00",
+  "sha256": "f89f15eed8d528651de9691efcc2fbd680be88152b4df25c89a502a9652474cb",
+  "size_bytes": 376577,
+  "period_start": "2025-05-26",
+  "source_available_at": "2025-06-04",
+  "parser": "grains-cuadro1-2024-2025-v1"
+}

@@ -1,0 +1,281 @@
+product,market_region,unit,observations,first_date,last_date,series
+Cereza,Región Metropolitana de Santiago,$/bandeja 10 kilos,3501,2020-01-02,2025-12-31,165
+Cereza,Región Metropolitana de Santiago,$/bandeja 5 kilos,188,2020-01-03,2025-11-21,65
+Cereza,Región Metropolitana de Santiago,$/bandeja 6 kilos,6,2020-11-17,2022-11-02,6
+Cereza,Región Metropolitana de Santiago,$/bandeja 7 kilos,3,2020-11-06,2020-11-13,2
+Cereza,Región Metropolitana de Santiago,$/bandeja 8 kilos,23,2020-12-04,2025-11-10,13
+Cereza,Región Metropolitana de Santiago,$/caja 10 kilos,38,2020-11-26,2022-01-07,25
+Cereza,Región Metropolitana de Santiago,$/caja 12 kilos,8,2020-12-11,2021-12-02,8
+Cereza,Región Metropolitana de Santiago,$/caja 14 kilos,15,2020-01-14,2020-01-24,6
+Cereza,Región Metropolitana de Santiago,$/caja 15 kilos,780,2020-11-17,2025-11-28,104
+Cereza,Región Metropolitana de Santiago,$/caja 18 kilos,148,2020-01-02,2025-12-17,49
+Cereza,Región Metropolitana de Santiago,$/caja 20 kilos,12,2020-01-07,2021-12-03,9
+Cereza,Región Metropolitana de Santiago,$/caja 5 kilos,6,2020-01-20,2024-01-16,4
+Cereza,Región Metropolitana de Santiago,$/caja 7 kilos,1,2021-11-09,2021-11-09,1
+Cereza,Región Metropolitana de Santiago,$/caja 8 kilos,1,2021-11-18,2021-11-18,1
+Cereza,Región Metropolitana de Santiago,$/kilo (en caja de 15 kilos),97,2020-11-30,2025-12-02,31
+Cereza,Región de Arica y Parinacota,$/bandeja 10 kilos,41,2021-12-27,2025-12-19,21
+Cereza,Región de Arica y Parinacota,$/bandeja 12 kilos,8,2020-11-13,2025-10-27,4
+Cereza,Región de Arica y Parinacota,$/bandeja 3 kilos,1,2023-01-03,2023-01-03,1
+Cereza,Región de Arica y Parinacota,$/bandeja 5 kilos,10,2020-01-09,2025-11-06,8
+Cereza,Región de Arica y Parinacota,$/bandeja 6 kilos,1,2023-01-03,2023-01-03,1
+Cereza,Región de Arica y Parinacota,$/caja 10 kilos,9,2022-12-13,2025-12-11,6
+Cereza,Región de Arica y Parinacota,$/caja 15 kilos,4,2022-12-06,2023-12-15,3
+Cereza,Región de Arica y Parinacota,$/caja 18 kilos,11,2020-12-10,2024-12-12,8
+Cereza,Región de Arica y Parinacota,$/caja 20 kilos,4,2020-01-16,2023-12-12,3
+Cereza,Región de Arica y Parinacota,$/caja 8 kilos,1,2024-01-03,2024-01-03,1
+Cereza,Región de Arica y Parinacota,$/kilo (en caja de 18 kilos),2,2024-01-10,2024-01-10,2
+Cereza,Región de Coquimbo,$/bandeja 10 kilos,1841,2020-01-07,2025-12-30,92
+Cereza,Región de Coquimbo,$/bandeja 5 kilos,13,2020-01-14,2022-11-16,11
+Cereza,Región de Coquimbo,$/caja 10 kilos,6,2021-12-27,2021-12-30,3
+Cereza,Región de Coquimbo,$/caja 14 kilos,7,2020-01-15,2020-01-17,4
+Cereza,Región de Coquimbo,$/caja 15 kilos,222,2020-11-26,2024-12-11,59
+Cereza,Región de Coquimbo,$/caja 18 kilos,2,2020-01-03,2020-01-03,2
+Cereza,Región de Coquimbo,$/caja 5 kilos,3,2020-01-21,2022-11-15,3
+Cereza,Región de La Araucanía,$/bandeja 10 kilos,213,2020-01-16,2025-12-31,35
+Cereza,Región de La Araucanía,$/bandeja 5 kilos,46,2020-01-06,2025-10-30,17
+Cereza,Región de La Araucanía,$/bandeja 6 kilos,4,2020-11-13,2022-01-11,4
+Cereza,Región de La Araucanía,$/bandeja 7 kilos,1,2020-12-17,2020-12-17,1
+Cereza,Región de La Araucanía,$/bandeja 8 kilos,1,2023-11-16,2023-11-16,1
+Cereza,Región de La Araucanía,$/caja 10 kilos,7,2020-01-09,2022-01-20,5
+Cereza,Región de La Araucanía,$/caja 12 kilos,2,2021-11-24,2021-11-26,1
+Cereza,Región de La Araucanía,$/caja 18 kilos,6,2022-01-20,2022-12-27,3
+Cereza,Región de La Araucanía,$/caja 20 kilos,1,2021-12-16,2021-12-16,1
+Cereza,Región de La Araucanía,$/caja 8 kilos,1,2023-11-16,2023-11-16,1
+Cereza,Región de La Araucanía,$/kilo (en bandeja de 10 kilos),1,2025-12-11,2025-12-11,1
+Cereza,Región de La Araucanía,$/kilo (en bandeja de 18 kilos),51,2025-11-20,2025-12-31,11
+Cereza,Región de La Araucanía,$/kilo (en caja de 15 kilos),525,2020-01-03,2025-12-05,66
+Cereza,Región de Los Lagos,$/bandeja 10 kilos,180,2020-01-03,2025-12-19,14
+Cereza,Región de Los Lagos,$/bandeja 3 kilos,4,2025-01-21,2025-01-31,1
+Cereza,Región de Los Lagos,$/bandeja 5 kilos,24,2020-11-06,2025-01-17,6
+Cereza,Región de Los Lagos,$/bandeja 7 kilos,4,2020-11-20,2020-11-27,1
+Cereza,Región de Los Lagos,$/bandeja 8 kilos,6,2021-12-06,2022-12-02,3
+Cereza,Región de Los Lagos,$/caja 15 kilos,2,2021-11-30,2021-12-02,1
+Cereza,Región de Los Lagos,$/caja 7 kilos,9,2021-01-12,2021-01-26,3
+Cereza,Región de Los Lagos,$/caja 8 kilos,8,2020-12-22,2021-12-17,3
+Cereza,Región de Valparaíso,$/bandeja 10 kilos,1458,2020-01-02,2025-12-31,68
+Cereza,Región de Valparaíso,$/bandeja 3 kilos,2,2025-10-27,2025-10-27,2
+Cereza,Región de Valparaíso,$/bandeja 5 kilos,57,2020-11-09,2025-11-04,25
+Cereza,Región de Valparaíso,$/bandeja 8 kilos,1,2025-10-30,2025-10-30,1
+Cereza,Región de Valparaíso,$/caja 10 kilos,1,2021-10-25,2021-10-25,1
+Cereza,Región de Valparaíso,$/kilo (en caja de 15 kilos),199,2020-10-28,2025-12-19,29
+Cereza,Región de Ñuble,$/bandeja 10 kilos,437,2020-01-13,2025-12-31,31
+Cereza,Región de Ñuble,$/caja 10 kilos,66,2020-01-02,2021-12-20,12
+Cereza,Región del Biobío,$/bandeja 10 kilos,343,2020-01-07,2025-12-31,38
+Cereza,Región del Biobío,$/bandeja 5 kilos,8,2020-01-15,2022-11-15,6
+Cereza,Región del Biobío,$/bandeja 7 kilos,1,2021-11-24,2021-11-24,1
+Cereza,Región del Biobío,$/caja 10 kilos,161,2020-01-02,2024-12-03,41
+Cereza,Región del Biobío,$/caja 15 kilos,3,2021-12-02,2022-01-18,3
+Cereza,Región del Biobío,$/kilo (en caja de 15 kilos),1,2021-11-11,2021-11-11,1
+Cereza,Región del Maule,$/bandeja 10 kilos,559,2020-11-26,2025-12-31,28
+Cereza,Región del Maule,$/bandeja 5 kilos,14,2020-01-07,2025-01-03,9
+Cereza,Región del Maule,$/bandeja 7 kilos,3,2021-11-11,2021-12-02,3
+Cereza,Región del Maule,$/caja 10 kilos,131,2020-01-03,2022-01-07,20
+Cereza,Región del Maule,$/caja 15 kilos,4,2021-11-17,2021-11-25,3
+Cereza,Región del Maule,$/kilo (en caja de 15 kilos),5,2021-11-09,2021-11-12,3
+Choclo,Región Metropolitana de Santiago,$/caja 50 unidades,57,2020-07-29,2025-10-10,2
+Choclo,Región Metropolitana de Santiago,$/malla 100 unidades,57,2020-06-22,2025-09-15,3
+Choclo,Región Metropolitana de Santiago,$/malla 30 unidades,42,2020-05-27,2024-11-18,2
+Choclo,Región Metropolitana de Santiago,$/malla 50 unidades,145,2020-04-13,2025-11-17,4
+Choclo,Región Metropolitana de Santiago,$/malla 60 unidades,365,2020-03-30,2025-11-27,6
+Choclo,Región Metropolitana de Santiago,$/malla 70 unidades,564,2020-04-06,2025-07-30,7
+Choclo,Región Metropolitana de Santiago,$/unidad,3864,2020-01-02,2025-12-31,58
+Choclo,Región de Arica y Parinacota,$/malla 100 unidades,205,2020-01-03,2025-12-26,3
+Choclo,Región de Arica y Parinacota,$/malla 50 unidades,26,2020-01-10,2024-11-08,1
+Choclo,Región de Arica y Parinacota,$/malla 70 unidades,319,2020-01-03,2025-12-26,3
+Choclo,Región de Arica y Parinacota,$/saco 100 unidades,717,2020-01-13,2025-12-30,5
+Choclo,Región de Arica y Parinacota,$/saco 150 unidades,69,2020-02-21,2025-05-22,2
+Choclo,Región de Arica y Parinacota,$/saco 200 unidades,55,2020-02-20,2025-05-22,3
+Choclo,Región de Arica y Parinacota,$/saco 50 unidades,626,2020-01-03,2025-12-30,2
+Choclo,Región de Arica y Parinacota,$/saco 75 unidades,672,2020-01-03,2025-12-30,2
+Choclo,Región de Coquimbo,$/malla 100 unidades,154,2020-12-04,2025-11-27,3
+Choclo,Región de Coquimbo,$/malla 50 unidades,10,2022-01-10,2025-05-28,2
+Choclo,Región de Coquimbo,$/malla 60 unidades,75,2021-06-08,2025-12-30,4
+Choclo,Región de Coquimbo,$/malla 70 unidades,924,2020-06-15,2025-12-24,4
+Choclo,Región de Coquimbo,$/unidad,1234,2020-01-02,2025-12-31,13
+Choclo,Región de La Araucanía,$/caja 50 unidades,1,2025-10-20,2025-10-20,1
+Choclo,Región de La Araucanía,$/cien,1,2023-03-30,2023-03-30,1
+Choclo,Región de La Araucanía,$/malla 50 unidades,69,2020-10-15,2025-11-20,5
+Choclo,Región de La Araucanía,$/malla 70 unidades,301,2020-05-07,2025-12-18,5
+Choclo,Región de La Araucanía,$/saco 100 unidades,5,2023-04-03,2025-04-17,1
+Choclo,Región de La Araucanía,$/saco 50 unidades,1,2025-08-25,2025-08-25,1
+Choclo,Región de La Araucanía,$/unidad,1057,2020-01-02,2025-12-31,19
+Choclo,Región de Los Lagos,$/malla 100 unidades,1,2023-04-06,2023-04-06,1
+Choclo,Región de Los Lagos,$/malla 30 unidades,1,2020-12-11,2020-12-11,1
+Choclo,Región de Los Lagos,$/malla 50 unidades,2,2025-11-18,2025-11-21,1
+Choclo,Región de Los Lagos,$/malla 60 unidades,171,2020-04-30,2025-11-21,3
+Choclo,Región de Los Lagos,$/malla 70 unidades,127,2020-01-10,2025-12-19,5
+Choclo,Región de Los Lagos,$/unidad,733,2020-01-03,2025-12-19,16
+Choclo,Región de Valparaíso,$/malla 100 unidades,4,2022-09-12,2023-11-10,1
+Choclo,Región de Valparaíso,$/malla 50 unidades,11,2020-11-12,2025-11-24,1
+Choclo,Región de Valparaíso,$/malla 60 unidades,108,2020-06-01,2025-06-12,2
+Choclo,Región de Valparaíso,$/malla 70 unidades,580,2020-05-27,2025-12-05,4
+Choclo,Región de Valparaíso,$/unidad,1926,2020-01-02,2025-12-31,35
+Choclo,Región de Ñuble,$/malla 50 unidades,1,2023-11-27,2023-11-27,1
+Choclo,Región de Ñuble,$/malla 60 unidades,17,2021-11-17,2025-11-13,2
+Choclo,Región de Ñuble,$/malla 70 unidades,117,2020-05-13,2025-11-25,3
+Choclo,Región de Ñuble,$/unidad,619,2020-01-02,2025-12-31,17
+Choclo,Región del Biobío,$/malla 50 unidades,9,2021-05-18,2025-07-18,2
+Choclo,Región del Biobío,$/malla 60 unidades,30,2021-05-11,2025-11-12,2
+Choclo,Región del Biobío,$/malla 70 unidades,75,2020-07-09,2025-11-26,4
+Choclo,Región del Biobío,$/unidad,369,2020-01-02,2025-12-31,10
+Choclo,Región del Maule,$/malla 50 unidades,2,2022-05-31,2022-06-17,2
+Choclo,Región del Maule,$/malla 60 unidades,10,2021-07-06,2024-06-26,3
+Choclo,Región del Maule,$/malla 70 unidades,2,2022-07-12,2022-07-19,1
+Choclo,Región del Maule,$/unidad,700,2020-01-02,2025-12-31,5
+Poroto granado,Región Metropolitana de Santiago,$/caja 15 kilos,98,2020-01-14,2025-12-09,11
+Poroto granado,Región Metropolitana de Santiago,$/caja 25 kilos,20,2021-11-25,2025-12-09,5
+Poroto granado,Región Metropolitana de Santiago,$/malla 25 kilos,438,2020-01-03,2025-12-31,24
+Poroto granado,Región Metropolitana de Santiago,$/saco 25 kilos,1869,2020-01-02,2025-12-31,28
+Poroto granado,Región de Arica y Parinacota,$/kilo,27,2020-04-17,2025-10-03,1
+Poroto granado,Región de Coquimbo,$/caja 15 kilos,100,2020-11-24,2025-12-30,2
+Poroto granado,Región de Coquimbo,$/caja 25 kilos,2,2025-11-04,2025-11-05,1
+Poroto granado,Región de Coquimbo,$/malla 25 kilos,562,2020-01-03,2025-12-31,5
+Poroto granado,Región de La Araucanía,$/kilo,5,2020-11-13,2025-12-15,2
+Poroto granado,Región de La Araucanía,$/malla 30 kilos,1,2021-10-28,2021-10-28,1
+Poroto granado,Región de La Araucanía,$/saco 25 kilos,217,2020-01-03,2025-12-29,6
+Poroto granado,Región de Los Lagos,$/saco 25 kilos,152,2020-01-07,2025-12-12,4
+Poroto granado,Región de Valparaíso,$/malla 25 kilos,228,2020-01-06,2025-11-17,6
+Poroto granado,Región de Valparaíso,$/saco 25 kilos,412,2020-01-07,2025-12-31,7
+Poroto granado,Región de Ñuble,$/saco 25 kilos,277,2020-01-03,2025-12-30,7
+Poroto granado,Región del Biobío,$/saco 25 kilos,171,2020-01-09,2025-12-31,6
+Poroto granado,Región del Maule,$/malla 25 kilos,1,2020-02-14,2020-02-14,1
+Poroto granado,Región del Maule,$/saco 25 kilos,438,2020-01-02,2025-12-30,2
+Poroto verde,Región Metropolitana de Santiago,$/caja 25 kilos,100,2020-01-24,2025-07-15,14
+Poroto verde,Región Metropolitana de Santiago,$/malla 25 kilos,2954,2020-01-02,2025-12-31,48
+Poroto verde,Región Metropolitana de Santiago,$/saco 25 kilos,1923,2020-01-03,2025-12-31,37
+Poroto verde,Región de Arica y Parinacota,$/kilo,288,2020-01-10,2025-12-31,5
+Poroto verde,Región de Arica y Parinacota,$/malla 25 kilos,35,2020-05-06,2025-09-17,3
+Poroto verde,Región de Coquimbo,$/caja 25 kilos,131,2021-09-21,2025-11-19,4
+Poroto verde,Región de Coquimbo,$/malla 25 kilos,1632,2020-01-03,2025-12-31,11
+Poroto verde,Región de La Araucanía,$/kilo,231,2020-01-23,2025-12-30,8
+Poroto verde,Región de La Araucanía,$/malla 25 kilos,278,2020-04-08,2025-11-21,11
+Poroto verde,Región de La Araucanía,$/saco 25 kilos,86,2020-01-03,2025-12-30,5
+Poroto verde,Región de Los Lagos,$/malla 25 kilos,262,2020-03-20,2025-12-09,7
+Poroto verde,Región de Los Lagos,$/saco 25 kilos,175,2020-01-07,2025-12-16,5
+Poroto verde,Región de Valparaíso,$/malla 25 kilos,1519,2020-01-02,2025-12-31,19
+Poroto verde,Región de Valparaíso,$/malla 30 kilos,4,2020-06-05,2025-06-19,2
+Poroto verde,Región de Valparaíso,$/saco 25 kilos,71,2021-03-08,2023-12-28,10
+Poroto verde,Región de Ñuble,$/kilo,18,2020-07-02,2025-12-19,5
+Poroto verde,Región de Ñuble,$/malla 25 kilos,140,2020-05-04,2025-12-05,10
+Poroto verde,Región de Ñuble,$/saco 25 kilos,236,2020-01-06,2025-12-30,12
+Poroto verde,Región del Biobío,$/malla 25 kilos,103,2020-01-28,2025-12-11,11
+Poroto verde,Región del Biobío,$/saco 25 kilos,132,2020-01-09,2025-12-11,7
+Poroto verde,Región del Maule,$/kilo,7,2020-03-02,2024-11-21,2
+Poroto verde,Región del Maule,$/malla 25 kilos,162,2020-01-28,2025-10-27,7
+Poroto verde,Región del Maule,$/saco 25 kilos,335,2020-01-03,2025-12-24,7
+Uva,Región Metropolitana de Santiago,$/bandeja 10 kilos,669,2020-01-03,2025-12-31,120
+Uva,Región Metropolitana de Santiago,$/bandeja 12 kilos,212,2020-01-13,2025-06-19,44
+Uva,Región Metropolitana de Santiago,$/bandeja 13 kilos,26,2020-02-04,2025-02-04,16
+Uva,Región Metropolitana de Santiago,$/bandeja 18 kilos,4431,2020-01-30,2025-12-29,262
+Uva,Región Metropolitana de Santiago,$/bandeja 5 kilos,10,2020-04-07,2025-11-04,4
+Uva,Región Metropolitana de Santiago,$/bandeja 7 kilos,4,2020-05-11,2024-04-02,4
+Uva,Región Metropolitana de Santiago,$/bandeja 8 kilos,889,2020-01-08,2025-12-31,84
+Uva,Región Metropolitana de Santiago,$/bandeja 9 kilos,65,2020-01-08,2025-05-27,17
+Uva,Región Metropolitana de Santiago,$/caja 10 kilos,35,2020-04-28,2025-03-13,18
+Uva,Región Metropolitana de Santiago,$/caja 12 kilos,14,2020-03-17,2022-04-28,9
+Uva,Región Metropolitana de Santiago,$/caja 13 kilos,1,2022-03-03,2022-03-03,1
+Uva,Región Metropolitana de Santiago,$/caja 14 kilos,8,2020-01-22,2022-02-24,7
+Uva,Región Metropolitana de Santiago,$/caja 15 kilos,107,2020-01-03,2025-06-27,52
+Uva,Región Metropolitana de Santiago,$/caja 16 kilos,31,2020-01-23,2024-01-10,22
+Uva,Región Metropolitana de Santiago,$/caja 17 kilos,10,2020-02-26,2022-02-15,10
+Uva,Región Metropolitana de Santiago,$/caja 18 kilos,322,2020-01-07,2025-03-21,95
+Uva,Región Metropolitana de Santiago,$/caja 20 kilos,87,2020-01-07,2025-03-28,43
+Uva,Región Metropolitana de Santiago,$/caja 23 kilos,135,2020-01-23,2025-05-02,28
+Uva,Región Metropolitana de Santiago,$/caja 25 kilos,32,2020-01-21,2025-05-06,18
+Uva,Región Metropolitana de Santiago,$/caja 8 kilos,7,2020-02-19,2024-01-22,5
+Uva,Región de Arica y Parinacota,$/bandeja 10 kilos,26,2020-01-09,2025-01-16,15
+Uva,Región de Arica y Parinacota,$/bandeja 12 kilos,3,2022-03-09,2024-02-14,1
+Uva,Región de Arica y Parinacota,$/bandeja 18 kilos,184,2020-05-06,2025-04-25,45
+Uva,Región de Arica y Parinacota,$/bandeja 8 kilos,1,2020-07-02,2020-07-02,1
+Uva,Región de Arica y Parinacota,$/bandeja 9 kilos,2,2022-12-28,2022-12-28,2
+Uva,Región de Arica y Parinacota,$/caja 10 kilos,7,2021-06-30,2025-02-24,6
+Uva,Región de Arica y Parinacota,$/caja 12 kilos,5,2022-02-23,2023-11-10,4
+Uva,Región de Arica y Parinacota,$/caja 13 kilos,2,2023-12-13,2024-01-09,2
+Uva,Región de Arica y Parinacota,$/caja 16 kilos,2,2021-01-20,2021-01-26,2
+Uva,Región de Arica y Parinacota,$/caja 18 kilos,76,2020-01-08,2023-04-26,19
+Uva,Región de Arica y Parinacota,$/caja 20 kilos,62,2020-01-15,2025-12-31,25
+Uva,Región de Arica y Parinacota,$/caja 23 kilos,2,2020-04-08,2023-03-23,2
+Uva,Región de Arica y Parinacota,$/caja 25 kilos,13,2022-01-25,2025-04-09,11
+Uva,Región de Coquimbo,$/bandeja 10 kilos,192,2020-03-11,2025-12-26,26
+Uva,Región de Coquimbo,$/bandeja 12 kilos,23,2022-05-25,2025-05-07,3
+Uva,Región de Coquimbo,$/bandeja 18 kilos,791,2020-03-11,2025-12-30,28
+Uva,Región de Coquimbo,$/bandeja 8 kilos,9,2020-12-16,2025-12-16,5
+Uva,Región de Coquimbo,$/bandeja 9 kilos,1,2024-11-27,2024-11-27,1
+Uva,Región de Coquimbo,$/caja 10 kilos,1,2020-12-22,2020-12-22,1
+Uva,Región de Coquimbo,$/caja 15 kilos,12,2021-01-12,2022-01-28,5
+Uva,Región de Coquimbo,$/caja 18 kilos,25,2020-03-03,2025-06-04,9
+Uva,Región de Coquimbo,$/caja 25 kilos,1,2020-02-24,2020-02-24,1
+Uva,Región de La Araucanía,$/bandeja 10 kilos,809,2020-01-07,2025-12-26,70
+Uva,Región de La Araucanía,$/bandeja 12 kilos,16,2022-01-11,2025-01-23,7
+Uva,Región de La Araucanía,$/bandeja 13 kilos,7,2021-03-08,2025-04-28,4
+Uva,Región de La Araucanía,$/bandeja 18 kilos,1373,2020-01-15,2025-12-18,56
+Uva,Región de La Araucanía,$/bandeja 5 kilos,19,2020-04-16,2025-07-31,9
+Uva,Región de La Araucanía,$/bandeja 6 kilos,2,2023-05-08,2023-07-17,1
+Uva,Región de La Araucanía,$/bandeja 8 kilos,727,2020-01-20,2025-12-30,41
+Uva,Región de La Araucanía,$/bandeja 9 kilos,155,2020-04-27,2025-12-31,22
+Uva,Región de La Araucanía,$/caja 10 kilos,44,2020-12-16,2025-12-29,10
+Uva,Región de La Araucanía,$/caja 12 kilos,22,2020-12-29,2025-04-24,8
+Uva,Región de La Araucanía,$/caja 13 kilos,1,2020-01-09,2020-01-09,1
+Uva,Región de La Araucanía,$/caja 15 kilos,142,2020-01-13,2025-07-03,23
+Uva,Región de La Araucanía,$/caja 18 kilos,15,2020-01-06,2025-04-01,9
+Uva,Región de La Araucanía,$/caja 20 kilos,46,2020-01-30,2025-01-16,10
+Uva,Región de La Araucanía,$/caja 23 kilos,4,2020-05-06,2025-04-30,1
+Uva,Región de La Araucanía,$/caja 25 kilos,13,2020-02-06,2025-05-08,3
+Uva,Región de La Araucanía,$/caja 8 kilos,18,2020-02-06,2025-12-31,10
+Uva,Región de Los Lagos,$/bandeja 10 kilos,107,2020-01-03,2024-12-19,13
+Uva,Región de Los Lagos,$/bandeja 12 kilos,74,2020-03-27,2025-11-28,12
+Uva,Región de Los Lagos,$/bandeja 18 kilos,158,2020-02-18,2025-06-12,7
+Uva,Región de Los Lagos,$/bandeja 5 kilos,1,2020-11-24,2020-11-24,1
+Uva,Región de Los Lagos,$/bandeja 8 kilos,134,2020-05-12,2025-12-19,18
+Uva,Región de Los Lagos,$/caja 10 kilos,2,2020-01-24,2020-01-24,2
+Uva,Región de Los Lagos,$/caja 12 kilos,3,2023-03-03,2023-03-10,1
+Uva,Región de Los Lagos,$/caja 14 kilos,3,2020-02-18,2020-02-28,1
+Uva,Región de Los Lagos,$/caja 15 kilos,103,2021-01-08,2022-02-04,14
+Uva,Región de Los Lagos,$/caja 18 kilos,200,2020-01-10,2025-02-07,11
+Uva,Región de Los Lagos,$/caja 20 kilos,63,2022-02-08,2023-01-27,6
+Uva,Región de Valparaíso,$/bandeja 10 kilos,735,2020-01-02,2025-12-31,20
+Uva,Región de Valparaíso,$/bandeja 12 kilos,94,2021-02-22,2025-06-05,15
+Uva,Región de Valparaíso,$/bandeja 13 kilos,20,2020-01-06,2023-06-19,6
+Uva,Región de Valparaíso,$/bandeja 18 kilos,394,2024-03-25,2025-06-11,12
+Uva,Región de Valparaíso,$/bandeja 8 kilos,325,2020-04-30,2025-12-31,13
+Uva,Región de Valparaíso,$/bandeja 9 kilos,33,2020-12-24,2025-11-27,6
+Uva,Región de Valparaíso,$/caja 10 kilos,67,2020-01-20,2025-01-27,12
+Uva,Región de Valparaíso,$/caja 12 kilos,44,2020-12-03,2023-03-01,11
+Uva,Región de Valparaíso,$/caja 13 kilos,19,2020-01-14,2025-04-10,4
+Uva,Región de Valparaíso,$/caja 14 kilos,9,2022-08-18,2022-09-02,1
+Uva,Región de Valparaíso,$/caja 15 kilos,977,2020-01-09,2025-02-28,34
+Uva,Región de Valparaíso,$/caja 18 kilos,284,2020-02-10,2025-05-09,14
+Uva,Región de Valparaíso,$/caja 20 kilos,16,2020-01-06,2024-03-07,2
+Uva,Región de Valparaíso,$/caja 23 kilos,88,2020-01-16,2023-06-09,9
+Uva,Región de Valparaíso,$/caja 25 kilos,3,2020-01-23,2020-01-27,2
+Uva,Región de Valparaíso,$/caja 8 kilos,9,2020-11-30,2023-06-29,5
+Uva,Región de Ñuble,$/bandeja 10 kilos,97,2020-01-03,2025-12-26,14
+Uva,Región de Ñuble,$/bandeja 18 kilos,464,2020-05-04,2025-06-18,29
+Uva,Región de Ñuble,$/bandeja 8 kilos,77,2020-04-30,2025-12-31,7
+Uva,Región de Ñuble,$/caja 18 kilos,31,2020-03-03,2023-06-23,6
+Uva,Región de Ñuble,$/caja 20 kilos,17,2020-01-31,2020-02-28,5
+Uva,Región de Ñuble,$/caja 25 kilos,1,2020-03-02,2020-03-02,1
+Uva,Región del Biobío,$/bandeja 10 kilos,74,2020-01-10,2025-11-27,15
+Uva,Región del Biobío,$/bandeja 18 kilos,484,2020-02-11,2025-05-29,31
+Uva,Región del Biobío,$/bandeja 8 kilos,39,2021-08-13,2025-12-31,9
+Uva,Región del Biobío,$/caja 10 kilos,5,2020-01-30,2024-02-22,4
+Uva,Región del Biobío,$/caja 15 kilos,6,2020-01-29,2024-05-31,3
+Uva,Región del Biobío,$/caja 17 kilos,1,2021-01-19,2021-01-19,1
+Uva,Región del Biobío,$/caja 18 kilos,6,2020-03-04,2025-03-05,4
+Uva,Región del Biobío,$/caja 20 kilos,13,2020-02-13,2020-03-26,7
+Uva,Región del Maule,$/bandeja 10 kilos,258,2020-01-03,2025-12-12,17
+Uva,Región del Maule,$/bandeja 12 kilos,15,2020-01-21,2023-01-06,5
+Uva,Región del Maule,$/bandeja 13 kilos,2,2021-04-08,2021-12-27,2
+Uva,Región del Maule,$/bandeja 18 kilos,977,2020-04-22,2025-07-10,50
+Uva,Región del Maule,$/bandeja 5 kilos,3,2020-02-24,2021-05-14,3
+Uva,Región del Maule,$/bandeja 7 kilos,1,2020-09-07,2020-09-07,1
+Uva,Región del Maule,$/bandeja 8 kilos,208,2020-06-02,2025-12-31,23
+Uva,Región del Maule,$/bandeja 9 kilos,17,2022-01-04,2022-01-18,5
+Uva,Región del Maule,$/caja 10 kilos,3,2020-03-19,2021-01-28,3
+Uva,Región del Maule,$/caja 12 kilos,17,2020-03-02,2023-03-27,6
+Uva,Región del Maule,$/caja 13 kilos,16,2020-03-31,2023-04-18,4
+Uva,Región del Maule,$/caja 14 kilos,4,2020-03-16,2023-04-10,3
+Uva,Región del Maule,$/caja 15 kilos,13,2020-01-23,2024-05-30,7
+Uva,Región del Maule,$/caja 18 kilos,106,2020-02-25,2022-03-24,22
+Uva,Región del Maule,$/caja 20 kilos,27,2020-01-24,2020-02-21,11

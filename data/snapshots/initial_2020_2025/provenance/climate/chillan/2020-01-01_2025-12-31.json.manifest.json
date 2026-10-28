@@ -1,0 +1,15 @@
+{
+  "source": "nasa_power",
+  "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MIN%2CT2M_MAX%2CPRECTOTCORR&community=AG&latitude=-36.6066&longitude=-72.1034&start=20200101&end=20251231&format=JSON&time-standard=UTC",
+  "path": "data/raw/climate/chillan/2020-01-01_2025-12-31.json",
+  "retrieved_at_utc": "2026-10-28T22:49:27.736579+00:00",
+  "sha256": "7d48d207bbf514d77578537bc22cd40d59154e541c74308717d53462d0cccd24",
+  "size_bytes": 143790,
+  "location_id": "chillan",
+  "latitude": -36.6066,
+  "longitude": -72.1034,
+  "start": "2020-01-01",
+  "end": "2025-12-31",
+  "time_standard": "UTC",
+  "spatial_scope": "grid_point_proxy"
+}

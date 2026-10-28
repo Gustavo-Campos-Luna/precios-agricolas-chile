@@ -1,0 +1,13 @@
+{
+  "source": "ODEPA",
+  "url": "https://datos.odepa.gob.cl/dataset/33f10516-acbe-4446-b633-68244b9b6b26/resource/a9e084df-9dac-4aee-b935-66a3f8b20504/download/precio_mayorista_fruta-hortaliza_2021.csv",
+  "path": "data/raw/odepa/a9e084df-9dac-4aee-b935-66a3f8b20504/28d7215cb1fe7bcf3f3d841acc0cd3988183e6f0b3aa2b1a9cfe61c8298bef7a.csv",
+  "retrieved_at_utc": "2026-10-28T22:49:15.439238+00:00",
+  "sha256": "28d7215cb1fe7bcf3f3d841acc0cd3988183e6f0b3aa2b1a9cfe61c8298bef7a",
+  "size_bytes": 43459998,
+  "resource_id": "a9e084df-9dac-4aee-b935-66a3f8b20504",
+  "resource_name": "Precios mayoristas de fruta y hortaliza año 2021",
+  "resource_last_modified": "2026-04-21T17:37:33.307596",
+  "license": "cc-by",
+  "complete_resource": true
+}

@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "accepted_rows": 63528,
+  "quarantine_rows": 51,
+  "input_files": [
+    "data/processed/prices/10a871e2-3b41-49d3-97b7-4802ee9904d2_0b5df3e213ee.csv",
+    "data/processed/prices/11b8b84f-f409-4fa8-9764-2c874e703cc3_c55955b9135a.csv",
+    "data/processed/prices/50c9762d-e2db-4c25-9c8c-64551e7e6fea_60d7b2fa3642.csv",
+    "data/processed/prices/92353fad-463e-4e85-a3ff-accb0286d0c5_fc7c7e30de9d.csv",
+    "data/processed/prices/a9e084df-9dac-4aee-b935-66a3f8b20504_28d7215cb1fe.csv",
+    "data/processed/prices/e218e12f-8064-4521-b4be-20015a57893b_5d34b4689500.csv"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "source": "nasa_power",
+  "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MIN%2CT2M_MAX%2CPRECTOTCORR&community=AG&latitude=-34.1708&longitude=-70.7444&start=20200101&end=20251231&format=JSON&time-standard=UTC",
+  "path": "data/raw/climate/rancagua/2020-01-01_2025-12-31.json",
+  "retrieved_at_utc": "2026-10-28T22:49:26.493925+00:00",
+  "sha256": "fa1df0bd29b4df6fcda8135469da56a30a2f181a97a239d02f1ae7fde20f177e",
+  "size_bytes": 144022,
+  "location_id": "rancagua",
+  "latitude": -34.1708,
+  "longitude": -70.7444,
+  "start": "2020-01-01",
+  "end": "2025-12-31",
+  "time_standard": "UTC",
+  "spatial_scope": "grid_point_proxy"
+}
