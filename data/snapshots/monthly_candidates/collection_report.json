@@ -1,0 +1,87 @@
+{
+  "catalog_requested_start": "1975-01-01T00:00:00.000Z",
+  "catalog_requested_end": "2026-09-01T00:00:00.000Z",
+  "scope": "metadata-verified monthly queries; product-specific observed coverage pending parsing",
+  "queries": [
+    {
+      "target": {
+        "name": "poroto_tortola_minorista_1kg",
+        "market_id": 7,
+        "group_id": 12,
+        "product_id": 370,
+        "market_level": "retail",
+        "expected_label": "Poroto Tórtola"
+      },
+      "observed_metadata": {
+        "type": "target_product",
+        "market_id": 7,
+        "group_id": 12,
+        "record": {
+          "id": 370,
+          "glosa": "Poroto Tórtola",
+          "visible": true,
+          "marcaPropia": false,
+          "listar": true,
+          "glosaFull": "Poroto Tórtola $/kilo (en envase de 1 kilo)"
+        }
+      },
+      "form": {
+        "periodoInicio": "1975-01-01T00:00:00.000Z",
+        "periodoTermino": "2026-09-01T00:00:00.000Z",
+        "tipoConsulta": "nominal",
+        "idIPC": null,
+        "tipoMercado": 7,
+        "tipoSalida": "SA",
+        "precioConIva": false,
+        "subSector": 12,
+        "producto": 370
+      },
+      "requested_tax_flag": false,
+      "geography_status": "not_inferred_from_application_name",
+      "status": "failed",
+      "error": {
+        "type": "RuntimeError",
+        "message": "ODEPA monthly price lookup returned HTTP 500"
+      }
+    },
+    {
+      "target": {
+        "name": "maiz_amarillo_fob_argentino",
+        "market_id": 5,
+        "subsector_id": 1,
+        "product_id": 315,
+        "market_level": "international_reference",
+        "expected_label": "Maíz Amarillo"
+      },
+      "observed_metadata": {
+        "type": "target_product",
+        "market_id": 5,
+        "subsector_id": 1,
+        "record": {
+          "id": 315,
+          "codigo": "18132532999761111851",
+          "producto": "Maíz Amarillo, FOB Puerto Argentino | US$/tonelada",
+          "sis_pro_uni_cod": 76
+        }
+      },
+      "form": {
+        "periodoInicio": "1975-01-01T00:00:00.000Z",
+        "periodoTermino": "2026-09-01T00:00:00.000Z",
+        "tipoConsulta": "nominal",
+        "idIPC": null,
+        "tipoMercado": 5,
+        "tipoSalida": "SA",
+        "precioConIva": false,
+        "subSector": 1,
+        "producto": 315
+      },
+      "requested_tax_flag": false,
+      "geography_status": "not_inferred_from_application_name",
+      "status": "failed",
+      "error": {
+        "type": "RuntimeError",
+        "message": "ODEPA monthly price lookup returned HTTP 500"
+      }
+    }
+  ]
+}
