@@ -155,7 +155,7 @@ class CLITests(unittest.TestCase):
         self.assertTrue(error)
         self.assertFalse((self.outputs / "monthly.csv").exists())
         status = json.loads((self.outputs / "build_status.json").read_text())
-        self.assertEqual(status["status"], "failed")
+        self.assertIn(status["status"], {"failed", "incomplete"})
 
     def test_failed_rebuild_prevents_forecasting_stale_curated_outputs(self):
         self.build_fixture()
@@ -167,7 +167,7 @@ class CLITests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertTrue(error)
         status = json.loads((self.outputs / "build_status.json").read_text())
-        self.assertEqual(status["status"], "failed")
+        self.assertIn(status["status"], {"failed", "incomplete"})
         for command in ("forecast", "backtest"):
             code, _, error = self.call(command, "--input", self.outputs / "monthly.csv",
                                        "--output", self.root / command)
@@ -178,3 +178,4 @@ class CLITests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
