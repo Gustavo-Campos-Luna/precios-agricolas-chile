@@ -52,10 +52,10 @@
   "eligible_series": 24,
   "status": "completed_experimental_not_production_validated",
   "training_rows": 696,
-  "backtest_rows": 501,
-  "backtest_scored_rows": 122,
+  "backtest_rows": 668,
+  "backtest_scored_rows": 189,
   "conditional_forecast_targets": 576,
-  "conditional_estimates": 0,
+  "conditional_estimates": 226,
   "value_basis": "CLP per original commercial unit, separate series",
   "scenario_note": "+2C and -20% precipitation are illustrative assumptions on three-month-lag point climate features, not observations or causal estimates"
 }
