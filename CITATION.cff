@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "Si usa este trabajo, por favor cítelo con estos datos."
+title: "Precios agrícolas de Chile, 1994 a 2026: datos, código e informe"
+type: software
+authors:
+  - family-names: "Campos Luna"
+    given-names: "Gustavo Felipe"
+version: "2.0.0"
+date-released: "2026-10-31"
+license: MIT
+repository-code: "https://github.com/Gustavo-Campos-Luna/precios-agricolas-chile"
+abstract: >-
+  Biblioteca de datos, código de análisis e informe sobre la evolución, en pesos reales, de los precios de
+  cereza, uva, manzana, trigo, maíz y arroz en Chile, con datos de ODEPA, el Banco Central de Chile,
+  FAOSTAT, Cotrisa y el Banco Mundial, y las causas que explican cada movimiento.
+keywords:
+  - precios agrícolas
+  - Chile
+  - ODEPA
+  - precios reales
+  - cereza
+  - trigo
+preferred-citation:
+  type: report
+  title: "Qué subió y qué cayó en el campo chileno, y por qué"
+  authors:
+    - family-names: "Campos Luna"
+      given-names: "Gustavo Felipe"
+  year: 2026
+  month: 10
+  notes: "Informe de mercado. Versión 2.0."

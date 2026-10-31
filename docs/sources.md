@@ -78,3 +78,51 @@ del contrato y conserva todos los campos originales en `source_record`.
 No rellenar días sin transacción, productos fuera de temporada o períodos faltantes
 como precio cero. Una misma fecha con distintas variedades/unidades es otra serie.
 No publicar pronósticos hasta que exista descarga verificable y evaluación temporal.
+
+## Estado de fuentes implementadas (actualizado 30 de octubre de 2026)
+
+Todas se ejecutan localmente con `python -m materias_primas_chile.cli <comando>`; los datos
+originales quedan en `data/raw/` con hash y manifiesto, y los normalizados en `data/processed/`.
+
+| Comando | Fuente | Qué trae | Unidad / límite de interpretación |
+|---|---|---|---|
+| `ingest` + `build` | ODEPA mayoristas frutas y hortalizas (CKAN) | Diario 1994–2026, 86 productos, 9 regiones | CLP por unidad comercial original; no es precio al productor |
+| `series` | ODEPA series de tiempo mensuales (1975–2026) | Productor, mayorista, consumidor, insumos, internacional (trigo, maíz, arroz, avena FOB en US$/t) | Nominal; consumidor y supermercado con IVA, resto sin IVA. Internacional es referencia, no precio chileno |
+| `bcch` | Banco Central, API Siete (requiere `.env`) | IPM trigo/maíz/cebada/arroz 1992–2011, IPC, exportaciones | Mayoría son índices o valores en USD, no precios en pesos |
+| `cotrisa` | Cotrisa tablas HTML | Precio al productor de trigo, maíz, arroz y avena por región, comprador y localidad | $/qqm, solo campaña vigente (trigo desde 2024-03, maíz desde 2025-03) |
+| `faostat` | FAOSTAT vía HDX | Precio al productor anual/mensual 1991–2025 en CLP/t y USD/t: cereales, legumbres, papa, frutas, leche | Definición FAO del producto, sin variedad ni calidad; rezago anual |
+| `datasets` | ODEPA CKAN: consumidor semanal, uva de vinificación, comercio exterior | Consumidor 2008–2026 por región y punto de venta; exportaciones/importaciones con USD FOB/CIF y volumen | Uva sin unidad declarada (`no_declarada`); valor unitario de exportación es DERIVADO (USD FOB / kilo neto) |
+| `macro` | Banco Central: IPC general empalmado (1928–2026) y dólar observado mensual (1982–2026) | Deflactar a pesos de septiembre de 2026 y pasar a USD | El IPC se empalma desde 5 bases oficiales por sus meses de traslape; el último mes con IPC es la base |
+| `pinksheet` | Banco Mundial, Pink Sheet | 71 commodities mensuales desde 1960 (fertilizantes, energía, cereales, banano, naranja) | USD nominales, referencia internacional, no precios chilenos |
+| `supply` | ODEPA-CIREN catastro frutícola | Hectáreas y árboles por especie, variedad, región y año de plantación (2008–2025) | Zonas distintas cada año: comparar solo regiones medidas en ambos años |
+| `volume` | ODEPA mayorista | Volumen mensual por serie en unidades comerciales | La unidad del volumen es inferida (ver `volume.py`) |
+| `panel` | Panel mayorista | Variedad armonizada, CLP/kg, precio real, USD/kg | Ver `docs/analysis_layer.md` |
+| `reference` | Consumidor, exportación y series externas | Consumidor mensual por variedad; FOB ponderado por kilos; series externas en términos reales | Exportación es valor unitario derivado, no precio publicado |
+| `compact` | — | CSV grandes a Parquet/gzip con verificación previa a borrar | `data/raw` no se toca |
+| `index` | — | `data/curated/source_index.csv`: fuente, producto, unidad, moneda, cobertura y N° de observaciones | No mezcla unidades |
+
+### Por qué fallaba la serie mensual de ODEPA (HTTP 500)
+
+La aplicación oficial envía, además de los filtros, dos campos de auditoría: `ip` (la IP pública de
+quien consulta, obtenida de `api.ipify.org`) y `jsonParam` (registro de los filtros elegidos). El
+transporte anterior (`monthly.py`) los omitía a propósito y el servidor respondía 500. El cliente
+`odepa_series.py` los envía con valores verdaderos y reproduce exactamente la respuesta del
+navegador (comprobado byte a byte para el maíz Yellow N° 2, 1975–2026). La IP no se guarda en los
+manifiestos. Las consultas de consumidor tardan unos 15 s por serie; el cliente espera y reintenta
+con pausas crecientes ante 403/429/5xx.
+
+### Vacíos conocidos
+
+- Precio interno al productor de trigo/maíz/avena **anterior a 2024–2025**: solo FAOSTAT (anual/mensual, CLP/t).
+- Precios de exportación **por caja o variedad**: no publicados; solo el valor unitario derivado de comercio exterior.
+- Lo Valledor, ASOEX, Fedefruta, FAO API y Aduanas (portal antiguo) no responden o no ofrecen descarga; ODEPA ya consolida los mercados mayoristas.
+- INE no publica IPC por producto descargable; la vía viable es el Banco Central.
+- Volúmenes: la columna `volume` del mayorista y de comercio exterior existe, pero aún no está validada ni analizada.
+
+### Quiebres estructurales conocidos (cuidado al comparar años)
+
+- **Exportaciones, 2012:** el Sistema Armonizado cambió los códigos de fruta fresca. Antes de 2012 la cereza fresca está en
+  "Cerezas frescas"; desde 2012, en 08092919 ("Las demás cerezas dulces frescas"). Para series largas hay que empalmar ambos códigos.
+- **Catastro frutícola:** la cobertura regional cambia cada año (de 1 a 9 regiones). Antes de comparar dos años, intersectar regiones.
+- **Mayorista, variedades:** la cobertura de variedades nombradas crece con el tiempo; "Lapins" aparece desde diciembre de 2007.
+- **Consumidor semanal 2008:** el producto viene compuesto con "|" (producto|variedad|calidad) y sin precio mínimo ni máximo.
