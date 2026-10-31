@@ -43,6 +43,25 @@ class UnitConversionTests(unittest.TestCase):
         self.assertTrue(result.price_clp_unit.isna().all())
         self.assertTrue(result.unit_conversion_method.eq("unsupported_unit").all())
 
+    def test_declared_weight_is_accepted_with_packing_style_or_parenthesis(self):
+        labels = ["$/bins (400 kilos)", "$/caja 18 kilos empedrada", "$/caja 20 kilos granel",
+                  "$/bandeja 15 kilos granel", "$/caja 18 kilos embalada", "$/cuna 10 kilos", "$/envase 50 kilos"]
+        result = enrich_units(self.frame(labels, price=[40000, 9000, 10000, 7500, 9000, 5000, 25000]))
+        np.testing.assert_allclose(result.commercial_weight_kg, [400, 18, 20, 15, 18, 10, 50])
+        np.testing.assert_allclose(result.price_clp_kg, [100, 500, 500, 500, 500, 500, 500])
+        self.assertTrue(result.unit_conversion_method.eq("explicit_package_weight_kg").all())
+
+    def test_kilo_priced_in_bins_keeps_quoted_price_and_records_package_weight(self):
+        result = enrich_units(self.frame(["$/kilo (en bins de 450 kilos)"], price=[320]))
+        self.assertEqual(result.price_clp_kg.iloc[0], 320)
+        self.assertEqual(result.commercial_weight_kg.iloc[0], 450)
+        self.assertEqual(result.unit_conversion_method.iloc[0], "already_per_kg")
+
+    def test_count_based_and_unweighted_labels_still_get_no_kilos(self):
+        labels = ["$/docena de atados", "$/mil (volumen en unidades)", "$/docena de matas", "$/paquete 36 unidades"]
+        result = enrich_units(self.frame(labels))
+        self.assertTrue(result.price_clp_kg.isna().all())
+
     def test_currency_and_invalid_prices_block_monetary_conversion(self):
         for currency in ["USD", None, ""]:
             with self.subTest(currency=currency):

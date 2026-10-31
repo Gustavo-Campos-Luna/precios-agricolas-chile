@@ -16,3 +16,13 @@ data/curated/**
 !data/curated/.gitkeep
 artifacts/**
 !artifacts/.gitkeep
+data/analysis/*
+!data/analysis/reports/
+data/research/bcch_catalog.json
+
+# Excepciones: salidas finales del informe y datos curados pequeños que alimentan los análisis
+!report/dist/
+!data/processed/faostat/
+!data/processed/faostat/crops_production.csv
+!data/processed/climate/
+!data/processed/climate/*_daily.csv

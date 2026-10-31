@@ -4,17 +4,24 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "materias-primas-chile"
-version = "0.1.0"
-description = "Datos agrícolas chilenos trazables y evaluación temporal de precios"
+version = "2.0.0"
+description = "Datos agrícolas chilenos trazables, precios reales e informe de mercado"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
+authors = [{ name = "Gustavo Felipe Campos Luna" }]
+keywords = ["chile", "agricultura", "precios", "odepa", "datos abiertos"]
 dependencies = ["pandas>=2.2,<3", "numpy>=2,<3", "scikit-learn>=1.5,<2", "httpx>=0.27,<1"]
 
 [project.optional-dependencies]
 parquet = ["pyarrow>=17,<24"]
 grains = ["pypdf>=5,<7"]
-dev = ["pytest>=8,<10", "ruff>=0.9,<1", "build>=1,<2"]
+excel = ["openpyxl>=3.1,<4"]
+dev = ["openpyxl>=3.1,<4", "pytest>=8,<10", "ruff>=0.9,<1", "build>=1,<2"]
+
+[project.urls]
+Homepage = "https://github.com/Gustavo-Campos-Luna/precios-agricolas-chile"
+Issues = "https://github.com/Gustavo-Campos-Luna/precios-agricolas-chile/issues"
 
 [project.scripts]
 mpchile = "materias_primas_chile.cli:main"
