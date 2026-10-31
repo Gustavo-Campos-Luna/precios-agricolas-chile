@@ -1,0 +1,198 @@
+/* Informe: precios agrícolas de Chile. Tipografías incrustadas (SIL OFL): Hanken Grotesk y Source Serif 4.
+   Paleta validada con el script de la guía dataviz (modo claro y oscuro). Funciona sin conexión. */
+{{FONTS}}
+:root {
+  color-scheme: light;
+  --paper: #F5F6F2;
+  --paper-2: #ECEFE8;
+  --ink: #14211A;
+  --ink-2: #47564D;
+  --ink-3: #6B7A71;
+  --rule: #D2D9D1;
+  --accent: #1E4D3B;
+  --accent-soft: #DDE9E1;
+  --warn: #8A4B14;
+  --warn-soft: #F2E7D8;
+  --c-cereza: #B0233F;
+  --c-maiz: #008CA0;
+  --c-trigo: #B5760A;
+  --c-uva: #6A4DB3;
+  --c-manzana: #5E8C1F;
+  --c-neutral: #6F7C75;
+  --chapter: var(--accent);
+  --sans: "Hanken Grotesk", "Segoe UI", system-ui, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Source Serif 4", "Charter", Georgia, serif;
+  --r: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #0F1713; --paper-2: #16211B; --ink: #E9EFEA; --ink-2: #AAB9B0; --ink-3: #8A9A90; --rule: #2A3830;
+    --accent: #8FC9A9; --accent-soft: #1A2D24; --warn: #E0B27A; --warn-soft: #2A2117;
+    --c-cereza: #D14A63; --c-maiz: #1F97AD; --c-trigo: #C08516; --c-uva: #8A75D9; --c-manzana: #74A12E; --c-neutral: #93A39A;
+  }
+}
+* { box-sizing: border-box; }
+html { font-size: 18px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.6; font-variant-numeric: lining-nums; font-optical-sizing: auto; }
+a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.sheet { max-width: 1160px; margin: 0 auto; padding: 0 28px 110px; }
+.sr { position: absolute; left: -9999px; }
+
+/* ---------- Portada ---------- */
+.cover { padding: 58px 0 44px; border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: minmax(0, 6.6fr) minmax(0, 4.4fr); gap: 64px; align-items: stretch; }
+.kicker { font-family: var(--sans); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 26px; font-weight: 600; }
+.cover h1 { font-family: var(--sans); font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.7rem); line-height: .98; letter-spacing: -.035em; margin: 0 0 26px; text-wrap: balance; }
+.cover .sub { font-size: 1.32rem; line-height: 1.42; color: var(--ink-2); max-width: 30em; margin: 0; font-style: italic; }
+.byline { font-family: var(--sans); font-size: .84rem; color: var(--ink-2); line-height: 1.5; margin-top: 34px; display: grid; grid-template-columns: repeat(3, auto); gap: 6px 28px; justify-content: start; }
+.byline b { display: block; color: var(--ink); font-weight: 650; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1px; }
+.board { border-left: 1px solid var(--rule); padding-left: 40px; display: flex; flex-direction: column; justify-content: flex-end; }
+.board h2 { font-family: var(--sans); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 6px; font-weight: 650; }
+.board ol { list-style: none; margin: 0; padding: 0; }
+.board li { display: grid; grid-template-columns: minmax(0, 1fr) auto 112px; gap: 14px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--rule); font-family: var(--sans); }
+.board li:last-child { border-bottom: 0; }
+.board .nm { font-size: .94rem; line-height: 1.2; color: var(--ink); font-weight: 560; }
+.board .nm small { display: block; font-weight: 400; color: var(--ink-3); font-size: .74rem; margin-top: 2px; }
+.board .pc { font-size: 1.62rem; font-weight: 750; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--k, var(--ink)); min-width: 3.6ch; text-align: right; }
+svg.spark { width: 112px; height: 34px; display: block; overflow: visible; }
+
+.toc { font-family: var(--sans); font-size: .86rem; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 6px 24px; }
+.toc a { text-decoration: none; color: var(--ink-2); padding-bottom: 2px; border-bottom: 1px solid transparent; }
+.toc a:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ---------- Estructura ---------- */
+section { margin-top: 96px; scroll-margin-top: 24px; --chapter: var(--accent); }
+section.p-cereza { --chapter: var(--c-cereza); } section.p-uva { --chapter: var(--c-uva); } section.p-manzana { --chapter: var(--c-manzana); }
+section.p-trigo { --chapter: var(--c-trigo); } section.p-vino { --chapter: var(--c-uva); }
+.opener { border-top: 4px solid var(--chapter); padding-top: 16px; margin-bottom: 30px; }
+.opener .num { font-family: var(--sans); font-weight: 650; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--chapter); margin: 0 0 12px; }
+h2 { font-family: var(--sans); font-weight: 780; font-size: clamp(1.85rem, 3.8vw, 2.9rem); line-height: 1.04; letter-spacing: -.028em; margin: 0 0 18px; max-width: 18em; text-wrap: balance; }
+.lead { font-size: 1.28rem; line-height: 1.45; color: var(--ink); margin: 0; max-width: 33em; font-style: italic; }
+.cols { display: grid; grid-template-columns: minmax(0, 7.2fr) minmax(0, 3fr); gap: 64px; }
+.cols > .main { min-width: 0; }
+.cols.one { grid-template-columns: minmax(0, 1fr); }
+.cols > aside { font-family: var(--sans); font-size: .85rem; line-height: 1.48; color: var(--ink-2); }
+aside p { margin: 0 0 14px; }
+aside strong { color: var(--ink); font-weight: 650; }
+h3 { font-family: var(--sans); font-weight: 720; font-size: 1.25rem; line-height: 1.2; letter-spacing: -.012em; margin: 46px 0 10px; text-wrap: balance; }
+p { margin: 0 0 1.08em; }
+.main p, .main li { max-width: 35em; }
+ul.plain, ol.plain { padding-left: 1.25em; margin: 0 0 1.2em; }
+li { margin-bottom: .5em; }
+strong { font-weight: 650; }
+code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .8em; background: var(--paper-2); padding: 1px 5px; border-radius: 3px; }
+
+/* Ficha del capítulo (columna lateral): cifras esenciales */
+.ficha { border-top: 1px solid var(--ink); padding-top: 10px; margin-bottom: 26px; }
+.ficha h4 { margin: 0 0 6px; font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-2); font-weight: 650; }
+.ficha dl { margin: 0; }
+.ficha .row { display: block; padding: 8px 0 9px; border-bottom: 1px solid var(--rule); }
+.ficha dt { color: var(--ink-2); font-size: .8rem; line-height: 1.3; margin-bottom: 2px; }
+.ficha dd { margin: 0; font-weight: 720; font-size: 1.1rem; line-height: 1.2; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -.01em; text-align: left; }
+.ficha dd.neg { color: var(--chapter); }
+
+/* Resumen */
+.abstract { padding: 26px 0 6px; border-bottom: 1px solid var(--rule); }
+.abstract .thesis { margin: 0 0 18px; font-size: 1.42rem; max-width: 36em; }
+.thesis { font-size: 1.32rem; line-height: 1.5; max-width: 34em; margin: 26px 0 8px; color: var(--ink); font-weight: 450; }
+.findings { list-style: none; counter-reset: f; padding: 0; margin: 28px 0 0; border-top: 1px solid var(--ink); }
+.findings li { counter-increment: f; display: grid; grid-template-columns: 3.6rem minmax(0, 1fr); gap: 4px 16px; padding: 22px 0; margin: 0; border-bottom: 1px solid var(--rule); max-width: none; }
+.findings li::before { content: counter(f, decimal-leading-zero); font-family: var(--sans); font-weight: 700; font-size: 1.5rem; color: var(--accent); line-height: 1.1; letter-spacing: -.02em; }
+.findings .h { font-family: var(--sans); font-weight: 720; font-size: 1.14rem; line-height: 1.28; letter-spacing: -.01em; margin-bottom: 6px; display: block; }
+.findings p { max-width: 38em; margin: 0; }
+
+/* Cajas */
+.read, .caution, .voices { margin: 34px 0; max-width: 37em; font-size: .98rem; }
+.read { border-left: 3px solid var(--chapter); padding: 2px 0 2px 20px; }
+.caution { background: var(--warn-soft); border-left: 3px solid var(--warn); padding: 14px 20px; border-radius: 0 var(--r) var(--r) 0; }
+.bt { font-family: var(--sans); font-weight: 700; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 6px; color: var(--chapter); }
+.caution .bt { color: var(--warn); }
+.read p:last-child, .caution p:last-child { margin-bottom: 0; }
+.read { font-size: 1.12rem; line-height: 1.5; }
+.voices { background: var(--paper-2); padding: 20px 24px 8px; border-radius: var(--r); }
+.voices .bt { color: var(--ink-2); }
+.voices blockquote { margin: 0 0 16px; padding: 0; font-size: .98rem; }
+.voices cite { display: block; font-family: var(--sans); font-style: normal; font-size: .76rem; color: var(--ink-3); margin-top: 3px; letter-spacing: .02em; }
+
+/* Figuras (formato APA) */
+figure { margin: 40px 0 46px; }
+.fig-n { font-family: var(--sans); font-weight: 700; font-size: .8rem; letter-spacing: .02em; margin: 0; color: var(--ink); }
+.fig-n::before { content: ""; display: inline-block; width: 9px; height: 9px; background: var(--chapter); margin-right: 8px; border-radius: 1px; }
+.fig-t { font-family: var(--sans); font-weight: 560; font-size: 1.04rem; line-height: 1.3; margin: 3px 0 12px; max-width: 40em; letter-spacing: -.005em; }
+.plot { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); padding: 10px 0 4px; }
+svg.chart { display: block; width: 100%; height: auto; overflow: visible; }
+svg .grid { stroke: var(--rule); stroke-width: 1; }
+svg .axis { stroke: var(--ink-2); stroke-width: 1; }
+svg .zero { stroke: var(--ink); stroke-width: 1.4; }
+svg .band { fill: var(--paper-2); }
+svg .lead { stroke: var(--ink-3); stroke-width: 1; }
+svg text { font-family: var(--sans); fill: var(--ink-2); font-variant-numeric: tabular-nums; }
+svg .tick { font-size: 12px; } svg .ytitle { font-size: 12px; font-weight: 650; fill: var(--ink-2); }
+svg .lbl { font-size: 13px; font-weight: 620; fill: var(--ink); } svg .val { font-size: 13px; font-weight: 720; fill: var(--ink); }
+svg .note { font-size: 11.5px; fill: var(--ink-2); }
+svg .hit:hover { fill: var(--ink); fill-opacity: .12; } svg .dot { pointer-events: none; }
+figcaption.note { font-family: var(--sans); font-size: .8rem; color: var(--ink-2); line-height: 1.5; margin-top: 9px; max-width: 54em; }
+details.tabla { font-family: var(--sans); font-size: .8rem; margin-top: 8px; }
+details.tabla summary { cursor: pointer; color: var(--accent); width: fit-content; }
+details.tabla > div { overflow-x: auto; margin-top: 8px; }
+table.data { border-collapse: collapse; font-variant-numeric: tabular-nums; min-width: 100%; }
+table.data th, table.data td { text-align: right; padding: 4px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+table.data th:first-child, table.data td:first-child { text-align: left; }
+table.data th { font-weight: 650; color: var(--ink-2); }
+
+/* Tablas del texto */
+table.t { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: .88rem; margin: 22px 0 32px; }
+table.t th { text-align: left; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); font-weight: 650; padding: 8px 14px 8px 0; border-bottom: 1px solid var(--ink); vertical-align: bottom; }
+table.t td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.42; }
+table.t td.r, table.t th.r { text-align: right; font-variant-numeric: tabular-nums; }
+pre { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .8rem; background: var(--paper-2); padding: 14px 18px; border-radius: var(--r); overflow-x: auto; line-height: 1.55; }
+
+/* Conclusiones */
+.verdict { list-style: none; counter-reset: v; padding: 0; margin: 26px 0 0; border-top: 1px solid var(--ink); }
+.verdict li { counter-increment: v; padding: 18px 0 18px 3.2rem; border-bottom: 1px solid var(--rule); position: relative; max-width: 40em; margin: 0; }
+.verdict li::before { content: counter(v); position: absolute; left: 0; top: 14px; font-family: var(--sans); font-weight: 760; font-size: 1.8rem; color: var(--accent); line-height: 1; }
+.verdict b { font-family: var(--sans); font-weight: 720; }
+
+/* Referencias APA */
+.refs { font-size: .93rem; }
+.refs p { padding-left: 2.2em; text-indent: -2.2em; margin: 0 0 .8em; max-width: 46em; word-break: break-word; }
+footer { margin-top: 90px; padding-top: 18px; border-top: 1px solid var(--ink); font-family: var(--sans); font-size: .8rem; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 8px 30px; }
+
+@media (max-width: 980px) {
+  html { font-size: 17px; }
+  .cover { grid-template-columns: 1fr; gap: 34px; padding-top: 38px; }
+  .board { border-left: 0; border-top: 1px solid var(--rule); padding: 22px 0 0; }
+  .cols { grid-template-columns: 1fr; gap: 8px; }
+  .cols > aside { border-top: 1px solid var(--rule); padding-top: 14px; margin-top: 14px; }
+  section { margin-top: 72px; }
+  .byline { grid-template-columns: repeat(2, auto); }
+}
+@media (max-width: 540px) {
+  .sheet { padding: 0 18px 80px; }
+  .board li { grid-template-columns: minmax(0, 1fr) auto; } .board li svg.spark { display: none; }
+  svg .tick { font-size: 15px; } svg .lbl, svg .val { font-size: 16px; } svg .note { font-size: 14px; }
+}
+
+/* Impresión y PDF: siempre en claro, A4, sin cortar figuras */
+@page { size: A4; margin: 15mm 14mm 17mm; }
+@media print {
+  :root { color-scheme: light; --paper: #fff; --paper-2: #F1F3EE; --ink: #14211A; --ink-2: #47564D; --ink-3: #6B7A71; --rule: #CBD2CB; --accent: #1E4D3B; --accent-soft: #E3EDE7; --warn: #8A4B14; --warn-soft: #F5EBDD;
+          --c-cereza: #B0233F; --c-maiz: #008CA0; --c-trigo: #B5760A; --c-uva: #6A4DB3; --c-manzana: #5E8C1F; --c-neutral: #6F7C75; }
+  html { font-size: 10.6pt; scroll-behavior: auto; }
+  body { background: #fff; }
+  .sheet { max-width: none; padding: 0; }
+  .cover { padding: 0 0 16px; grid-template-columns: 1fr 62mm; gap: 7mm; }
+  .cover h1 { font-size: 31pt; } .cover .sub { font-size: 11.5pt; }
+  .board { padding-left: 5mm; } .board li { padding: 6px 0; grid-template-columns: minmax(0, 1fr) auto 24mm; }
+  .board .pc { font-size: 13pt; } svg.spark { width: 24mm; height: 8mm; }
+  .byline { grid-template-columns: repeat(3, auto); margin-top: 14px; font-size: 7.6pt; }
+  section { margin-top: 26px; }
+  section.page-break { break-before: page; margin-top: 0; }
+  figure, .read, .caution, .voices, table.t tr, .findings li, .verdict li, .ficha { break-inside: avoid; }
+  h2, h3, .opener { break-after: avoid; }
+  .cols.one { grid-template-columns: 1fr; }
+  details.tabla, .toc { display: none; }
+  .cols { grid-template-columns: 1fr 40mm; gap: 7mm; } .cols > aside { font-size: 8pt; }
+  a { color: inherit; text-decoration: none; }
+}
+@media (prefers-reduced-motion: no-preference) { svg .hit { transition: fill-opacity .15s ease; } }
