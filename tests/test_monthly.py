@@ -75,7 +75,7 @@ class MonthlyTests(unittest.TestCase):
             "materias_primas_chile.monthly.urlopen", return_value=response
         ):
             path = fetch_monthly_query(form(), directory)
-            self.assertEqual(json.loads(path.read_text())["product"], "Maíz, fixture sin precios")
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8"))["product"], "Maíz, fixture sin precios")
             manifest = json.loads(path.with_suffix(".json.manifest.json").read_text())
             self.assertEqual(manifest["declared_charset"], "iso-8859-1")
             self.assertEqual(manifest["http_status"], 200)

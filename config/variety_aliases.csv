@@ -1,0 +1,12 @@
+policy,match,pattern,target,note
+synonym,exact,sultanina,thompsonseedless,Sultanina y Thompson Seedless son la misma uva de mesa
+typo,exact,crimpsonseedless,crimsonseedless,Error de tipeo en ODEPA (Crimpson por Crimson)
+typo,exact,swettcelabration,sweetcelebration,Error de tipeo en el catastro
+typo,exact,cristmasrose,christmasrose,Error de tipeo en ODEPA
+typo,exact,galapremiun,galapremium,Error de tipeo en el catastro
+family,regex,gala,gala,Clones de Gala (Royal Gala; Brookfield; Galaxy; Gala Premium)
+family,regex,fuji,fuji,Clones de Fuji (Fuji Royal; Fuji Raku Raku; Kiku)
+family,regex,grannysmith,grannysmith,
+family,regex,reddelicious|richared|redchief|redking|starking|oregonspur|redspur|redstarking,reddelicious,Clones del grupo Red Delicious
+family,regex,pinklady|cripps,pinklady,Pink Lady y Cripps Pink
+family,regex,corazondepaloma,corazondepaloma,Corazón de Paloma blanca y roja

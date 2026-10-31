@@ -70,53 +70,117 @@ def run(args):
             _save(clean, output)
             print(f"Normalizadas {len(clean)} observaciones: {output}")
     elif args.command == "build":
-        from .quality import monthly_panel, profile
+        from .build import build_streaming
         write_json(Path(args.output) / "build_status.json", {"status": "incomplete", "reason": "Build iniciado; solo success autoriza uso posterior"})
-        paths = sorted(Path(args.input).glob("*.csv"))
-        if not paths:
-            raise ValueError("No hay snapshots normalizados: ejecutar ingest primero")
-        data = pd.concat([_load(path) for path in paths], ignore_index=True)
-        if {"source_resource_id", "source_snapshot_sha256"}.issubset(data):
-            revisions = data.groupby("source_resource_id").source_snapshot_sha256.nunique()
-            if revisions.gt(1).any():
-                raise ValueError("Revisiones múltiples de un mismo recurso: seleccionar un snapshot por recurso en un directorio --input separado")
-        data["date"] = pd.to_datetime(data.date, errors="coerce")
-        data["price"] = pd.to_numeric(data.price, errors="coerce")
-        # Same snapshot ingested twice is an operational duplication, safely identified.
-        if "source_snapshot_sha256" in data and "source_record" in data:
-            data = data.drop_duplicates(["source_snapshot_sha256", "source_record"])
-        keys = ["series_id", "date"]
-        reasons = pd.Series("", index=data.index)
-        invalid = data.date.isna() | data.series_id.isna() | ~data.price.between(0, float("inf"), inclusive="neither")
-        reasons.loc[invalid] += "invalid_date_key_or_price;"
-        for column in ["product", "market", "unit", "market_region_code"]:
-            if column in data:
-                bad = data[column].isna() | data[column].astype(str).str.strip().eq("")
-                reasons.loc[bad] += f"missing_{column};"
-        for column, is_lower in [("price_min", True), ("price_max", False)]:
-            if column in data:
-                bounds = pd.to_numeric(data[column], errors="coerce")
-                bad = bounds.notna() & (data.price.lt(bounds) if is_lower else data.price.gt(bounds))
-                reasons.loc[bad] += "price_outside_source_bounds;"
-        duplicate = data.duplicated(keys, keep=False)
-        reasons.loc[duplicate] += "ambiguous_series_date;"
-        reject = reasons.ne("")
-        quarantined = data.loc[reject].copy()
-        quarantined["rejection_reason"] = reasons.loc[reject]
-        accepted = data.loc[~reject].copy()
-        _save(quarantined, Path(args.output) / "quarantine.csv")
-        quality = profile(accepted, keys=keys)
-        quality.update(input_rows=len(data), quarantine_rows=len(quarantined))
-        write_json(Path(args.output) / "quality.json", quality)
-        if not quality["passed"]:
-            raise ValueError("Sin observaciones válidas; revisar quality.json y cuarentena")
-        monthly = monthly_panel(accepted)
-        _save(accepted, Path(args.output) / "daily.csv")
-        _save(monthly, Path(args.output) / "monthly.csv")
-        dimensions = [column for column in ["series_id", "market_region_code", "market_region", "market", "product", "variety", "quality", "unit", "origin", "currency", "market_level", "source", "commercial_weight_kg", "unit_conversion_method"] if column in accepted]
-        _save(accepted[dimensions].drop_duplicates(), Path(args.output) / "series.csv")
-        write_json(Path(args.output) / "build_status.json", {"status": "success", "accepted_rows": len(accepted), "quarantine_rows": len(quarantined), "input_files": [str(path) for path in paths]})
-        print(f"{len(accepted)} filas válidas; {len(quarantined)} en cuarentena; {len(monthly)} meses-serie")
+        summary = build_streaming(args.input, args.output)
+        write_json(Path(args.output) / "build_status.json", {"status": "success", **summary})
+        print(f"{summary['accepted_rows']} filas válidas; {summary['quarantine_rows']} en cuarentena")
+    elif args.command == "series":
+        from .odepa_series import OdepaSeriesClient, download_all, parse_series
+        output = Path(args.output)
+        markets = [int(m) for m in args.markets.split(",") if m.strip()] or None
+        client = OdepaSeriesClient(args.raw_root, pace=args.pace)
+        try:
+            catalog = client.catalog(markets)
+            # Un catálogo por corrida: evita que procesos paralelos se pisen el mismo archivo.
+            _save(catalog, output / ("catalog_" + ("-".join(map(str, markets)) if markets else "all") + ".csv"))
+            full = pd.concat([pd.read_csv(f) for f in sorted(output.glob("catalog*.csv"))] + [catalog])
+            full = full.drop_duplicates(["market_type_id", "product_id"], keep="last").reset_index(drop=True)
+            print(f"{len(catalog)} series en esta corrida; {len(full)} en el catálogo acumulado", flush=True)
+            summary = download_all(client, catalog, output / "download_ledger.json", limit=args.limit)
+        finally:
+            client.close()
+        entries = [e for e in full.to_dict("records") if client.path_for(e).exists()]
+        if not entries:
+            raise ValueError("No se descargó ninguna serie; revisar download_ledger.json")
+        monthly = pd.concat([parse_series(client.path_for(e), e) for e in entries], ignore_index=True)
+        _save(monthly, output / "monthly_series.csv")
+        print(f"{len(monthly)} observaciones mensuales de {len(entries)} series; "
+              f"{summary['failed']} fallos (ver download_ledger.json)")
+    elif args.command == "bcch":
+        from .bcch import BcchClient, BcchError, parse_series as parse_bcch
+        output = Path(args.output)
+        client = BcchClient(args.raw_root, pace=args.pace)
+        failures = []
+        try:
+            selected = client.select_agricultural(client.catalog())
+            _save(selected, output / "catalog_selected.csv")
+            print(f"{len(selected)} series agrícolas seleccionadas", flush=True)
+            entries = selected.to_dict("records")[:args.limit]
+            for i, info in enumerate(entries, start=1):
+                try:
+                    client.fetch(info)
+                except BcchError as exc:
+                    failures.append({"series_id": info["seriesId"], "error": str(exc)})
+                if i % 50 == 0:
+                    print(f"[{i}/{len(entries)}] fallos={len(failures)}", flush=True)
+        finally:
+            client.close()
+        write_json(output / "download_ledger.json", {"requested": len(entries), "failed": len(failures), "failures": failures})
+        frames = [parse_bcch(client.path_for(e["seriesId"]), e) for e in entries if client.path_for(e["seriesId"]).exists()]
+        if not frames:
+            raise ValueError("No se descargó ninguna serie del Banco Central")
+        long = pd.concat([f for f in frames if len(f)], ignore_index=True)
+        _save(long, output / "series_long.csv")
+        print(f"{len(long)} observaciones de {long.series_id.nunique()} series; {len(failures)} fallos")
+    elif args.command == "cotrisa":
+        import hashlib
+        from .cotrisa import PRODUCTS, fetch_product, parse_tables
+        frames = []
+        for slug, product in PRODUCTS.items():
+            path = fetch_product(slug, args.raw_root)
+            html = path.read_bytes().decode("utf-8")
+            frame = parse_tables(html, product, source_sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+            print(f"{product}: {len(frame)} observaciones" + (f" ({frame.date.min().date()} a {frame.date.max().date()})" if len(frame) else ""), flush=True)
+            frames.append(frame)
+        data = pd.concat([f for f in frames if len(f)], ignore_index=True)
+        _save(data, Path(args.output) / "prices_long.csv")
+        print(f"{len(data)} observaciones Cotrisa en total")
+    elif args.command == "datasets":
+        from .odepa_datasets import DATASETS, build_dataset
+        keys = [k for k in args.keys.split(",") if k.strip()] or list(DATASETS)
+        unknown = set(keys) - set(DATASETS)
+        if unknown:
+            raise ValueError(f"Datasets desconocidos: {sorted(unknown)}; válidos: {sorted(DATASETS)}")
+        for key in keys:
+            summary = build_dataset(key, args.raw_root, args.output)
+            print(f"{key}: {summary['rows']} filas de {summary['files']} archivos -> {summary['output']}", flush=True)
+    elif args.command == "faostat":
+        from .faostat import build as build_faostat, build_production
+        summary = build_faostat(args.raw_root, args.output)
+        production = build_production(args.raw_root + "_production", args.output)
+        print(f"Producción: {production['rows']} filas de {production['crops']} cultivos ({production['first_year']}-{production['last_year']}) -> {production['output']}")
+        print(f"{summary['rows']} filas de {summary['items']} productos ({summary['first_year']}-{summary['last_year']}) -> {summary['output']}")
+    elif args.command == "index":
+        from .source_index import build_index
+        index = build_index(".", args.output)
+        print(index.groupby("source").agg(series=("product", "size"), obs=("n_obs", "sum")).to_string())
+        print(f"-> {args.output}")
+    elif args.command == "volume":
+        from .volume import build as build_volume
+        report = build_volume(args.curated)
+        print(f"{report['rows_with_volume']} de {report['monthly_rows']} meses-serie con volumen; "
+              f"{report['rows_with_kg_estimate']} con kilos estimados -> {report['output']}")
+    elif args.command == "macro":
+        from .bcch import build_macro
+        print(json.dumps(build_macro(args.raw_root, args.output), indent=2, ensure_ascii=False))
+    elif args.command == "pinksheet":
+        from .pinksheet import build as build_pinksheet
+        print(json.dumps(build_pinksheet(args.raw_root, args.output), indent=2, ensure_ascii=False))
+    elif args.command == "panel":
+        from .analysis import write_panel
+        print(json.dumps(write_panel(args.curated, args.macro, args.output), indent=2, ensure_ascii=False))
+    elif args.command == "supply":
+        from .supply import write_orchards
+        print(json.dumps(write_orchards(args.source, args.output), indent=2, ensure_ascii=False))
+    elif args.command == "compact":
+        from .compact import compact
+        summary = compact(".", delete=args.delete)
+        print(f"{summary['files']} archivos compactados; ahorro {summary['saved_mb']} MB; "
+              f"originales borrados: {summary['deleted_originals']}")
+    elif args.command == "reference":
+        from .reference import write_reference
+        print(json.dumps(write_reference(args.output, args.macro), indent=2, ensure_ascii=False))
     elif args.command in {"backtest", "forecast"}:
         from .forecast import backtest_monthly, forecast_monthly
         status_path = Path(args.input).parent / "build_status.json"
@@ -185,6 +249,49 @@ def main(argv=None):
     climate.add_argument("--end", required=True)
     climate.add_argument("--raw-root", default="data/raw/climate")
     climate.add_argument("--output", default="data/processed/climate")
+    series = commands.add_parser("series", help="Descargar series mensuales ODEPA (1975 en adelante)")
+    series.add_argument("--markets", default="", help="IDs de tipo de precio separados por coma; vacío descarga todos")
+    series.add_argument("--raw-root", default="data/raw/odepa_series")
+    series.add_argument("--output", default="data/processed/odepa_series")
+    series.add_argument("--pace", type=float, default=2.0, help="Segundos mínimos entre solicitudes")
+    series.add_argument("--limit", type=int, default=None, help="Máximo de series (pruebas)")
+    bcch = commands.add_parser("bcch", help="Descargar series agrícolas del Banco Central (requiere .env)")
+    bcch.add_argument("--raw-root", default="data/raw/bcch")
+    bcch.add_argument("--output", default="data/processed/bcch")
+    bcch.add_argument("--pace", type=float, default=0.4)
+    bcch.add_argument("--limit", type=int, default=None)
+    cotrisa = commands.add_parser("cotrisa", help="Precios internos de trigo, maíz, arroz y avena (Cotrisa)")
+    cotrisa.add_argument("--raw-root", default="data/raw/cotrisa")
+    cotrisa.add_argument("--output", default="data/processed/cotrisa")
+    datasets = commands.add_parser("datasets", help="Consumidor, uva de vinificación y comercio exterior (CKAN ODEPA)")
+    datasets.add_argument("--keys", default="", help="consumidor,uva_vinificacion,comex_exportacion,comex_importacion; vacío = todos")
+    datasets.add_argument("--raw-root", default="data/raw")
+    datasets.add_argument("--output", default="data/processed/odepa_datasets")
+    faostat = commands.add_parser("faostat", help="Precios al productor FAOSTAT para Chile (HDX)")
+    faostat.add_argument("--raw-root", default="data/raw/faostat")
+    faostat.add_argument("--output", default="data/processed/faostat")
+    index = commands.add_parser("index", help="Índice maestro de fuentes, productos, unidades y cobertura")
+    index.add_argument("--output", default="data/curated/source_index.csv")
+    volume = commands.add_parser("volume", help="Volumen mensual por serie (unidades comerciales y kilos estimados)")
+    volume.add_argument("--curated", default="data/curated/prices")
+    macro = commands.add_parser("macro", help="IPC encadenado y dólar mensual (Banco Central) para deflactar")
+    macro.add_argument("--raw-root", default="data/raw/bcch")
+    macro.add_argument("--output", default="data/processed/bcch")
+    pinksheet = commands.add_parser("pinksheet", help="Precios internacionales mensuales del Banco Mundial (insumos, cereales)")
+    pinksheet.add_argument("--raw-root", default="data/raw/pinksheet")
+    pinksheet.add_argument("--output", default="data/processed/pinksheet")
+    panel = commands.add_parser("panel", help="Panel mensual con variedad armonizada, kilos, precio real y USD")
+    panel.add_argument("--curated", default="data/curated/prices")
+    panel.add_argument("--macro", default="data/processed/bcch")
+    panel.add_argument("--output", default="data/analysis")
+    supply = commands.add_parser("supply", help="Superficie plantada por especie y variedad (catastro frutícola)")
+    supply.add_argument("--source", default="data/processed/odepa_datasets/catastro_fruticola.csv")
+    supply.add_argument("--output", default="data/analysis")
+    compact = commands.add_parser("compact", help="Convierte CSV grandes a Parquet/gzip, verificando antes de borrar")
+    compact.add_argument("--delete", action="store_true", help="Borra cada CSV solo después de verificar su versión compacta")
+    reference = commands.add_parser("reference", help="Consumidor mensual, exportación ponderada y series externas (reales)")
+    reference.add_argument("--output", default="data/analysis")
+    reference.add_argument("--macro", default="data/processed/bcch")
     grains = commands.add_parser("grains", help="Extraer informe productor maíz grano, semana22 de2025")
     grains.add_argument("--raw-root", default="data/raw")
     grains.add_argument("--output", default="data/processed/grains")

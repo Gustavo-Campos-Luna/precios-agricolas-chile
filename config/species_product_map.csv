@@ -1,0 +1,40 @@
+species,product,market_use,note
+Vid de Mesa,Uva,fresh,Uva de mesa; excluye uva vinífera
+Cerezo,Cereza,fresh,
+Palto,Palta,fresh,
+Manzano Rojo,Manzana,fresh,Incluye tipos Red Delicious y Gala; el catastro separa por color
+Manzano Verde,Manzana,fresh,Incluye Granny Smith
+Arándano Americano,Arándano (blue),fresh,
+Ciruelo Europeo,Ciruela,mixed,Mayoría Dagen (D'Agen) que va a ciruela seca; no equivale a ciruela fresca del mayorista
+Ciruelo Japonés,Ciruela,fresh,
+Kiwi,Kiwi,fresh,
+Kiwi Gold o Kiwi Amarillo,Kiwi,fresh,Kiwi amarillo; el mayorista no siempre lo separa del verde
+Limonero,Limón,fresh,
+Naranjo,Naranja,fresh,
+Mandarino,Mandarina,fresh,
+Peral,Pera,fresh,
+Pera Asiática,Pera asiática,fresh,
+Nectarino,Nectarín,fresh,
+Duraznero Consumo Fresco,Durazno,fresh,
+Duraznero Tipo Conservero,Durazno,processing,Industria (conserva); no es comparable con durazno fresco del mayorista
+Frambuesa,Frambuesa,fresh,
+Moras Cultivadas e Híbridos,Mora,fresh,
+Damasco,Damasco,fresh,
+Tuna,Tuna,fresh,
+Chirimoyo,Chirimoya,fresh,
+Granado,Granada,fresh,
+Membrillo,Membrillo,fresh,
+Pomelo,Pomelo,fresh,
+Papayo,Papaya,fresh,
+Caqui,Caqui,fresh,
+Higuera,Higo,fresh,
+Mango,Mango,fresh,
+Lúcumo,Lúcuma,fresh,
+Nispero,Níspero,fresh,
+Frutilla,Frutilla,fresh,
+Maracuyá,Maracuyá,fresh,
+Feijoa,Feijoa,fresh,
+Guayabo,Guayaba,fresh,
+Babaco,Babaco,fresh,
+Tumbo,Tumbo,fresh,
+Platano,Plátano,fresh,

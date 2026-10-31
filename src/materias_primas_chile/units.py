@@ -13,12 +13,14 @@ import pandas as pd
 
 _PREFIX = r"(?:(?:\$|clp)\s*/\s*)?"
 _KG = r"(?:kg|kilos?|kilogramos?)"
-_PACKAGE = r"(?:bandejas?|cajas?|sacos?|mallas?)"
+_PACKAGE = r"(?:bandejas?|cajas?|sacos?|mallas?|bins?|cunas?|envases?)"
 _NUMBER = r"(?:\d+(?:[.,]\d+)?)"
-_WEIGHT = rf"{_PACKAGE}\s+(?:de\s+)?(?P<weight>{_NUMBER})\s*{_KG}"
+_PACK_STYLE = r"(?:\s+(?:a\s+granel|granel|empedradas?|embaladas?))?"
+_WEIGHT = rf"{_PACKAGE}\s+(?:de\s+)?(?P<weight>{_NUMBER})\s*{_KG}{_PACK_STYLE}"
 _PER_KG = re.compile(rf"{_PREFIX}{_KG}")
 _PER_KG_PACKAGED = re.compile(rf"{_PREFIX}{_KG}\s*\(\s*en\s+{_WEIGHT}\s*\)")
 _PER_PACKAGE_WEIGHT = re.compile(rf"{_PREFIX}{_WEIGHT}")
+_PER_PACKAGE_PAREN = re.compile(rf"{_PREFIX}{_PACKAGE}\s*\(\s*(?P<weight>{_NUMBER})\s*{_KG}\s*\)")
 _PER_PACKAGE_COUNT = re.compile(rf"{_PREFIX}{_PACKAGE}\s+(?:de\s+)?(?P<count>\d+)\s+unidades?")
 _PER_UNIT = re.compile(rf"{_PREFIX}unidad")
 _PER_HUNDRED = re.compile(rf"{_PREFIX}cien")
@@ -49,7 +51,7 @@ def _label_details(label: str) -> tuple[str, float | None, int | None]:
         if weight is not None:
             return "already_per_kg", weight, None
         return "unsupported_unit", None, None
-    weighted = _PER_PACKAGE_WEIGHT.fullmatch(label)
+    weighted = _PER_PACKAGE_WEIGHT.fullmatch(label) or _PER_PACKAGE_PAREN.fullmatch(label)
     if weighted:
         weight = _explicit_weight(weighted["weight"])
         if weight is not None:
