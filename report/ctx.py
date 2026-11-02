@@ -346,7 +346,58 @@ def build() -> SimpleNamespace:
     n["wine_year"] = wy.set_index("year")
 
     # ------------------------------------------------------------------ clima (exploración)
+    ch = D.china_cherry()
+    save("china_importaciones_cereza", ch)
+    n["china"] = ch.set_index("year")
+    svg_a, tab_a = S.bar_chart(ch["year"].tolist(), ch["chile_kt"].tolist(), color=COL["cereza"], height=170, y_title="Miles de toneladas importadas por China desde Chile",
+                               label_set=set(ch["year"]), show_x=False, right=104, alt="Cereza importada por China desde Chile", name="Miles de t", y_fmt=lambda v: es(v, 0),
+                               x_fmt=lambda v: str(int(v)))
+    svg_b, tab_b = S.line_chart([dict(name="Valor unitario CIF", label="USD/kg", color=COL["cereza"], x=ch["year"].tolist(), y=ch["usd_kg_chile"].tolist(), width=2.4, dots=True)],
+                                height=200, y_title="Valor unitario de llegada a China (CIF), USD por kilo", y_min=0, x_ticks=[2012, 2016, 2020, 2024], xpad=0.5,
+                                x_fmt=lambda v: str(int(v)), y_fmt=lambda v: es(v, 1), alt="Valor unitario de la cereza chilena en China", right=104)
+    f["china"] = figure("china", "La aduana china confirma el escalón: en 2025 recibió 31% más cereza chilena y pagó 29% menos por kilo", svg_a + svg_b, tab_a + tab_b,
+                        "<i>Nota.</i> Año calendario; valor CIF (incluye flete y seguro), por lo que supera al FOB chileno. Los valores de 2016 y 2017 chocan con las aduanas chilenas y no se interpretan. "
+                        f"Fuente: elaboración propia con {narrative('comtrade2026')}.")
+    gc = D.grape_competition()
+    save("uva_mesa_exportaciones_competidores", gc)
+    n["grape"] = gc.set_index("year")
+    yrs = gc["year"].tolist()
+    svg, tab = S.line_chart(
+        [dict(name="Perú", label="Perú", color=COL["uva"], x=yrs, y=gc["peru_kt"].tolist(), width=2.6),
+         dict(name="Chile", label="Chile", color=COL["neutro"], x=yrs, y=gc["chile_kt"].tolist(), width=2.6),
+         dict(name="Sudáfrica", label="Sudáfrica", color=COL["manzana"], x=yrs, y=gc["sudafrica_kt"].tolist(), width=2.0, dash=True)],
+        height=270, y_title="Miles de toneladas exportadas de uva de mesa", y_min=0, x_ticks=[2012, 2016, 2020, 2024], x_fmt=lambda v: str(int(v)),
+        y_fmt=lambda v: es(v, 0), alt="Exportaciones de uva de mesa de Chile, Perú y Sudáfrica", right=124)
+    f["grape_comp"] = figure("grape_comp", "Uva de mesa: Perú pasó de 149 mil a 715 mil toneladas exportadas y superó a Chile desde 2023", svg, tab,
+                             "<i>Nota.</i> Declaraciones de cada exportador, año calendario. Sudáfrica no tiene dato de 2023. "
+                             f"Fuente: elaboración propia con {narrative('comtrade2026')}.")
+    n["wheat_origin"] = D.wheat_origin_prices().set_index("year")
+    wg = D.wheat_export_gap()
+    save("trigo_brecha_argentina_eeuu", wg)
+    n["wheat_gap"] = wg.set_index("year")
+    be = {sh: D.cherry_breakeven(sh) for sh in (0.0, -0.2, 0.2)}
+    n["breakeven"] = be
+    bt = be[0.0]["table"]
+    save("cereza_margen_ilustrativo", bt)
+    svg, tab = S.line_chart(
+        [dict(name="Retorno estimado al productor", label="Retorno", color=COL["cereza"], x=bt["season_start"].tolist(), y=bt["producer_equiv_usd_kg"].tolist(), width=2.6, dots=True),
+         dict(name="Costo de producción por kilo", label="Costo", color=COL["neutro"], x=bt["season_start"].tolist(), y=bt["cost_usd_kg"].tolist(), width=2.4, dash=True)],
+        height=260, y_title="Dólares por kilo de cereza", y_min=0, x_ticks=[2010, 2013, 2016, 2019, 2022, 2025], x_fmt=season_x, xpad=0.5, y_fmt=lambda v: es(v, 1),
+        alt="Retorno estimado al productor y costo de producción por kilo de cereza", right=124)
+    f["breakeven"] = figure("breakeven", "Ejercicio ilustrativo: en 2024/25 y 2025/26 el retorno estimado queda bajo el costo actualizado por kilo", svg, tab,
+                            f"<i>Nota.</i> Costo: ficha de ODEPA de junio de 2017 {cite('odepa_ficha2017')} actualizada con el índice de costos laborales {cite('ine2026')} y el IPC {cite('banco_central')}. "
+                            "Retorno: fracción fija del valor FOB (la que tenía la temporada 2016/17). Es un huerto tipo en O'Higgins, no un promedio nacional; ver supuestos en el texto.")
     n["climate"] = D.climate_cherry()
+    cl = n["climate"]
+    save("clima_indices_vs_resultados", cl["table"])
+    pts = [{"x": float(r.tmin_spring), "y": float(r.yield_dev), "label": str(int(y))} for y, r in cl["scatter"].iterrows()]
+    svg, tab = SX.scatter(pts, color=COL["cereza"], x_title="Mínima media de septiembre y octubre (°C, promedio de seis puntos)", y_title="Rendimiento nacional del cerezo frente a su tendencia",
+                          x_fmt=lambda v: es(v, 1), label_years=("2023", "2016", "2006"),
+                          alt="Rendimiento del cerezo frente a la temperatura mínima de primavera")
+    f["climate"] = figure("climate", "Las primaveras más cálidas se asocian a menor rendimiento del cerezo, pero con pocos años y mucho ruido", svg, tab,
+                          f"<i>Nota.</i> Cada punto es una temporada (2000 a 2025). El rendimiento es el de FAOSTAT del año siguiente, medido contra su media móvil de cinco años. "
+                          f"La recta es solo descriptiva. Clima: ERA5 {cite('hersbach2020')} en seis puntos entre Rancagua y Chillán; ERA5 es más cálido que las estaciones en las noches frías. "
+                          f"Elaboración propia con {narrative('faostat_cultivos')}.")
 
     # ------------------------------------------------------------------ portada: tablero con miniaturas
     def spark(values, color):

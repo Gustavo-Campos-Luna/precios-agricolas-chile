@@ -1,6 +1,6 @@
 # Informe: Qué subió y qué cayó en el campo chileno, y por qué
 
-Informe de mercado (versión 2.0), no un artículo científico: plantea una pregunta, la responde con datos oficiales, explica las causas con prensa especializada, informes sectoriales y literatura académica (citados en APA 7) y declara sus límites. La estructura y el estilo siguen la guía [`../docs/guia_de_redaccion_informes.md`](../docs/guia_de_redaccion_informes.md).
+Informe de mercado (versión 2.1), no un artículo científico: plantea una pregunta, la responde con datos oficiales, explica las causas con prensa especializada, informes sectoriales y literatura académica (citados en APA 7) y declara sus límites. La estructura y el estilo siguen la guía [`../docs/guia_de_redaccion_informes.md`](../docs/guia_de_redaccion_informes.md).
 
 ## Salidas
 

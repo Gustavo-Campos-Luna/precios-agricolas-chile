@@ -10,19 +10,36 @@ from referencias import cite
 def factors(X: SimpleNamespace) -> str:
     n, f = X.n, X.f
     cl = n["climate"]
+    be0 = n["breakeven"][0.0]
+    tb = cl["table"].set_index(["index", "outcome"])["spearman"]
+    c_tmin, c_chill = tb[("tmin_spring", "Rendimiento nacional")], tb[("chill_hours", "Rendimiento nacional")]
+    low = cl["low_chill"]
+    low23 = float(low.loc[2023, "wholesale_change"])
+    low_others = [float(low.loc[y, "wholesale_change"]) for y in (2006, 2005, 2016, 2001)]
+    outs = ["Rendimiento nacional", "Exportación por hectárea", "Valor FOB por kilo", "Precio mayorista real"]
+    from drivers import CLIMATE_LABELS
+    body = ""
+    for col, label in CLIMATE_LABELS.items():
+        cells = ""
+        for o in outs:
+            v = tb[(col, o)]
+            txt = es(v, 2)
+            cells += f"<td class='r'>{'<b>' + txt + '</b>' if abs(v) >= cl['r_crit'] else txt}</td>"
+        body += f"<tr><td>{label}</td>{cells}</tr>"
+    clim_table = ("<table class='t'><thead><tr><th>Índice</th>" + "".join(f"<th class='r'>{o}</th>" for o in outs) + f"</tr></thead><tbody>{body}</tbody></table>")
     fx, w = n["fx_c"], n["bridge"]["Trigo"]
     a15, a24 = n["apple"]["area15"], n["apple"]["area24"]
     rows = [
         ("Cantidad plantada", "Cereza, manzana, uva de mesa, trigo", "Alta",
          f"Cereza: de 16 mil a 78 mil hectáreas. Manzana: {es(a15)} a {es(a24)} hectáreas. Trigo: 226 mil a 173 mil hectáreas sembradas. En los tres casos el precio se movió en sentido contrario a la cantidad."),
         ("Concentración del cliente", "Cereza; trigo y maíz", "Alta en cereza, media en cereales",
-         "91% de la cereza va a China. En el trigo, el origen del grano importado cambió hacia Argentina y el margen local frente a EE.UU. cayó."),
+         "91% de la cereza va a China. En el trigo, el origen del grano importado cambió hacia Argentina desde 2024/25, pero el margen local frente a EE.UU. ya había caído antes."),
         ("Dólar", "Todos", "Alta",
          f"Amortigua la caída de la cereza en pesos ({es(abs(fx.loc[2025, 'idx_usd'] / 100 - 1) * 100)}% en dólares frente a {es(abs(fx.loc[2025, 'idx_clp_real'] / 100 - 1) * 100)}% en pesos reales) y fue neutro en términos reales para el trigo, porque subió casi lo mismo que la inflación."),
         ("Costos (insumos, flete, jornales)", "Cereza; trigo y maíz", "Media",
-         "El flete a Hong Kong pasó de 49% a 102% del retorno al productor. El fertilizante subió más que el trigo. Los jornales no se midieron."),
+         f"El flete a Hong Kong pasó de 49% a 102% del retorno al productor. El costo laboral general subió {es((be0['labor_growth'] - 1) * 100)}% entre 2017 y 2025, frente a {es((be0['cpi_growth'] - 1) * 100)}% del IPC (no distingue la agricultura). El fertilizante subió más que el trigo. Con la ficha de ODEPA actualizada, la cereza de un huerto tipo se equilibra con un FOB de unos USD {es(be0['table'].set_index('season_start').loc[2025, 'breakeven_fob_usd_kg'], 1)} por kilo."),
         ("Clima", "Cereza, vino, cereales", "Media en el calendario; baja en el rendimiento",
-         "Inviernos cálidos adelantan y concentran la cosecha. Con datos de dos ciudades no se encontró un efecto estable sobre el rendimiento."),
+         "Inviernos cálidos adelantan y concentran la cosecha. Con seis puntos de ERA5, solo dos de 24 correlaciones con el rendimiento superan el umbral del azar."),
     ]
     table = ("<table class='t'><thead><tr><th>Fuerza</th><th>Rubros</th><th>Evidencia</th><th>En qué se apoya</th></tr></thead><tbody>"
              + "".join(f"<tr><td><b>{a}</b></td><td>{b}</td><td>{c}</td><td>{d}</td></tr>" for a, b, c, d in rows) + "</tbody></table>")
@@ -32,19 +49,22 @@ def factors(X: SimpleNamespace) -> str:
 <h3>El dólar: un colchón que no siempre sirve</h3>
 <p>El dólar observado promedió ${es(n['usd']['y2005'])} en 2005 y ${es(n['usd']['y2025'])} en 2025 (Figura @@R:usd@@), y llegó a un récord de $1.009 el 12 de julio de 2022 {cite('castro2022')}. Para el exportador de cereza, eso suavizó la caída del precio en dólares. Para el productor de trigo, en cambio, el efecto fue neutro: entre 2015-2017 y 2022-2024 el dólar subió {es((w['fx'] - 1) * 100)}% y la inflación {es((w['cpi'] - 1) * 100)}%. El dólar alto no equivale a mejores ingresos: depende de qué se vende, qué se compra y en qué moneda se pagan los costos. A la vez, el productor chileno tiene poco control sobre él, y su efecto se mezcla con el del precio internacional.</p>
 {f['usd']}
-<h3>El clima: pesa en el calendario, no se pudo medir en el rendimiento</h3>
+<h3>El clima: mueve el calendario y deja indicios débiles en el rendimiento</h3>
 <p>El clima actúa por tres vías distintas, y solo una se pudo observar en los datos de precios.</p>
 <ul class='plain'>
 <li><b>El año de cosecha.</b> En la cereza, un invierno cálido puede reducir la floración, y con ella la cosecha, o adelantar la maduración y concentrar los embarques. La prensa china vincula la baja floración de 2023 con una cosecha menor y precios altos, y el adelanto de 2025/26 con envíos más concentrados {cite('chen2026', 'freshplaza2026b')}. Los datos de este informe son coherentes con el primer caso (en 2023/24 el volumen exportado no creció y el precio subió), pero un solo año no prueba un patrón.</li>
 <li><b>El agua.</b> Entre 2010 y 2022 Chile vivió una megasequía y la mayoría de las cuencas semiáridas llegó a estrés hídrico alto o extremo. Un estudio publicado en 2025 concluye que, en el largo plazo, el estrés hídrico del centro del país ha subido sobre todo por el mayor consumo de agua y, en menor medida, por una menor disponibilidad; en un escenario climático adverso, condiciones similares a las de la megasequía podrían volverse permanentes hacia fines de siglo {cite('boisier2025')}.</li>
 <li><b>El frío invernal.</b> Los frutales caducos necesitan horas de frío para brotar bien. Una proyección con quince modelos climáticos estima que la mayoría de los sitios del centro de Chile perderá entre 10 y 15 porciones de frío hacia 2050, con riesgo de no cumplir los requerimientos de algunas especies en el norte {cite('fernandez2020')}.</li>
 </ul>
-<p>Para ver si el clima ayuda a explicar el rendimiento del cerezo, se contrastó el rendimiento nacional de cada temporada, medido contra su media móvil para quitar el efecto del envejecimiento de los huertos, con indicadores de Talca y Rancagua entre 1994 y 2024: días con temperatura mínima de 2 grados o menos durante la floración y lluvia en la cosecha. El resultado no es concluyente: la correlación con los días fríos de floración es de {es(cl[0]['cold'], 2)} el mismo año y de {es(cl[1]['cold'], 2)} al año siguiente, es decir, cambia de signo; la lluvia de cosecha prácticamente no muestra relación ({es(cl[0]['rain'], 2)} y {es(cl[1]['rain'], 2)}). Hay razones para esperar que así sea: los dos puntos de reanálisis no representan a todas las zonas productoras, subestiman las heladas locales y el rendimiento nacional mezcla huertos de muy distinta edad.</p>
-{caution_box("<p>Que esta prueba no encuentre un efecto del clima no significa que no exista: significa que estos datos no bastan para medirlo. Para hacerlo bien se necesitarían estaciones meteorológicas por huerto y cosechas por predio, que no son públicas.</p>")}
+<p>Para medirlo se calcularon seis índices agroclimáticos con ERA5 {cite('hersbach2020')} en seis puntos entre Rancagua y Chillán, y se contrastaron, para las temporadas 2000 a 2025, con cuatro resultados: el rendimiento nacional del cerezo y las toneladas exportadas por hectárea (ambos medidos contra su media móvil de cinco años, para quitar el envejecimiento de los huertos) y las variaciones anuales del valor de exportación y del precio mayorista real. Con {cl['n']} años, solo una correlación superior a {es(cl['r_crit'], 2)} (en valor absoluto) se distingue del azar al 5%. La tabla muestra la correlación de rangos de Spearman; en negrita, las que superan ese umbral.</p>
+{clim_table}
+<p>Dos de las {len(cl['table'])} combinaciones lo superan: la mínima media de primavera frente al rendimiento ({es(c_tmin, 2)}) y las horas de frío frente al rendimiento ({es(c_chill, 2)}). Con tantas pruebas, uno o dos resultados así aparecen por azar, de modo que no se afirma un efecto. Lo que les da verosimilitud es que el signo coincide con el mecanismo biológico (menos frío invernal y primaveras más cálidas, menor rendimiento) y con el caso de 2023, el tercer invierno con menos horas de frío de {len(cl['indices'].loc[2000:2025])}: ese año el volumen exportado se mantuvo y el precio mayorista real subió {es(low23 * 100)}%. Pero los otros cuatro inviernos más pobres en frío no repiten el patrón: el precio mayorista cambió {', '.join(f"{sg(v)}" for v in low_others)} en 2006, 2005, 2016 y 2001, y no hubo caída uniforme de la exportación por hectárea (Figura @@R:climate@@).</p>
+{f['climate']}
+{caution_box("<p>Que esta prueba no encuentre un efecto firme no significa que no exista. ERA5 es una reconstrucción de unos 25 kilómetros y, según el repositorio de clima del autor, detecta cerca de 23% de las heladas reales de Curicó, por lo que los índices de helada solo sirven para comparar años entre sí. Medir bien el efecto requeriría estaciones por huerto y cosechas por predio, que no son públicas.</p>")}
 <h3>Lo que no se pudo medir</h3>
 <p>El ingreso semanal de fruta a los packings, que muestra con anticipación cuánta fruta llega al mercado, no se publica en datos abiertos. Tampoco hay series públicas de costos de mano de obra por rubro, ni de precios al consumidor comparables con los mayoristas. Estas ausencias limitan la capacidad de anticipar cambios de corto plazo, y por eso las conclusiones de este informe son de tendencia.</p>"""
     aside = ("<p><strong>Cómo leer la tabla.</strong> &laquo;Alta&raquo; se usa cuando los datos propios y al menos una fuente independiente apuntan a lo mismo. No es una prueba de causa.</p>"
-             "<p><strong>Clima.</strong> El módulo climático del repositorio usa NASA POWER (reanálisis) para Talca, Rancagua y Chillán; sus resultados son exploratorios, no una evaluación del clima de una región.</p>")
+             "<p><strong>Clima.</strong> El clima viene de ERA5 (repositorio <code>chile-weather-forecasting</code>) para seis puntos entre Rancagua y Chillán; los resultados son exploratorios, no una evaluación del clima de una región.</p>")
     return chapter("factores", "Capítulo 5 | Factores comunes", "Qué mueve los precios: cinco fuerzas que cruzan los rubros",
                    "Cantidad, cliente, dólar, costos y clima. Dónde hay evidencia firme y dónde solo hipótesis.", main, aside)
 
@@ -87,7 +107,7 @@ def conclusions(X: SimpleNamespace) -> str:
         ("El flete y la calidad deciden quién gana dentro de un mismo precio.",
          "Cuando el flete llega a 102% del retorno y solo cerca de 30% de la fruta cumple los calibres que se pagan, el precio promedio esconde productores con márgenes muy distintos."),
         ("Al trigo le llegó el alza mundial con descuento.",
-         f"El precio internacional casi se duplicó en dólares, el dólar y la inflación se anularon y el productor recibió {sg(w['total'] - 1)} porque el margen local frente al trigo estadounidense pasó de {es(w['premium_base'], 2)} a {es(w['premium_recent'], 2)}. Cambió el origen del grano importado y existe un sistema de rebajas arancelarias."),
+         f"El precio internacional casi se duplicó en dólares, el dólar y la inflación se anularon y el productor recibió {sg(w['total'] - 1)} porque el margen local frente al trigo estadounidense pasó de {es(w['premium_base'], 2)} a {es(w['premium_recent'], 2)}. Las explicaciones disponibles (origen del grano, rebajas arancelarias, comprador concentrado) no se pudieron separar, y el margen ya había caído en 2022."),
         ("El vino toca fondo con inventario alto: la recuperación es frágil.",
          "El precio de la uva repuntó en 2025, pero la vendimia 2026 fue 13% mayor y las existencias superan una vendimia completa."),
         ("Lo que más falta no está en los precios: está en la oferta de corto plazo.",
