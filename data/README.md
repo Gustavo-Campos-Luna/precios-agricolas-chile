@@ -8,6 +8,12 @@ Esta carpeta contiene los datos del proyecto. **Casi todo se genera localmente**
 | `processed/` | Series normalizadas por fuente (CSV comprimidos y Parquet) | No | Los mismos comandos |
 | `curated/prices/` | Panel diario y mensual del mayorista ODEPA, con control de calidad y cuarentena | No | `mpchile build`, `volume` |
 | `analysis/` | Tablas listas para analizar (Parquet) y sus reportes de calidad | No | `mpchile panel`, `supply`, `reference`, `compact` |
+| `processed/faostat/crops_production.csv` | Superficie, producción y rendimiento de cultivos de Chile (1961 a 2024) | Sí (1 MB) | `mpchile faostat` |
+| `processed/climate/` | Clima diario de Talca, Rancagua y Chillán (NASA POWER) para el experimento exploratorio | Sí (3 MB) | `docs/climate.md` |
+| `processed/climate_era5/agroclimate_indices.csv` | Índices agroclimáticos por sitio y año (horas de frío, heladas, lluvia de cosecha, calor) desde ERA5 | Sí | `scripts/build_agroclimate.py` (datos de `chile-weather-forecasting`) |
+| `processed/comtrade/` | Importaciones chinas de cereza, exportaciones de competidores e importaciones chilenas de trigo (UN Comtrade) | Sí | `scripts/download_comtrade.py` |
+| `processed/ine/` | Índices de costo laboral y remuneraciones del INE, desde 2009 | Sí | `materias_primas_chile.ine.download` |
+| `processed/odepa_fichas/` | Parámetros de la ficha técnico-económica de ODEPA para cerezo (O'Higgins, 2016-17) | Sí | `materias_primas_chile.fichas` |
 | `analysis/reports/` | Informes por producto en Markdown | Sí | `scripts/analysis_*.py` |
 | `research/` | Respuestas de ejemplo de las APIs usadas para investigar fuentes | Parcial | Manual |
 | `snapshots/` | Muestra histórica de la primera carga real (2020 a 2025) | Sí | Histórico |
@@ -30,6 +36,8 @@ Cada columna está descrita en [`../docs/analysis_layer.md`](../docs/analysis_la
 mpchile ingest --start-year 1994 --end-year 2026 && mpchile build && mpchile volume
 mpchile macro && mpchile panel && mpchile supply
 mpchile datasets && mpchile faostat && mpchile pinksheet && mpchile cotrisa && mpchile reference
+python scripts/download_comtrade.py          # comercio exterior (la API pública exige pausas; tarda y puede esperar cuota)
+python scripts/build_agroclimate.py --era5 ../chile-weather-forecasting/data/raw/era5   # índices de clima
 mpchile compact --delete     # opcional: convierte los CSV grandes a Parquet y verifica antes de borrar
 ```
 

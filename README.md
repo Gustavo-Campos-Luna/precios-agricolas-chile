@@ -8,7 +8,7 @@ Datos abiertos, código reproducible e informe de mercado sobre cómo han cambia
 
 ![Portada del informe](docs/img/portada.png)
 
-**Lea el informe:** [HTML](report/dist/informe_precios_agricolas_chile.html) (un solo archivo, funciona sin conexión) o [PDF](report/dist/informe_precios_agricolas_chile.pdf), 43 páginas, 21 figuras y 50 referencias en formato APA 7.
+**Lea el informe:** [HTML](report/dist/informe_precios_agricolas_chile.html) (un solo archivo, funciona sin conexión) o [PDF](report/dist/informe_precios_agricolas_chile.pdf), 50 páginas, 25 figuras y 52 referencias en formato APA 7.
 
 ## Qué responde
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from helpers import caution_box, chapter, es, ficha, read_box, sg, voices_box
+from helpers import caution_box, chapter, es, ficha, read_box, season_x, sg, voices_box
 from referencias import cite
 
 
@@ -18,6 +18,14 @@ def cherry(X: SimpleNamespace) -> str:
     usd13, usd25 = fx.loc[2013, "usd_clp"], fx.loc[2025, "usd_clp"]
     idx_usd, idx_clp = fx.loc[2025, "idx_usd"] / 100 - 1, fx.loc[2025, "idx_clp_real"] / 100 - 1
     ha_lo, ha_hi = rv.loc[2018:2023, "usd_per_ha"].min(), rv.loc[2018:2023, "usd_per_ha"].max()
+    be0 = n["breakeven"][0.0]
+    ch = n["china"]
+    gp = n["grape"]
+    bt_all = be0["table"].set_index("season_start")
+    bt_cost17, bt_cost25 = bt_all.loc[2017, "cost_usd_kg"], bt_all.loc[2025, "cost_usd_kg"]
+    bt_be25 = bt_all.loc[2025, "breakeven_fob_usd_kg"]
+    be_lo = n["breakeven"][-0.2]["table"].set_index("season_start").loc[2025, "breakeven_fob_usd_kg"]
+    be_hi = n["breakeven"][0.2]["table"].set_index("season_start").loc[2025, "breakeven_fob_usd_kg"]
     # hechos de la temporada 2023/24: volumen estable, precio al alza (la temporada ODEPA 2023 arranca en noviembre de 2023)
     vol_2223, vol_2324 = se.loc[2022, "kt"], se.loc[2023, "kt"]
     fob_2223, fob_2324 = fob(2022), fob(2023)
@@ -41,6 +49,8 @@ def cherry(X: SimpleNamespace) -> str:
 <h3>Un cliente que compra casi todo</h3>
 <p>China recibió 91% del volumen exportado en 2024/25 {cite('decofrut2025')} y 87% en lo que va de 2025/26 {cite('valenzuela2026')}. INIA calcula que entre 2022 y 2024 fue destino de 88% del tonelaje y 91% del valor, y lo califica de comprador dominante y riesgoso, en la forma de un monopsonio {cite('inia2025')}. Cuando hay un solo comprador relevante, un año de mala demanda allá se traduce directamente en un mal año aquí.</p>
 <p>Dos rasgos del mercado chino ayudan a entender por qué la presión se concentra en pocas semanas. Primero, la cereza importada se abarata cada invierno de forma previsible: en el mercado mayorista de Guangzhou, el precio cayó entre 70% y 80% entre noviembre y enero en cada uno de los últimos tres años, en parte porque los primeros envíos llegan por avión (USD 13,2 por kilo en octubre, casi el doble que el envío marítimo de noviembre) y después el volumen llega por mar {cite('chen2026')}. Segundo, el calendario manda: en 2025/26 un clima más cálido adelantó la cosecha entre siete y diez días y desplazó toda la curva de precios hacia atrás {cite('chen2026')}, y el adelanto concentró los embarques en los primeros días de enero, antes del Año Nuevo Chino {cite('freshplaza2026b')}.</p>
+<p>La aduana china lo confirma desde el otro lado del mostrador. Según UN Comtrade, en 2025 China importó {es(ch.loc[2025, 'world_kt'])} mil toneladas de cereza fresca y {es(ch.loc[2025, 'chile_kt'])} mil, {es(ch.loc[2025, 'chile_share'] * 100)}%, vinieron de Chile {cite('comtrade2026')}. Frente a 2024, el volumen chileno subió {es((ch.loc[2025, 'chile_kt'] / ch.loc[2024, 'chile_kt'] - 1) * 100)}% y el valor unitario de llegada bajó {es((1 - ch.loc[2025, 'usd_kg_chile'] / ch.loc[2024, 'usd_kg_chile']) * 100)}%, de USD {es(ch.loc[2024, 'usd_kg_chile'], 2)} a {es(ch.loc[2025, 'usd_kg_chile'], 2)} por kilo (Figura @@R:china@@). El comprador pagó en total {es(abs(ch.loc[2025, 'chile_value_musd'] / ch.loc[2024, 'chile_value_musd'] - 1) * 100)}% menos por {es((ch.loc[2025, 'chile_kt'] / ch.loc[2024, 'chile_kt'] - 1) * 100)}% más fruta: el mercado absorbió el aumento, pero solo a un precio que dejó el gasto total casi igual. Dos consecuencias. La caída de precio es visible en el destino y no es un artefacto de las declaraciones chilenas, y la diferencia entre el valor de llegada y el FOB chileno (USD {es(ch.loc[2024, 'usd_kg_chile'] - float(n['ex']['y24']['fob_usd_kg']), 1)} en 2024 y {es(ch.loc[2025, 'usd_kg_chile'] - float(n['ex']['y25']['fob_usd_kg']), 1)} en 2025) es el flete y el seguro.</p>
+{f['china']}
 {voices_box([
     ("El presidente de Frutas de Chile atribuyó la temporada 2025/26 sobre todo a la concentración de la oferta: hasta el 20 de enero había llegado más fruta a China que un año antes.", "Iván Marambio, Frutas de Chile, vía FreshPlaza (2026b)"),
     ("El presidente de Fedefruta anticipó retornos muy ajustados por el menor poder de compra en China, una situación que ya se notaba durante el último año.", "Víctor Catan, Fedefruta, vía FreshPlaza (2026b)"),
@@ -56,6 +66,11 @@ def cherry(X: SimpleNamespace) -> str:
 {f['fxcushion']}
 <p>Tampoco se ve un desplome del ingreso por hectárea. Con la superficie de FAOSTAT, el ingreso bruto de exportación se movió entre USD {es(ha_lo / 1000)} mil y {es(ha_hi / 1000)} mil por hectárea de 2018 a 2023, subió a USD {es(rv.loc[2024, 'usd_per_ha'] / 1000)} mil en 2024 y, con la superficie de 2025 de ODEPA, habría sido de unos USD {es(n['rev25_usd_ha'] / 1000)} mil en 2025 (Figura @@R:revha@@). Cada hectárea produce más fruta que antes, lo que compensó en parte el menor precio por kilo. Este es un ingreso bruto: no descuenta embalaje, cosecha, flete ni comisiones, y es lo que se aprieta. GP Graders estima que en 2024 el costo de producción promedio rondó USD 2 por kilo frente a retornos de unos USD 1 {cite('freshplaza2026d')}; es una estimación del sector que este informe no pudo verificar con datos propios. Sí es un hecho que el rendimiento nacional promedio, de {es(rv.loc[2024, 'yield_kg_ha'] / 1000, 1)} toneladas por hectárea en 2024 según FAOSTAT, está por debajo de las 10 a 12 toneladas bajo las cuales el productor citado arriba aconseja revisar la viabilidad, aunque ese promedio incluye huertos jóvenes.</p>
 {f['revha']}
+<h3>¿Alcanza el precio para cubrir el costo? Un ejercicio con la ficha de ODEPA</h3>
+<p>Los datos públicos no traen el costo por kilo de cada productor, pero ODEPA publica fichas técnico-económicas de un huerto tipo. La de cerezo en O'Higgins, de junio de 2017 (huerto en plena producción, 8.000 kilos por hectárea, jornal de $15.000), arroja un costo total de ${es(be0['ficha']['total_cost_clp_ha'] / 1e6, 1)} millones por hectárea, ${es(be0['ficha']['unit_cost_clp_kg'])} por kilo, y un precio de venta al productor de ${es(be0['ficha']['producer_price_clp_kg'])} por kilo {cite('odepa_ficha2017')}. La mano de obra es {es(be0['labor_share'] * 100)}% del costo, porque la cosecha se paga por kilo.</p>
+<p>Con tres supuestos explícitos se puede llevar ese huerto a cada temporada. Primero, la mano de obra se actualiza con el índice de costos laborales del INE y el resto con el IPC {cite('ine2026')}. Segundo, el precio al productor de la ficha equivalía a {es(be0['producer_share'] * 100)}% del valor FOB de la temporada 2016/17, y se supone que esa fracción (el resto es embalaje, comisiones y costos de exportación) se mantiene. Tercero, el costo se convierte a dólares con el dólar de cada año. El resultado es un orden de magnitud, no una medición: el costo actualizado sube de USD {es(bt_cost17, 2)} por kilo en 2017 a USD {es(bt_cost25, 2)} en 2025, y el valor FOB que deja al productor en equilibrio es de USD {es(bt_be25, 1)} por kilo en 2025 (entre USD {es(be_lo, 1)} y {es(be_hi, 1)} si el costo real fuera 20% menor o mayor). Frente a eso, el FOB fue de USD {es(fob(2023), 1)} en 2023/24, de {es(fob(2024), 1)} en 2024/25 y de {es(fob(2025), 1)} en 2025/26 (Figura @@R:breakeven@@).</p>
+{f['breakeven']}
+<p>Dos lecturas. Primero, este cálculo, hecho con datos públicos y sin usar la estimación de GP Graders, llega a un costo por kilo de USD {es(bt_cost25 * 0.8, 1)} a {es(bt_cost25, 1)} (según el costo real sea 20% menor o el de la ficha), cercano a los USD 2 que ese informe menciona, lo que le da respaldo. Segundo, la conclusión depende del supuesto de costo, y conviene decirlo: en el caso central, solo 2024/25 y 2025/26 quedan bajo el equilibrio; si el costo real fuera 20% menor, ninguna temporada queda bajo él, aunque 2024/25 queda cerca (USD {es(fob(2024), 1)} frente a {es(be_lo, 1)}); y si fuera 20% mayor, quedarían bajo el equilibrio cinco temporadas ({', '.join(season_x(y) for y in n['breakeven'][0.2]['seasons_below'])}). Tampoco significa que todos pierdan: un huerto que rinde más de 8 toneladas por hectárea o que logra mejor calibre tiene un costo por kilo menor, y uno con menos rendimiento, mayor.</p>
 <p>Por último, ¿sigue el precio del mercado interno al de exportación? En parte. Las variaciones anuales de ambos se mueven en la misma dirección, con una correlación de {es(n['track']['corr'], 2)} en {n['track']['n']} temporadas, pero con mucho movimiento propio (Figura @@R:track@@). La lectura práctica es que el mayorista sirve como señal, no como sustituto del precio de exportación.</p>
 {f['track']}
 
@@ -78,7 +93,7 @@ def cherry(X: SimpleNamespace) -> str:
 
 def apple_grape(X: SimpleNamespace) -> str:
     n, f = X.n, X.f
-    chg, ap = n["chg"], n["apple"]
+    chg, ap, gp = n["chg"], n["apple"], n["grape"]
     q15, q24, a15, a24 = ap["prod15"], ap["prod24"], ap["area15"], ap["area24"]
     main = f"""
 <h3>Manzana: la cosecha cayó una cuarta parte y el precio subió dos tercios</h3>
@@ -92,6 +107,8 @@ def apple_grape(X: SimpleNamespace) -> str:
 <h3>Uva de mesa: la menor superficie en 25 años y un competidor más barato en el norte</h3>
 <p>El precio real de la uva de mesa en el mayorista subió {es(chg['uva']['change'] * 100)}% entre los mismos períodos ({es(chg['uva']['fixed_change'] * 100)}% con mercado y calidad fijos). En la oferta, las plantaciones llegaron en 2023/24 a 39.931 hectáreas, el mínimo desde 1999, tras trece años de caída por la competencia de Perú y la sequía {cite('guzman2024')}. El catastro de ODEPA muestra que la uva de mesa es la especie que más superficie perdió entre 2020 y 2025: 14.164 hectáreas, a razón de 7% al año {cite('valenzuela2026')}.</p>
 <p>Una comparación de costos de Sensonomic, recogida por AgroLatam, ubica la diferencia en el rendimiento: Chile obtiene unas 2.700 cajas por hectárea con un costo de USD 27.300, lo que fija su precio de equilibrio en USD 10,11 por caja. Perú logra 3.500 cajas con un costo mayor, de USD 34.100 por hectárea, pero su equilibrio es más bajo: USD 9,74. Sudáfrica produce más barato por hectárea (USD 23.100), pero con solo 2.200 cajas llega a USD 10,50 {cite('agrolatam2025')}. En esas condiciones, quien ofrece más cajas por hectárea puede venderlas a menos precio y aun así ganar.</p>
+<p>Las aduanas lo muestran desde el lado de la competencia. Según UN Comtrade, las exportaciones chilenas de uva de mesa bajaron de {es(gp.loc[2012, 'chile_kt'])} mil toneladas en 2012 a {es(gp.loc[2025, 'chile_kt'])} mil en 2025 ({sg(gp.loc[2025, 'chile_kt'] / gp.loc[2012, 'chile_kt'] - 1)}), mientras las peruanas subieron de {es(gp.loc[2012, 'peru_kt'])} mil a {es(gp.loc[2025, 'peru_kt'])} mil, y desde 2023 superan a las chilenas (Figura @@R:grape_comp@@). Sudáfrica se mantuvo entre {es(gp['sudafrica_kt'].loc[2015:].min())} mil y {es(gp['sudafrica_kt'].loc[2015:].max())} mil toneladas {cite('comtrade2026')}. Un dato llamativo: el valor unitario de exportación peruano fue de USD {es(gp.loc[2025, 'peru_usd_kg'], 2)} por kilo en 2025, frente a USD {es(gp.loc[2025, 'chile_usd_kg'], 2)} del chileno, de modo que Perú no compite solo con volumen ni con precio bajo.</p>
+{f['grape_comp']}
 <p>En la temporada 2025/26 el volumen exportado de uva de mesa cayó 14,3% y el valor unitario subió 7,9%, de USD 1,77 a USD 1,90 por kilo {cite('munoz2026')}. A la vez, los exportadores chilenos recortaron envíos a Estados Unidos en medio de una sobreoferta {cite('espinoza2026')}. La menor oferta sostiene el precio, pero el mercado de destino sigue exigente.</p>
 {f['apple_grape']}
 {f['var2']}

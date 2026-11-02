@@ -146,26 +146,146 @@ def wheat_area_price() -> pd.DataFrame:
     return w.join(real["Trigo"].rename("price_real_clp_t")).reset_index()
 
 
-def climate_cherry() -> dict:
-    """Exploración: ¿se relaciona el rendimiento del cerezo con indicadores agroclimáticos de Talca y Rancagua?
+CLIMATE_LABELS = {"chill_hours": "Horas de frío (mayo a agosto)", "frost_days_2": "Días con mínima de 2 °C o menos (sep. y oct.)",
+                  "tmin_spring": "Mínima media de primavera", "rain_harvest_mm": "Lluvia de cosecha (15 nov. a 31 ene.)",
+                  "heat_days_30": "Días de 30 °C o más en la cosecha", "rain_winter_mm": "Lluvia de invierno"}
 
-    Los puntos son ciudades de referencia (reanálisis NASA POWER), no el promedio de las zonas productoras, y la
-    temperatura mínima del reanálisis subestima las heladas locales. El rendimiento se mide contra su media móvil de
-    cinco años para quitar la maduración de los huertos.
+
+def climate_cherry() -> dict:
+    """¿Se relacionan los índices agroclimáticos de seis puntos de O'Higgins, Maule y Ñuble con la cosecha y el precio?
+
+    Índices: promedio de seis sitios (ERA5, ``agroclimate_indices.csv``), por temporada que empieza en noviembre del año
+    ``y``. Resultados, todos relativos para quitar la tendencia de la superficie: desvío del rendimiento FAOSTAT del año
+    ``y + 1`` y de las toneladas exportadas por hectárea respecto de su media móvil de cinco años, y variaciones
+    anuales del valor FOB y del precio mayorista real. La muestra es de 2000 a 2025 (el horario de ERA5 parte en 2000),
+    unos 26 años: solo correlaciones superiores a ``r_crit`` se distinguen del azar al 5%.
     """
-    cl = pd.concat([pd.read_csv(PROCESSED / f"climate/{loc}_daily.csv", parse_dates=["date"]) for loc in ("talca", "rancagua")])
+    from scipy import stats
+
+    idx = pd.read_csv(PROCESSED / "climate_era5/agroclimate_indices.csv").groupby("year")[list(CLIMATE_LABELS)].mean()
+    c = crop("Cherries")
+    se = cherry_season_exports().set_index("season_start")
+    ev = cherry_export_vs_wholesale().set_index("season_start")
+    yld = c["yield_kg_ha"]
+    per_ha = pd.Series({y: se.loc[y, "kt"] * 1e3 / c["area_ha"].get(y + 1, np.nan) for y in se.index})
+    outcomes = {
+        "Rendimiento nacional": (yld / yld.rolling(5, center=True, min_periods=3).mean() - 1).shift(-1),
+        "Exportación por hectárea": per_ha / per_ha.rolling(5, center=True, min_periods=3).mean() - 1,
+        "Valor FOB por kilo": np.log(se["fob_usd_kg"]).diff(),
+        "Precio mayorista real": np.log(ev["price_real_clp_kg"]).diff(),
+    }
     rows = []
-    for y in range(1994, 2025):
-        flor = cl[(cl["date"] >= f"{y}-09-15") & (cl["date"] <= f"{y}-11-15")]
-        cos = cl[(cl["date"] >= f"{y}-11-15") & (cl["date"] <= f"{y + 1}-01-31")]
-        rows.append({"year": y, "cold_days_flowering": (flor["temperature_min_c"] <= 2).sum() / 2,
-                     "rain_mm_harvest": cos["precipitation_mm"].sum() / 2})
-    a = pd.DataFrame(rows).set_index("year")
-    ch = crop("Cherries")[["yield_kg_ha"]].copy()
-    ch["yield_dev"] = ch["yield_kg_ha"] / ch["yield_kg_ha"].rolling(5, center=True, min_periods=3).mean() - 1
-    out = {}
-    for lag in (0, 1):
-        j = a.join(ch.shift(-lag), how="inner").dropna(subset=["yield_dev"])
-        out[lag] = {"n": int(len(j)), "cold": float(j["cold_days_flowering"].corr(j["yield_dev"])),
-                    "rain": float(j["rain_mm_harvest"].corr(j["yield_dev"]))}
-    return out
+    for col in CLIMATE_LABELS:
+        for name, series in outcomes.items():
+            j = pd.concat([idx[col], series.rename("o")], axis=1).dropna()
+            j = j[(j.index >= 2000) & (j.index <= 2025)]
+            rows.append({"index": col, "outcome": name, "pearson": float(j[col].corr(j["o"])), "spearman": float(j[col].corr(j["o"], method="spearman")), "n": len(j)})
+    table = pd.DataFrame(rows)
+    n = int(table["n"].min())
+    t = stats.t.ppf(0.975, n - 2)
+    low = idx.loc[2000:2025, "chill_hours"].nsmallest(5)
+    events = pd.DataFrame({"chill_hours": low, "export_t_ha_dev": outcomes["Exportación por hectárea"].reindex(low.index),
+                           "fob_change": se["fob_usd_kg"].pct_change().reindex(low.index), "wholesale_change": ev["price_real_clp_kg"].pct_change().reindex(low.index)})
+    scatter = pd.concat([idx["tmin_spring"], outcomes["Rendimiento nacional"].rename("yield_dev")], axis=1).dropna().loc[2000:2025]
+    return {"table": table, "r_crit": float(t / np.sqrt(n - 2 + t * t)), "n": n, "low_chill": events, "rank_2023": int(idx.loc[2000:2025, "chill_hours"].rank().loc[2023]),
+            "indices": idx, "scatter": scatter}
+
+
+def cherry_breakeven(cost_shock: float = 0.0) -> dict:
+    """Ejercicio ilustrativo: ¿alcanza el valor de exportación para cubrir el costo de producción por kilo?
+
+    Supuestos (todos explícitos, el resultado es un orden de magnitud y no una medición):
+
+    1. Costo: la ficha de ODEPA de cerezo en O'Higgins, junio de 2017 (huerto en plena producción, Lapins, 8.000 kg/ha), se
+       actualiza hasta cada año con el índice de costos laborales del INE para la mano de obra (59% del costo) y con el IPC
+       para el resto, y se convierte a dólares con el dólar promedio del año. ``cost_shock`` suma o resta una fracción.
+    2. Retorno: el precio de venta a productor de la ficha equivale a una fracción fija del valor FOB de la temporada
+       2016/17 (``producer_share``, cerca de 48%); la fracción restante corresponde a embalaje, comisiones y costos de
+       exportación. Se supone que esa fracción se mantiene en el tiempo.
+    3. La temporada que parte en el año ``y`` usa los promedios del año ``y``.
+    """
+    ficha = pd.read_csv(PROCESSED / "odepa_fichas/cerezo_ohiggins.csv").iloc[-1]
+    ine = pd.read_csv(PROCESSED / "ine/remuneraciones_costo_laboral.csv", parse_dates=["month"])
+    icl = ine[ine["series"] == "costo_laboral_nominal"].set_index("month")["value"]
+    icl = icl.groupby(icl.index.year).mean()
+    macro = R.macro_annual().set_index("year")
+    se = cherry_season_exports().set_index("season_start")
+    share_labor = float(ficha["labor_share"])
+    producer_share = float(ficha["producer_price_clp_kg"] / macro.loc[2017, "usd_clp"] / se.loc[2016, "fob_usd_kg"])
+    rows = []
+    for y in range(2010, 2026):
+        growth = share_labor * icl[y] / icl[2017] + (1 - share_labor) * macro.loc[y, "cpi_index"] / macro.loc[2017, "cpi_index"]
+        cost_usd = float(ficha["unit_cost_clp_kg"]) * growth * (1 + cost_shock) / macro.loc[y, "usd_clp"]
+        fob = float(se.loc[y, "fob_usd_kg"])
+        rows.append({"season_start": y, "fob_usd_kg": fob, "producer_equiv_usd_kg": producer_share * fob, "cost_usd_kg": cost_usd,
+                     "margin_usd_kg": producer_share * fob - cost_usd, "breakeven_fob_usd_kg": cost_usd / producer_share})
+    t = pd.DataFrame(rows)
+    return {"table": t, "producer_share": producer_share, "labor_share": share_labor, "ficha": ficha,
+            "labor_growth": float(icl[2025] / icl[2017]), "cpi_growth": float(macro.loc[2025, "cpi_index"] / macro.loc[2017, "cpi_index"]),
+            "seasons_below": t.loc[t["margin_usd_kg"] < 0, "season_start"].tolist()}
+
+
+def china_cherry() -> pd.DataFrame:
+    """Importaciones chinas de cereza fresca (HS 080929) según UN Comtrade: total mundial y desde Chile, por año.
+
+    Es la mirada del comprador: el valor es CIF (incluye flete y seguro), por lo que supera al FOB chileno. Las cifras de
+    2016 y 2017 chocan con las aduanas chilenas (valor unitario de 4,6 dólares por kilo en 2016 y caída de 51% del volumen en
+    2017); se muestran, pero no se interpretan.
+    """
+    d = pd.read_csv(PROCESSED / "comtrade/china.csv", low_memory=False)
+    a = d[d["query"].str.fullmatch(r"china_imp_cereza_\d{4}")].copy()
+    a["kg"], a["usd"] = pd.to_numeric(a["kg"], errors="coerce"), pd.to_numeric(a["primaryValue"], errors="coerce")
+    world = a[a["partnerCode"] == 0].set_index("refYear")[["kg", "usd"]]
+    chile = a[a["partnerCode"] == 152].set_index("refYear")[["kg", "usd"]]
+    out = pd.DataFrame({"world_kt": world["kg"] / 1e6, "chile_kt": chile["kg"] / 1e6, "chile_share": chile["kg"] / world["kg"],
+                        "usd_kg_world": world["usd"] / world["kg"], "usd_kg_chile": chile["usd"] / chile["kg"], "chile_value_musd": chile["usd"] / 1e6})
+    return out.reset_index().rename(columns={"refYear": "year"})
+
+
+def grape_competition() -> pd.DataFrame:
+    """Exportaciones de uva de mesa (HS 080610) de Chile, Perú y Sudáfrica según UN Comtrade: miles de toneladas y USD por kilo.
+
+    Son declaraciones de cada exportador; Sudáfrica no tiene dato de 2023 y se deja el faltante. Argentina exporta menos de
+    50 mil toneladas y no se grafica.
+    """
+    c = pd.read_csv(PROCESSED / "comtrade/competencia.csv", low_memory=False)
+    c["kg"], c["usd"] = pd.to_numeric(c["kg"], errors="coerce"), pd.to_numeric(c["primaryValue"], errors="coerce")
+    c["rep"] = c["query"].str.extract(r"exp_(\d+)_uva_mesa_")[0]
+    g = c[c["rep"].isin(["152", "604", "710"]) & (c["partnerCode"] == 0)].dropna(subset=["rep"])
+    names = {"152": "chile", "604": "peru", "710": "sudafrica"}
+    kt = g.pivot_table(index="refYear", columns="rep", values="kg").rename(columns=names) / 1e6
+    price = g.assign(p=g["usd"] / g["kg"]).pivot_table(index="refYear", columns="rep", values="p").rename(columns=names)
+    out = kt.add_suffix("_kt").join(price.add_suffix("_usd_kg"))
+    return out.reset_index().rename(columns={"refYear": "year"})
+
+
+def wheat_origin_prices() -> pd.DataFrame:
+    """Valor unitario CIF (USD por tonelada) del trigo que Chile declara importar, por origen. Solo 2023 a 2025 traen el
+    detalle completo por origen en las declaraciones de Chile; los años anteriores tienen origen faltante y no se usan."""
+    t = pd.read_csv(PROCESSED / "comtrade/trigo.csv", low_memory=False)
+    t = t[t["query"].str.fullmatch(r"chile_imp_trigo_\d{4}")].copy()
+    t["kg"], t["usd"] = pd.to_numeric(t["kg"], errors="coerce"), pd.to_numeric(t["primaryValue"], errors="coerce")
+    t = t[t["partnerCode"].isin([0, 32, 124, 842]) & t["refYear"].between(2023, 2025)]
+    names = {0: "mundo", 32: "argentina", 124: "canada", 842: "eeuu"}
+    p = t.assign(p=t["usd"] / t["kg"] * 1000).pivot_table(index="refYear", columns="partnerCode", values="p").rename(columns=names)
+    k = t.pivot_table(index="refYear", columns="partnerCode", values="kg").rename(columns=names) / 1e6
+    return p.add_suffix("_usd_t").join(k.add_suffix("_kt")).reset_index().rename(columns={"refYear": "year"})
+
+
+def wheat_export_gap() -> pd.DataFrame:
+    """Valor unitario de exportación de trigo de Argentina frente al de EE.UU. (UN Comtrade) y margen local de Chile.
+
+    Contrasta la hipótesis de que el margen del trigo chileno cayó porque Chile pasó a comprar trigo argentino, más barato
+    que el estadounidense que se usa como referencia: si la brecha de precio entre ambos orígenes fue estable, el cambio de
+    origen no explica una caída anterior a él.
+    """
+    e = pd.read_csv(PROCESSED / "comtrade/trigo_exportadores.csv", low_memory=False)
+    e["kg"], e["usd"] = pd.to_numeric(e["kg"], errors="coerce"), pd.to_numeric(e["primaryValue"], errors="coerce")
+    e["rep"] = e["query"].str.extract(r"exp_(\d+)_")[0]
+    p = e[e["partnerCode"] == 0].assign(p=lambda d: d["usd"] / d["kg"] * 1000).pivot_table(index="refYear", columns="rep", values="p")
+    p = p.rename(columns={"32": "arg_usd_t", "842": "eeuu_usd_t"})[["arg_usd_t", "eeuu_usd_t"]]
+    p["arg_sobre_eeuu"] = p["arg_usd_t"] / p["eeuu_usd_t"]
+    real, _ = R.fao_real()
+    pink = R.pink_real()
+    p["margen_chile"] = (real["Trigo"] / pink["Trigo"]).reindex(p.index)
+    return p.loc[2015:].reset_index().rename(columns={"refYear": "year"})

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "materias-primas-chile"
-version = "2.0.0"
+version = "2.1.0"
 description = "Datos agrícolas chilenos trazables, precios reales e informe de mercado"
 readme = "README.md"
 requires-python = ">=3.11"

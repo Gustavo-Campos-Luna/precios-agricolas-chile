@@ -126,3 +126,15 @@ con pausas crecientes ante 403/429/5xx.
 - **Catastro frutícola:** la cobertura regional cambia cada año (de 1 a 9 regiones). Antes de comparar dos años, intersectar regiones.
 - **Mayorista, variedades:** la cobertura de variedades nombradas crece con el tiempo; "Lapins" aparece desde diciembre de 2007.
 - **Consumidor semanal 2008:** el producto viene compuesto con "|" (producto|variedad|calidad) y sin precio mínimo ni máximo.
+
+## Fuentes agregadas en la versión 2.1 (2 de noviembre de 2026)
+
+| Fuente | Qué aporta | Acceso | Límites |
+|---|---|---|---|
+| UN Comtrade (API pública de vista previa) | Importaciones de China de cereza fresca (HS 080929) por origen, 2010 a 2025; exportaciones de uva de mesa y cereza de Chile, Perú, Argentina y Sudáfrica; importaciones chilenas de trigo por origen; exportaciones de trigo de proveedores | Sin clave; un período por consulta, 500 filas, tasa baja y cuota diaria (responde 429 y 403) | Valor CIF en las importaciones; las cifras de China de 2016 y 2017 chocan con las aduanas chilenas |
+| INE, servicio SDMX (`sdmx.ine.gob.cl`) | Índice nominal de costos laborales empalmado (base 2023 = 100), diciembre de 2009 a agosto de 2026; índices de remuneraciones | Sin clave, CSV SDMX | Nacional: no distingue la agricultura. Los índices por rama parten en 2023 |
+| ODEPA, fichas técnico-económicas | Costos de un huerto tipo de cerezo en O'Higgins (junio de 2017): rendimiento, precio al productor, mano de obra, maquinaria e insumos | Planilla `.xls` pública (`fichas_de_costo/fichas_xls/`) | Huerto tipo, no promedio; la ficha 2012-13 tiene otro formato y no se interpreta |
+| ERA5 vía Open-Meteo (repositorio `chile-weather-forecasting`) | Clima diario y horario 1991 a octubre de 2026 en seis puntos entre Rancagua y Chillán | Gratuita para uso no comercial | ERA5 detecta cerca de 23% de las heladas reales de Curicó (hallazgo 002 de ese repositorio) |
+
+Pendientes que requieren credenciales o no existen públicamente: observaciones de la DMC (token gratuito personal), ingreso semanal de fruta a packing y costos de mano de obra agrícola por rubro.
+
