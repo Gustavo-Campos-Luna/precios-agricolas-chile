@@ -26,3 +26,11 @@ data/research/bcch_catalog.json
 !data/processed/faostat/crops_production.csv
 !data/processed/climate/
 !data/processed/climate/*_daily.csv
+!data/processed/climate_era5/
+!data/processed/climate_era5/agroclimate_indices.csv
+!data/processed/comtrade/
+!data/processed/comtrade/*.csv
+!data/processed/ine/
+!data/processed/ine/*.csv
+!data/processed/odepa_fichas/
+!data/processed/odepa_fichas/*.csv
